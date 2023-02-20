@@ -52,11 +52,8 @@
 
 <script>
 import api from "@/services/api.js";
-// axios import
-// import axios from "axios";
 // Components import
 import Spinner from "/src/components/Spinner.vue";
-
 export default {
   components: { Spinner },
   data() {
@@ -65,14 +62,13 @@ export default {
     };
   },
   mounted() {
-    api.get("/DatabaseConnector.php?action=selectAll&tableName=myTable", { responseType: 'json' }).then((response) => {
+    api.get("/display_products.php?action=selectAll&tableName=myTable", { responseType: 'json' }).then((response) => {
       this.products = response.data;
       console.warn(response);
     });
   },
 };
 </script>
-
 <style scoped>
 .shop-page h1 {
   margin-bottom: 3rem;
