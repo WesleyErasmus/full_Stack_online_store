@@ -62,7 +62,7 @@ export default {
     };
   },
   mounted() {
-    api.get("/display_products.php?action=selectAll&tableName=myTable", { responseType: 'json' }).then((response) => {
+    api.get("/product_display.php?action=selectAll&tableName=myTable", { responseType: 'json' }).then((response) => {
       this.products = response.data;
       console.warn(response);
     });
