@@ -1,0 +1,46 @@
+@import "./base.css";
+@import "./productCard.css";
+
+/* Main CSS file / links styling / root variables / each page has a #main id wrapping all its contents  */
+
+/* App root variables */
+:root {
+  /* --primary-color: hsla(160, 100%, 37%, 1); */
+  --primary-color: #1C9DA1;
+  --btn-shadows: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --card-shadows: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --card-padding: 0.85vw ;
+  --primary-grey: #9d9d9d;
+  --secondary-grey: #c1c1c1;;
+}
+
+
+#app {
+  padding-top: 2rem;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* Main styling for all pages between header and footer */
+#main {
+  max-width: 1280px;
+  display: block;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+
+a,
+.green {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: 0.4s;
+}
+
+
+@media (hover: hover) {
+  a:hover {
+    color: #000;
+  }
+}

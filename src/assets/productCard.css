@@ -1,0 +1,63 @@
+/* This styling applies to all cards in the application with exception of the flip-cards on the About page */
+
+/* This styling is used to pair or override standard Bootstrap card CSS */
+/* All card contents */
+.card {
+  border: none;
+   padding: var(--card-padding);
+}
+
+
+/* Card image  */
+.card-img-top {
+  aspect-ratio: 2 / 3;
+  border-radius: 0;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.card-img-top:hover {
+  transform: scale(103%);
+}
+
+
+/* Image container */
+.img-box {
+  overflow: hidden;
+  box-shadow: var(--card-shadows);
+}
+
+/* Card body / containing text only */
+.card-body {
+  margin-bottom: -5px;
+  padding-bottom: 10px;
+}
+
+
+.card-title {
+  font-weight: bold;
+  min-height: 35px;
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+
+
+.card-text {
+  color: grey;
+  font-size: 12px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+
+.card-footer {
+  font-size: 13px;
+  padding-top: 0;
+  margin-top: 0;
+  border: none;
+  background-color: transparent;
+}
+
+/* Price is generally in card footer */
+.price {
+  font-weight: bold;
+}
