@@ -21,7 +21,7 @@ function selectAll()
     return $data;
 }
 
-// Check if the action parameter is set and call the corresponding function
+// $_GET checks if the action parameter is set. The action is included in my front-end api call. The value of the action is set to the selectAll function. If the isset($_GET['action']) is set, the switch statement will then check if a tableName parameter is set. The tableName parameter is set by assigning it a value of myTable in the font-end api call (api.get("/product_display.php?action=selectAll&tableName=myTable"). If the tableName parameter is set then the selectAll() function retrieves the data from the database and returns it as JSON data. 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'selectAll':
