@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost/full_stack_online_store/backend/",
+  baseURL: "http://localhost/full_stack_online_store/backend/api/",
 });
 
 export default api;

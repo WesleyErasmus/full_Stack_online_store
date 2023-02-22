@@ -12,6 +12,7 @@ import Contact from "../views/contact/Contact.vue";
 import FeaturedProducts from "../views/FeaturedProducts.vue";
 import NewProducts from "../views/NewProducts.vue";
 import NotFound from "../views/NotFound.vue";
+import SignIn from "../views/signIn/SignIn.vue";
 
 
 // Array for routing directories
@@ -64,6 +65,11 @@ const router = createRouter({
       path: "/:catchAll(.*)",
       name: "NotFound",
       component: NotFound,
+    },
+    {
+      path: "/signin",
+      name: "SignIn",
+      component: SignIn,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

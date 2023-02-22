@@ -5,7 +5,7 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allows t
 
 function selectAll()
 {
-    require_once './DatabaseConnector.php';
+    require_once '../config/DatabaseConnector.php';
     $conn = new DatabaseConnector();
     $conn = $conn->getConnection();
 

@@ -41,6 +41,6 @@ class DatabaseConnector
 }
 
 // Include on pages
-// require_once "../data/DatabaseConnector.php";
+// require_once "../DatabaseConnector.php";
 // $conn = new DatabaseConnector();
 // $conn = $conn->getConnection();
