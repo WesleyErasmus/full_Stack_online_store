@@ -18,7 +18,7 @@ class Customer
         $this->password = $password;
     }
     // Customer Sign up function
-    public function signup($full_name, $email, $password)
+    public function customerSignup($full_name, $email, $password)
     {
         require_once "../config/DatabaseConnector.php";
         $conn = new DatabaseConnector();
@@ -31,4 +31,31 @@ class Customer
         return $result;
     }
 
+    // Customer login function
+    public function customerLogin($email, $password)
+    {
+        require_once "../config/DatabaseConnector.php";
+        $conn = new DatabaseConnector();
+        $conn = $conn->getConnection();
+        $stmt = $conn->prepare("SELECT password FROM customers WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashed_password = $result->fetch_assoc()['password'];
+        if (password_verify($password, $hashed_password)) {
+            $stmt = $conn->prepare("SELECT * FROM customers WHERE email = ? AND password = ?");
+            $stmt->bind_param("ss", $email, $hashed_password);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $customer = $result->fetch_assoc();
+            if (!empty($customer)) {
+                $_SESSION["customers"] = $customer;
+                $_SESSION['logged_in'] = true;
+
+                return true;
+                exit;
+            }
+        }
+        return false;
+    }
 }
