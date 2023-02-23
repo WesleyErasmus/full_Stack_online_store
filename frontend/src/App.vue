@@ -2,9 +2,8 @@
 import { RouterLink, RouterView } from "vue-router";
 </script>
 
-<template>
-
-<!-- Sticky navbar -->
+<template><!-- Sticky navbar -->
+<div>
   <header ref="top" id="header" class="sticky-top">
 
     <!-- Store logo container -->
@@ -23,7 +22,13 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink :to="{ name: 'NewProducts' }">New In</RouterLink>
         <RouterLink :to="{ name: 'About' }">About</RouterLink>
         <RouterLink :to="{ name: 'Contact' }">Contact</RouterLink>
-        <RouterLink :to="{ name: 'SignIn' }">Sign In</RouterLink>
+        <RouterLink :to="{ name: 'Login' }">
+        <div>
+            <button v-if="loggedIn == 'true'" @click="customerLogout">Logout</button>
+            <button v-else>Login</button>
+        </div>
+        </RouterLink>
+        <RouterLink :to="{ name: 'SignUp' }">Sign-up</RouterLink>
 
         <!-- Shopping Cart Icon in header -->
         <div id="navbar-cart" class="cart-icon-link-container">
@@ -55,10 +60,14 @@ import { RouterLink, RouterView } from "vue-router";
 
   <!-- App Footer component -->
   <Footer />
+  </div>
 </template>
 
 <script>
+import api from "@/services/api.js";
+import { mapMutations } from 'vuex';
 // Components import
+
 import Footer from "../src/components/Footer.vue";
 import Product from "../src/views/shop/Product.vue";
 export default {
@@ -68,7 +77,11 @@ export default {
   data() {
     return {
       cartCount: 0,
-      shoppingCart: []
+      loggedIn: null,
+      shoppingCart: [],
+      fullName: "",
+      email: "",
+      password: ""
     }
   },
   methods: {
@@ -84,12 +97,25 @@ export default {
     smoothScrollToTop() {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     },
+
+    ...mapMutations(["customerLogout"]),
+      customerLogout() {
+      this.$store.commit('customerLogout')
+      localStorage.removeItem('isLoggedIn');
+       this.$router.push({ name: 'Login' }).then(() => {
+        window.location.reload();
+      });
+      
+    },
   },
 
   computed: {
     // To display Shopping cart length
     cartLength() {
       return this.shoppingCart.length;
+    },
+     isLoggedIn() {
+      return this.loggedIn;
     },
   },
   mounted() {
@@ -101,13 +127,23 @@ export default {
         localStorage.removeItem("shoppingCart");
       }
     }
+
+    if (localStorage.getItem("isLoggedIn")) {
+      try {
+        this.loggedIn = localStorage.getItem("isLoggedIn");
+      } catch (e) {
+        localStorage.removeItem("isLoggedIn");
+      }
+    }
+     console.log(this.$store.state.isLoggedIn)
+     console.log(localStorage.getItem('isLoggedIn'))
+     console.log(this.loggedIn);
+
   },
 };
 </script>
 
 <style scoped>
-
-
 /* App header styling */
 header {
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -124,7 +160,7 @@ header {
 .logo-container {
   position: relative;
   display: block;
-    margin: 0 auto;
+  margin: 0 auto;
   max-width: 1280px;
 }
 
@@ -185,9 +221,10 @@ header {
   color: #000;
 
 }
+
 /* Back to top of page button */
 .back-to-top-btn {
-color: rgb(78, 78, 78);
+  color: rgb(78, 78, 78);
 }
 
 
@@ -222,7 +259,7 @@ nav a:first-of-type {
 
 /* MEDIA QUERIES */
 @media screen and (min-width: 481px) and (max-width: 840px) {
-#header {
+  #header {
     padding-top: 1rem;
     padding-bottom: 0;
   }
@@ -245,13 +282,13 @@ nav a:first-of-type {
 
   .redirect-btn-container {
     display: none;
-  }  
+  }
 }
 
 
 @media screen and (min-width: 0) and (max-width: 480px) {
 
-#header {
+  #header {
     padding-top: 1rem;
     padding-bottom: 0;
   }

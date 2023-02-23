@@ -71,11 +71,9 @@
     </div>
 
     <!-- End of Cart Page Wrapper -->
+    <!-- Remove cart message toast-->
+    <Toasts />
   </div>
-
-  
-  <!-- Remove cart message toast-->
-  <Toasts />
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 <template>
     <!-- These toast messages will appear on user actions success: Product added to cart / product removed from cart / Subscription form submission / Contact us form submission -->
 
+    <div>
     <!-- Add to cart success message -->
     <div id="snackbar">
         <p>Product Successfully Added To Cart!</p>
@@ -21,24 +22,17 @@
     <!-- Email subscription form submission message -->
     <div id="snackbar4">Welcome, New Subscriber!
     </div>
+
+
+    <!-- Sign-up successful message -->
+        <div id="snackbar5">Sign-up Successful!
+        </div>
+
+    </div>
 </template>
 
 
 <style scoped>
-/* Change link / router-link font color */
-a,
-.green {
-    text-decoration: none;
-    color:#fff;
-    transition: 0.4s;
-    text-decoration: underline;
-}
-/* :ink hover color */
-@media (hover: hover) {
-    a:hover {
-        color: #000;
-    }
-}
 
 p {
     margin-bottom: 0;
@@ -49,7 +43,8 @@ p {
 #snackbar,
 #snackbar2,
 #snackbar3,
-#snackbar4
+#snackbar4,
+#snackbar5
  {
     visibility: hidden;
     min-width: 250px;
@@ -73,7 +68,9 @@ p {
 #snackbar.show,
 #snackbar2.show,
 #snackbar3.show,
-#snackbar4.show {
+#snackbar4.show,
+#snackbar5.show
+{
     z-index: 110;
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;

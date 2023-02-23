@@ -38,9 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = $data["password"];
         $result = $customer->customerLogin($email, $password);
         if ($result) {
-            echo "Customer logged in successfully";
+            $response = array("success" => true);
         } else {
-            echo "Error logging customer in";
+            $response = array("success" => false);
         }
+        echo json_encode($response);
     }
 }
