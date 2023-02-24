@@ -20,18 +20,12 @@ class Cart
     // Customer Sign up function
     public function addToCart($cart_item_id, $customer_id, $product_id, $price)
     {
-
-        $cart_item_id = uniqid();
-        $customer_id = '';
-        $product_id = '';
-        $price = '';
-
         require_once "../config/DatabaseConnector.php";
         $conn = new DatabaseConnector();
         $conn = $conn->getConnection();
 
         $stmt = $conn->prepare("INSERT INTO cart (cartitemid, customerid, productid, price) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("iiii",$cart_item_id, $customer_id, $product_id, $price);
+        $stmt->bind_param("siii",$cart_item_id, $customer_id, $product_id, $price);
         $result = $stmt->execute();
         $stmt->close();
         return $result;

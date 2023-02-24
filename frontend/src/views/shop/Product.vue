@@ -3,71 +3,79 @@
     <div class="product">
       <div v-if="products">
         <div v-for="product in products" :key="product.id">
-        <h1 class="page-heading">Product Details</h1>
-        <div></div>
-        <RouterLink :to="{ name: 'Cart' }">
-          <div class="view-cart">View Cart</div>
-        </RouterLink>
-        <div class="product-container">
-          <div class="product-image-container">
-            <!-- Image 1 -->
-            <div class="img-box">
-              <img class="product-img" :src="product.img_gallery_1" alt="Product Image 1" @click="toggleModal1" />
+          <h1 class="page-heading">Product Details</h1>
+          <div></div>
+          <RouterLink :to="{ name: 'Cart' }">
+            <div class="view-cart">View Cart</div>
+          </RouterLink>
+          <div class="product-container">
+            <div class="product-image-container">
+              <!-- Image 1 -->
+              <div class="img-box">
+                <img class="product-img" :src="product.img_gallery_1" alt="Product Image 1" @click="toggleModal1" />
+              </div>
+              <!-- Image 2 -->
+              <div class="img-box">
+                <img class="product-img" :src="product.img_gallery_2" alt="Product Image 2" @click="toggleModal2" />
+              </div>
+              <!-- Image 2 -->
+              <div class="img-box">
+                <img class="product-img" :src="product.img_gallery_3" alt="Product Image 3" @click="toggleModal3" />
+              </div>
+              <teleport to="#modals" v-if="showModal1">
+                <Modal @close="toggleModal1">
+                  <img class="product-img-zoomed" :src="product.img_gallery_1" alt="Product Image 1" />
+                  <template v-slot:links>
+                    <button class="close-modal-button" @click="toggleModal1"><span class="material-symbols-outlined">
+                        close </span></button>
+                  </template>
+                </Modal>
+              </teleport>
+              <!-- Image modal 2 -->
+              <teleport to="#modals" v-if="showModal2">
+                <Modal @close="toggleModal2">
+                  <img class="product-img-zoomed" :src="product.img_gallery_2" alt="Product Image 2" />
+                  <template v-slot:links>
+                    <button class="close-modal-button" @click="toggleModal2"><span class="material-symbols-outlined">
+                        close </span></button>
+                  </template>
+                </Modal>
+              </teleport>
+              <!-- Image modal 3 -->
+              <teleport to="#modals" v-if="showModal3">
+                <Modal @close="toggleModal3">
+                  <img class="product-img-zoomed" :src="product.img_gallery_3" alt="Product Image 3" />
+                  <template v-slot:links>
+                    <button class="close-modal-button" @click="toggleModal3">
+                      <span class="material-symbols-outlined"> close </span>
+                    </button>
+                  </template>
+                </Modal>
+              </teleport>
             </div>
-            <!-- Image 2 -->
-            <div class="img-box">
-              <img class="product-img" :src="product.img_gallery_2" alt="Product Image 2" @click="toggleModal2" />
-            </div>
-            <!-- Image 2 -->
-            <div class="img-box">
-              <img class="product-img" :src="product.img_gallery_3" alt="Product Image 3" @click="toggleModal3" />
-            </div>
-            <teleport to="#modals" v-if="showModal1">
-              <Modal @close="toggleModal1">
-                <img class="product-img-zoomed" :src="product.img_gallery_1" alt="Product Image 1" />
-                <template v-slot:links>
-                  <button class="close-modal-button" @click="toggleModal1"><span class="material-symbols-outlined">
-                      close </span></button>
-                </template>
-              </Modal>
-            </teleport>
-            <!-- Image modal 2 -->
-            <teleport to="#modals" v-if="showModal2">
-              <Modal @close="toggleModal2">
-                <img class="product-img-zoomed" :src="product.img_gallery_2" alt="Product Image 2" />
-                <template v-slot:links>
-                  <button class="close-modal-button" @click="toggleModal2"><span class="material-symbols-outlined">
-                      close </span></button>
-                </template>
-              </Modal>
-            </teleport>
-            <!-- Image modal 3 -->
-            <teleport to="#modals" v-if="showModal3">
-              <Modal @close="toggleModal3">
-                <img class="product-img-zoomed" :src="product.img_gallery_3" alt="Product Image 3" />
-                <template v-slot:links>
-                  <button class="close-modal-button" @click="toggleModal3">
-                    <span class="material-symbols-outlined"> close </span>
-                  </button>
-                </template>
-              </Modal>
-            </teleport>
-          </div>
-          <div class="product-details">
-            <span class="product-id">Product id: {{ product.id }}</span>
+            <div class="product-details">
+              <span class="product-id">Product id: {{ product.id }}</span>
 
-            <h3 class="product-title">{{ product.title }}</h3>
+              <h3 class="product-title" ref="title">{{ product.title }}</h3>
 
-            <div class="product-price">R{{ product.price }}</div>
+              <div class="product-price">R{{ product.price }}</div>
 
-            <div class="product-department">
-              Department: {{ product.category }}
+              <div class="product-department">
+                Department: {{ product.category }}
+              </div>
+              <div class="product-description-title">Product Details</div>
+              <div class="product-description">{{ product.description }}</div>
+
+              <!-- Add to cart button -->
+              <button class="add-to-cart-btn" @click="addToCart()">
+                <span class="material-symbols-outlined shopping-cart-icon">
+                  add_shopping_cart
+                </span>
+                Add to Cart
+              </button>
             </div>
-            <div class="product-description-title">Product Details</div>
-            <div class="product-description">{{ product.description }}</div>
           </div>
         </div>
-      </div>
       </div>
       <div v-else>
         <Spinner />
@@ -75,7 +83,6 @@
     </div>
     <Toasts />
   </div>
-
 </template>
 
 <script>
@@ -84,13 +91,17 @@ import api from "@/services/api.js";
 import Spinner from "/src/components/Spinner.vue";
 import Modal from "/src/components/Modal.vue";
 import Toasts from "/src/components/Toasts.vue";
+import { useCookies } from "vue3-cookies";
 export default {
   components: { Spinner, Modal, Toasts },
   // Id. props used for dynamic routing / props enabled on product component. See router/index.js
   props: ["id"],
+   setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
   data() {
     return {
-
       products: null,
       shoppingCart: [],
       showModal1: false,
@@ -110,11 +121,51 @@ export default {
       this.showModal3 = !this.showModal3;
     },
 
-    addToCart() {
-      // get cusotomer id from and product id cookies/localstorage, props
-      // Push customer id, product id, price to cart
+     // Add to cart success message
+    addToCartSuccessToast() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () {
+        // Refreshes page after item is removed from cart
+        window.location.reload();
+        x.className = x.className.replace("show", "");
+      }, 2000);
+    },
 
-      // in the cart page, display all products that's ids are displayed
+    addToCart() {
+      // Declaring varaibes and setting values to the variables
+      const productId = parseInt(this.products[0].id);
+      const price = parseInt(this.products[0].price);
+      
+      // User id cookie
+      let customerId = this.cookies.get("customer_id");
+      let customer_id = parseInt(customerId);
+
+      // Post values to store in cart SQL table
+      api.post(`/controllers/CartController.php?action=addToCart&tableName=myTable&id=${productId}&customerId=${customer_id}`,{
+        productId: productId,
+        customerId: customer_id,
+        price: price
+      }, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+        .then(response => {
+          console.log(response);
+          if (response) {
+            console.log("customer_id:", customer_id, typeof customer_id);
+            console.log("this.id:", productId, typeof productId);
+            console.log("price:", price, typeof price);
+
+            // Calling toast message
+            this.addToCartSuccessToast();  
+          }
+          
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
   },
   mounted() {
@@ -123,8 +174,7 @@ export default {
         this.products = response.data;
         console.warn(response);
       });
-
-    },
+  },
 };
 </script>
 
