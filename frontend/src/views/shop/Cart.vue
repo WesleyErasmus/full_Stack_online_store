@@ -148,11 +148,7 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
-
-
 /* Prevents that cart page from looking squashed when cart is empty */
 .cart-page {
   min-height: 69vh;

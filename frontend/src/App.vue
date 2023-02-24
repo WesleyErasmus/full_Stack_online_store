@@ -81,7 +81,8 @@ export default {
       shoppingCart: [],
       fullName: "",
       email: "",
-      password: ""
+      password: "",
+      customerId: null
     }
   },
   methods: {

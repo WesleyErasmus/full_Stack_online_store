@@ -18,31 +18,10 @@
         >
         <!-- Router link to Product gallery page -->
           <router-link :to="{ name: 'Product', params: { id: product.id } }">
-            <p>{{ product.id }}</p>
+            <!-- <p>{{ product.id }}</p> -->
             <div class="img-box">
               <img
                 :src="product.image"
-                class="card-img-top"
-                alt="Product Image"
-              />
-            </div>
-            <div class="img-box">
-              <img
-                :src="product.img_gallery_1"
-                class="card-img-top"
-                alt="Product Image"
-              />
-            </div>
-            <div class="img-box">
-              <img
-                :src="product.img_gallery_2"
-                class="card-img-top"
-                alt="Product Image"
-              />
-            </div>
-            <div class="img-box">
-              <img
-                :src="product.img_gallery_3"
                 class="card-img-top"
                 alt="Product Image"
               />
@@ -53,7 +32,7 @@
           <div class="card-body">
             <h6 class="card-title">{{ product.title }}</h6>
             <p class="card-text">
-              {{ product.description }}
+              <!-- {{ product.description }} -->
             </p>
             <p class="card-text">
               {{ product.category }}
@@ -86,7 +65,7 @@ export default {
   },
   mounted() {
     // API request parameters are being used to invoke a selectAll function in the backend which retrieves the product data from the database. The backend checks if the 'action' and 'tableName' parameters are set by means of a $_GET request. If both conditions (action, and tableName) are set, then the data is retrieved. 
-    api.get("/product_display.php?action=selectAll&tableName=myTable", { responseType: 'json' }).then((response) => {
+    api.get("/controllers/ProductController.php?action=displayAllProducts&tableName=myTable", { responseType: 'json' }).then((response) => {
       // ResponseType is a configuration option in the Axios library that specifies the type of data expected to be returned in the response
       this.products = response.data;
       console.warn(response);

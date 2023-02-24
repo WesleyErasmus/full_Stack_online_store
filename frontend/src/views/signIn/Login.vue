@@ -42,14 +42,22 @@
 </template>
 <script>
 import api from "@/services/api.js";
+import Toasts from "@/components/Toasts.vue";
 import { mapMutations } from 'vuex';
+import { useCookies } from "vue3-cookies";
 export default {
+    components: { Toasts },
+    setup() {
+        const { cookies } = useCookies();
+        return { cookies };
+    },
     data() {
         return {
             loggedIn: null,
             fullName: "",
             email: "",
             password: "",
+            customerId: null
         };
     },
     computed: {
@@ -76,13 +84,26 @@ export default {
                  .then((response) => {
                     console.log(response);
                     if (response.data.success) {
+
+                         // Save the customer_id cookie received from backend
+                        this.cookies.set("customer_id", response.data.customer_id);
+
+                        // commit the customerLogin mutation
                         this.$store.commit("customerLogin");
+                        
                         // Route user to home page and then refresh page to change login btn to logout
                          this.$router.push({ name: 'Home' }).then(() => {
                             window.location.reload();
                         });
                         
                     } else {
+
+                        var x = document.getElementById("snackbar6");
+                        x.className = "show";
+                        setTimeout(function () {
+                            x.className = x.className.replace("show", "");
+                        }, 2000);
+
                         console.log("Error logging customer in");
                     }
                 })

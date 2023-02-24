@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = $data["password"];
         $result = $customer->customerLogin($email, $password);
         if ($result) {
-            $response = array("success" => true);
+            $response = array("success" => true, "customer_id" => $_SESSION['customer']['id']);
+            setcookie('customer_id', $_SESSION['customer']['id'], time() + (86400 * 30), '/');
         } else {
             $response = array("success" => false);
         }

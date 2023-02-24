@@ -49,8 +49,10 @@ class Customer
             $result = $stmt->get_result();
             $customer = $result->fetch_assoc();
             if (!empty($customer)) {
-                $_SESSION["customers"] = $customer;
+                $_SESSION["customer"] = $customer;
                 $_SESSION['logged_in'] = true;
+
+                setcookie('customer_id', $customer['id'], time() + (86400 * 30), '/');
 
                 return true;
                 exit;

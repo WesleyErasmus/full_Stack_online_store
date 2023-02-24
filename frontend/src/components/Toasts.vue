@@ -25,8 +25,13 @@
 
 
     <!-- Sign-up successful message -->
-        <div id="snackbar5">Sign-up Successful!
-        </div>
+    <div id="snackbar5">Sign-up Successful!
+    </div>
+
+
+    <!-- Sign-up successful message -->
+    <div id="snackbar6" style="background-color: red;">Invalid email or password. Please try again.
+    </div>
 
     </div>
 </template>
@@ -44,7 +49,8 @@ p {
 #snackbar2,
 #snackbar3,
 #snackbar4,
-#snackbar5
+#snackbar5,
+#snackbar6
  {
     visibility: hidden;
     min-width: 250px;
@@ -69,7 +75,8 @@ p {
 #snackbar2.show,
 #snackbar3.show,
 #snackbar4.show,
-#snackbar5.show
+#snackbar5.show,
+#snackbar6.show
 {
     z-index: 110;
     visibility: visible;
