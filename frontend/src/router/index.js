@@ -14,6 +14,7 @@ import NewProducts from "../views/NewProducts.vue";
 import NotFound from "../views/NotFound.vue";
 import Login from "../views/signIn/Login.vue";
 import SignUp from "../views/signIn/SignUp.vue";
+import Profile from "../views/profile/CustomerProfilePage.vue";
 
 
 // Array for routing directories
@@ -76,6 +77,11 @@ const router = createRouter({
       path: "/sign-up",
       name: "SignUp",
       component: SignUp,
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

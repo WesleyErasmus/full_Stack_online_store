@@ -29,6 +29,7 @@ import { RouterLink, RouterView } from "vue-router";
         </div>
         </RouterLink>
         <RouterLink :to="{ name: 'SignUp' }">Sign-up</RouterLink>
+        <RouterLink :to="{ name: 'Profile' }">Profile</RouterLink>
 
         <!-- Shopping Cart Icon in header -->
         <div id="navbar-cart" class="cart-icon-link-container">

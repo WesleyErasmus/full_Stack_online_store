@@ -2,9 +2,6 @@
 include '../models/Customer.php';
 
 // CUSTOMER SIGNUP
-
-// Check if all required fields (fullName, email, password) are present and not empty in the received data
-// Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // file_get_contents() is used to read the contents of v-model input fields in the SignIn.vue page. "php://input" is a predefined parameter that reads the REQUESTED input data. json_decode, true parameter was needed because it was not returning the data as an associative array.
     $data = json_decode(file_get_contents("php://input"), true);
@@ -44,5 +41,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $response = array("success" => false);
         }
         echo json_encode($response);
+    }
+}
+
+
+// CUSTOMER PROFILE DATA DISPLAY
+if (isset($_GET['action']) && $_GET['action'] === 'getProfile' && isset($_GET['customerId'])) {
+
+    require_once '../config/DatabaseConnector.php';
+    $conn = new DatabaseConnector();
+    $conn = $conn->getConnection();
+
+    $customer_id = $_GET['customerId'];
+
+    $profile_data = "SELECT id, fullname, email, password FROM customers WHERE id = '$customer_id'";
+    $result = $conn->query($profile_data);
+
+    if ($result) {
+        $customer_profile = array();
+        while ($row = $result->fetch_assoc()) {
+
+            $item = array(
+                'customer_id' => $row['id'],
+                'full_name' => $row['fullname'],
+                'email' => $row['email'],
+                'password' => $row['password'],
+            );
+            array_push($customer_profile, $item);
+        }
+        echo json_encode($customer_profile);
     }
 }
