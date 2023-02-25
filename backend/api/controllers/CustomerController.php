@@ -45,30 +45,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-// CUSTOMER PROFILE DATA DISPLAY
+// DISPLAY CUSTOMER PROFILE DATA
 if (isset($_GET['action']) && $_GET['action'] === 'getProfile' && isset($_GET['customerId'])) {
-
-    require_once '../config/DatabaseConnector.php';
-    $conn = new DatabaseConnector();
-    $conn = $conn->getConnection();
-
     $customer_id = $_GET['customerId'];
-
-    $profile_data = "SELECT id, fullname, email, password FROM customers WHERE id = '$customer_id'";
-    $result = $conn->query($profile_data);
-
-    if ($result) {
-        $customer_profile = array();
-        while ($row = $result->fetch_assoc()) {
-
-            $item = array(
-                'customer_id' => $row['id'],
-                'full_name' => $row['fullname'],
-                'email' => $row['email'],
-                'password' => $row['password'],
-            );
-            array_push($customer_profile, $item);
-        }
-        echo json_encode($customer_profile);
+    require_once '../models/Customer.php';
+    $customer = new Customer($customer_id, '', '', '');
+    $profile_data = $customer->displayCustomerData($customer_id);
+    if ($profile_data) {
+        echo $profile_data;
+    } else {
+        echo "Failed to retrieve customer profile data";
     }
+}
+
+
+// UPDATE CUSTOMER PROFILE
+if (isset($_POST['action']) && $_POST['action'] === 'updateProfile' && isset($_POST['customerId'])) {
+
+    $customer = new Customer($id, $full_name, $email, $password);
+
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $update_customer_profile = $customer->updateCustomerProfile($customer_id, $full_name, $email, $password);
+
+    if ($update_customer_profile) {
+        $response = array('status' => 'success');
+    } else {
+        $response = array('status' => 'error');
+    }
+
+    echo json_encode($response);
 }

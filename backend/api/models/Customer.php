@@ -60,4 +60,52 @@ class Customer
         }
         return false;
     }
+
+    public function displayCustomerData($customer_id)
+    {
+        require_once '../config/DatabaseConnector.php';
+        $conn = new DatabaseConnector();
+        $conn = $conn->getConnection();
+
+        $id = '';
+        $full_name = '';
+        $email = '';
+        $password = '';
+
+        $profile_data = "SELECT id, fullname, email, password FROM customers WHERE id = '$customer_id'";
+        $result = $conn->query($profile_data);
+
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $id = $row['id'];
+                $full_name = $row['fullname'];
+                $email = $row['email'];
+                $password = $row['password'];
+            }
+            $customer = array(
+                'customer_id' => $id,
+                'full_name' => $full_name,
+                'email' => $email,
+                'password' => $password,
+            );
+            return json_encode($customer);
+        } else {
+            return false;
+        }
+    }
+
+    public function updateCustomerProfile($customer_id, $full_name, $email, $password)
+    {
+        require_once '../config/DatabaseConnector.php';
+        $conn = new DatabaseConnector();
+        $conn = $conn->getConnection();
+
+        $update_customer_profile = "UPDATE customers SET fullname = '$full_name', email = '$email', password = '$password' WHERE id = '$customer_id'";
+
+        if ($conn->query($update_customer_profile) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

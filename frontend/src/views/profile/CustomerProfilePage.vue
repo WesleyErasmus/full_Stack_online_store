@@ -1,21 +1,26 @@
 <template>
     <div id="main">
-        <h1>Customer Profile details</h1>
-        <div v-if="profileData">
-        <div v-for="data in profileData" :key="data.id">
-
-            <ul>
-                <li>{{ data.full_name }}</li>
-                <li>{{ data.email }}</li>
-                <button>Change Password</button>
-            </ul>
+        <h1>My Profile</h1>
+        <div v-if="customerData">
+            <form @submit.prevent="updateCustomerProfile">
+                <div>
+                    <label for="name">Name:</label>
+                    <input id="name" v-model="customerData.full_name" type="text" />
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input id="email" v-model="customerData.email" type="email" />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input id="password" v-model="customerData.password" type="password" />
+                </div>
+                <button type="submit">Update Account</button>
+            </form>
         </div>
+        <div v-else>
+            <Spinner />
         </div>
-       <div v-else>
-          <Spinner />
-        </div>
-
-
     </div>
 </template>
 
@@ -24,17 +29,44 @@ import api from "@/services/api.js";
 import { useCookies } from "vue3-cookies";
 import Spinner from "/src/components/Spinner.vue";
 export default {
-     components: { Spinner },
+    components: { Spinner },
     setup() {
         const { cookies } = useCookies();
         return { cookies };
     },
     data() {
         return {
-            profileData: null,
+            customerData: {
+                full_name: "",
+                email: "",
+                password: "",
+            },
         };
     },
+    methods: {
+        updateCustomerProfile() {
+            const customerId = this.cookies.get("customer_id");
+            const fullName = this.customerData.full_name;
+            const email = this.customerData.email;
+            const password = this.customerData.password;
 
+            api.post(`/controllers/CustomerController.php`, {
+                action: 'updateProfile',
+                customerId: customerId,
+                full_name: fullName,
+                email: email,
+                password: password
+            })
+                .then(response => {
+                    console.log(response.data);
+                    // handle success
+                })
+                .catch(error => {
+                    console.error(error);
+                    // handle error
+                });
+        }
+    },
     mounted() {
         // User id cookie
         let customerId = this.cookies.get("customer_id");
@@ -43,7 +75,8 @@ export default {
         // Display cart items for a customer. Customerid parameter displaying only cart items with the customers id
         api.get(`/controllers/CustomerController.php?action=getProfile&customerId=${customerId}`, { responseType: 'json' })
             .then((response) => {
-                this.profileData = response.data;
+                this.customerData = response.data;
+
 
                 console.warn(response);
                 // console.log(this.shoppingCart)
@@ -52,5 +85,8 @@ export default {
     },
 }
 </script>
-
-<style></style>
+<style scoped>
+input {
+    width: 250px;
+}
+</style>
