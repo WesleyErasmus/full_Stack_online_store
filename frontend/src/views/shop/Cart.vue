@@ -1,86 +1,94 @@
 <template>
   <div id="main" class="cart-page">
 
-    <!-- Page heading -->
-    <h1 class="large-cart-heading">Your Cart: {{ cartLength }}</h1>
     
-    <!-- V-if that displays empty cart message if cart is empty -->
-    <div v-if="!shoppingCart.length">Your Cart is empty</div>
-
-    <!-- V-if used to display spinner component while products are loading -->
-    <div v-if="shoppingCart.length" class="cart-items">
-
-      <!-- flex parent container to display product content-->
-      <div class="cart-item" v-for="product in shoppingCart" :key="product.id">
+        <!-- Page heading -->
+      <h1 class="large-cart-heading">Your Cart: {{ cartLength }}</h1>
     
-    <!-- flex child-1 container -->
-        <div class="parent">
-          <div class="img-box child-1">
-            <img :src="
-              'https://source.unsplash.com/random/?fashion/id' + product.id
-            " class="card-img-top" alt="Product Image" />
+      <!-- V-if that displays empty cart message if cart is empty -->
+      <div v-if="!shoppingCart.length">Your Cart is empty</div>
+
+      <!-- V-if used to display spinner component while products are loading -->
+      <div v-if="shoppingCart.length" class="cart-items">
+
+        <!-- flex parent container to display product content-->
+        <div class="cart-item" v-for="product in shoppingCart" :key="product.id">
+    
+      <!-- flex child-1 container -->
+          <div class="parent">
+            <div class="img-box child-1">
+              <img :src="
+                product.image" class="" alt="Product Image" 
+                style="max-width: 200px; max-height: 200px;"
+                />
+            </div>
+
+            <!-- flex child-2 container -->
+            <div class="child-2 col">
+              <div class="card-title">{{ product.title }}</div>
+              <div class="card-text">Product details</div>
+              <div class="card-description">{{ product.description }}</div>
+              <div class="card-text">Category: {{ product.category }}</div>
+            </div>
+
+            <!-- child-3 -->
+            <div class="child-3 row">
+              <div class="price">R{{ product.price }}</div>
+            </div>
+
+            <!-- End of parent container -->
           </div>
 
-          <!-- flex child-2 container -->
-          <div class="child-2 col">
-            <div class="card-title">{{ product.title }}</div>
-            <div class="card-text">Product details</div>
-            <div class="card-description">{{ product.description }}</div>
+          <!-- Container for remove from cart button -->
+          <div class="button-counter">
+            <div>
+              <button class="remove-from-cart" @click="removeFromCart(product)">
+                <span class="cart-icon material-symbols-outlined">
+                  remove_shopping_cart </span>Remove from Cart
+              </button>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <!-- child-3 -->
-          <div class="child-3 row">
-            <div class="price">R{{ product.price }}</div>
-          </div>
+  <!-- Cart array length and price total container -->
+      <div class="cart-sum-total">
 
-          <!-- End of parent container -->
+        <!-- Displays amount of items in the cart -->
+        <div class="count-text">
+          Total items in cart: <span class="count-number">{{ cartLength }}</span>
         </div>
 
-        <!-- Container for remove from cart button -->
-        <div class="button-counter">
-          <div>
-            <button class="remove-from-cart" @click="removeFromCart(product)">
-              <span class="cart-icon material-symbols-outlined">
-                remove_shopping_cart </span>Remove
-            </button>
-          </div>
+        <!-- Displays total cart price -->
+        <div class="total">
+          Total: <span class="total-number">R{{ priceTotal }}</span>
         </div>
-      </div>
-    </div>
 
+        <!-- Checkout btn container -->
+        <div class="checkout">
 
-<!-- Cart array length and price total container -->
-    <div class="cart-sum-total">
-
-      <!-- Displays amount of items in the cart -->
-      <div class="count-text">
-        Total items in cart: <span class="count-number">{{ cartLength }}</span>
-      </div>
-
-      <!-- Displays total cart price -->
-      <div class="total">
-        Total: <span class="total-number">R{{ priceTotal }}</span>
-      </div>
-
-      <!-- Checkout btn container -->
-      <div class="checkout">
-
-       <!-- Proceed to checkout button -->
-        <button class="checkout-btn">Proceed To Checkout</button>
-      </div>
-    </div>
+         <!-- Proceed to checkout button -->
+          <button class="checkout-btn">Proceed To Checkout</button>
+        </div>
 
     <!-- End of Cart Page Wrapper -->
     <!-- Remove cart message toast-->
     <Toasts />
   </div>
+  </div>
 </template>
 
 <script>
 // Components import
+import api from "@/services/api.js";
 import Toasts from "/src/components/Toasts.vue";
+import { useCookies } from "vue3-cookies";
 export default {
   components: { Toasts },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
   data() {
     return {
       shoppingCart: [],
@@ -98,7 +106,7 @@ export default {
     priceTotal() {
       let total = 0;
       this.shoppingCart.forEach((product, i) => {
-        total += product.price;
+        total += parseInt(product.price);
       });
       return total;
     },
@@ -136,14 +144,19 @@ export default {
     },
   },
   mounted() {
-    // Display local storage products in the DOM
-    if (localStorage.getItem("shoppingCart")) {
-      try {
-        this.shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-      } catch (e) {
-        localStorage.removeItem("shoppingCart");
-      }
-    }
+    // User id cookie
+    let customerId = this.cookies.get("customer_id");
+    const customer_id = parseInt(customerId);
+
+    // Display cart items for a customer. Customerid parameter displaying only cart items with the customers id
+    api.get(`/controllers/CartController.php?action=displayCartItems&tableName=myTable&customerId=${customer_id}`, { responseType: 'json' })
+      .then((response) => {
+        this.shoppingCart = response.data;
+        
+        console.warn(response);
+        // console.log(this.shoppingCart)
+        console.log("customer_id:", customer_id, typeof customer_id);
+      });
   },
 };
 </script>
@@ -247,7 +260,7 @@ export default {
 /* Container for remove from cart button */
 .button-counter {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 /* Prevent zoom on hover */

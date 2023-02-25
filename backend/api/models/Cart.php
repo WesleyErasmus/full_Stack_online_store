@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *'); // Allows access from any origin
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS'); // Allows the specified HTTP methods
 header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allows the specified headers to be sent in the request
-// Customer class
+// Cart class
 class Cart
 {
     protected $cart_item_id;
@@ -17,7 +17,7 @@ class Cart
         $this->product_id = $product_id;
         $this->price = $price;
     }
-    // Customer Sign up function
+    // Cart Sign up function
     public function addToCart($cart_item_id, $customer_id, $product_id, $price)
     {
         require_once "../config/DatabaseConnector.php";
@@ -25,9 +25,46 @@ class Cart
         $conn = $conn->getConnection();
 
         $stmt = $conn->prepare("INSERT INTO cart (cartitemid, customerid, productid, price) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("siii",$cart_item_id, $customer_id, $product_id, $price);
+        $stmt->bind_param("siii", $cart_item_id, $customer_id, $product_id, $price);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
+    }
+    public static function displayCartItems($customer_id)
+    {
+        require_once '../config/DatabaseConnector.php';
+        $conn = new DatabaseConnector();
+        $conn = $conn->getConnection();
+
+         // Join the cart and products table using productid to get all cart items for the specific customer
+        $query = "SELECT cart.cartitemid, cart.customerid, cart.productid, cart.price, products.title, products.image, products.description, products.category, products.img_gallery_1, products.img_gallery_2, products.img_gallery_3, products.new, products.trending FROM cart INNER JOIN products ON cart.productid = products.id WHERE cart.customerid = $customer_id";
+        $result = $conn->query($query);
+
+        // If the query result is successful retrieves cart items and return it in an associative array
+        if ($result) {
+            $cart_items = array();
+            while ($row = $result->fetch_assoc()) {
+                // Cart item contains the cart SQL and products SQL table properties
+                $cart_item = array(
+                    'cart_item_id' => $row['cartitemid'],
+                    'customer_id' => $row['customerid'],
+                    'product_id' => $row['productid'],
+                    'price' => $row['price'],
+                    'title' => $row['title'],
+                    'image' => $row['image'],
+                    'description' => $row['description'],
+                    'category' => $row['category'],
+                    'img_gallery_1' => $row['img_gallery_1'],
+                    'img_gallery_2' => $row['img_gallery_2'],
+                    'img_gallery_3' => $row['img_gallery_3'],
+                    'new' => $row['new'],
+                    'trending' => $row['trending']
+                );
+                array_push($cart_items, $cart_item);
+            }
+            return $cart_items;
+        } else {
+            throw new Exception("Failed to execute query: " . $conn->error);
+        }
     }
 }
