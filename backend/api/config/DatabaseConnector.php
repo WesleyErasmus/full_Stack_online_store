@@ -7,16 +7,16 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allows t
 class DatabaseConnector
 {
     // Servername of the database
-    private $servername = 'sql8.freesqldatabase.com';
+    private $servername = 'localhost';
 
     // Username used to connect to the database
-    private $username = 'sql8599452';
+    private $username = 'root';
 
     // Password used to connect to the database
-    private $password = 'x7lskw9zf5';
+    private $password = '';
 
     // Name of the database
-    private $dbname = 'sql8599452';
+    private $dbname = 'atlas';
 
     // Connection object
     private $conn;

@@ -1,7 +1,7 @@
 <template>
     <div id="main">
         <h1>My Profile</h1>
-        <div v-if="customerData">
+        <div v-if="customerData.password">
             <form @submit.prevent="updateCustomerProfile">
                 <div>
                     <label for="name">Name:</label>
