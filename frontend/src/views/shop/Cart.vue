@@ -13,7 +13,6 @@
 
         <!-- flex parent container to display product content-->
         <div class="cart-item" v-for="product in shoppingCart" :key="product.id">
-    
       <!-- flex child-1 container -->
           <div class="parent">
             <div class="img-box child-1">
@@ -25,6 +24,7 @@
 
             <!-- flex child-2 container -->
             <div class="child-2 col">
+              <p style="display: none;">Cart Item Id: {{ product.cart_item_id }}</p>
               <div class="card-title">{{ product.title }}</div>
               <div class="card-text">Product details</div>
               <div class="card-description">{{ product.description }}</div>
@@ -42,7 +42,7 @@
           <!-- Container for remove from cart button -->
           <div class="button-counter">
             <div>
-              <button class="remove-from-cart" @click="removeFromCart(product)">
+              <button class="remove-from-cart" @click="removeFromCart(product.cart_item_id)">
                 <span class="cart-icon material-symbols-outlined">
                   remove_shopping_cart </span>Remove from Cart
               </button>
@@ -125,22 +125,20 @@ export default {
     
     
     // Remove products from cart function
-    removeFromCart(product) {
-      const remove = this.shoppingCart.filter((i) => i != product);
-
-      this.shoppingCart = remove;
-
-      // Update cart array
-      this.saveToLocalStorage();
+     removeFromCart(cartItemId) {
+      api.get(`/controllers/CartController.php?action=removeFromCart&tableName=myTable&cartItemId=${cartItemId}`, { responseType: 'json' })
+        .then((response) => {
+          if (response.data === true) {
+            // Remove cart item from shoppingCart array
+            this.shoppingCart = this.shoppingCart.filter(item => item.cart_item_id !== cartItemId);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
       // Product removed message
       this.itemRemovedMessage()
-    },
-
-    // Updates local storage function
-    saveToLocalStorage() {
-      const parsed = JSON.stringify(this.shoppingCart);
-      localStorage.setItem("shoppingCart", parsed);      
     },
   },
   mounted() {
@@ -152,7 +150,7 @@ export default {
     api.get(`/controllers/CartController.php?action=displayCartItems&tableName=myTable&customerId=${customer_id}`, { responseType: 'json' })
       .then((response) => {
         this.shoppingCart = response.data;
-        
+
         console.warn(response);
         // console.log(this.shoppingCart)
         console.log("customer_id:", customer_id, typeof customer_id);

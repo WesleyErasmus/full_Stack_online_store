@@ -34,6 +34,13 @@ if (isset($_GET['action'])) {
             echo json_encode($cart_items);
             break;
 
+        case 'removeFromCart':
+            // Getting cart item id from frontend
+            $cart_item_id = $_GET['cartItemId'];
+            $result = Cart::removeFromCart($cart_item_id);
+            echo json_encode($result);
+            break;
+
         default:
             echo "Invalid action";
     }

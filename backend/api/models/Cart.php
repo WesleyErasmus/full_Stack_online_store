@@ -67,4 +67,22 @@ class Cart
             throw new Exception("Failed to execute query: " . $conn->error);
         }
     }
+
+    // Remove from cart function
+    public static function removeFromCart($cart_item_id)
+    {
+        require_once '../config/DatabaseConnector.php';
+        $conn = new DatabaseConnector();
+        $conn = $conn->getConnection();
+
+        // SQL delete query using cart item id variable as parameter
+        $stmt = $conn->prepare("DELETE FROM cart WHERE cartitemid = ?");
+        $stmt->bind_param("s", $cart_item_id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            throw new Exception("Failed to remove item from cart: " . $conn->error);
+        }
+    }
 }
