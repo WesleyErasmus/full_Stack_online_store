@@ -1,26 +1,30 @@
 <template>
     <div id="main">
         <h1>My Profile</h1>
-            <form @submit.prevent="updateCustomerProfile">
-                <div>
-                    <label for="name">Name:</label>
-                    <input id="name" v-model="customerData.full_name" type="text" />
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input id="email" v-model="customerData.email" type="email" />
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input id="password" v-model="customerData.password" type="password" />
-                </div>
-                  <div>
-            <label for="confirm-password">Confirm Password:</label>
-            <input id="confirm-password" v-model="confirmPassword" type="password" />
-          </div>
-                <button type="submit">Update Account</button>
-            </form>
-        </div>
+        <v-card width="500px"
+        class="pa-5 ma-5"
+        >
+        <v-form @submit.prevent="updateCustomerProfile">
+            <div>
+                <label for="name">Name:</label>
+                <v-text-field id="name" v-model="customerData.full_name" type="text" />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <v-text-field id="email" v-model="customerData.email" type="email" />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <v-text-field id="password" v-model="customerData.password" type="password" />
+            </div>
+            <div>
+                <label for="confirm-password">Confirm Password:</label>
+                <v-text-field id="confirm-password" v-model="confirmPassword" type="password" />
+            </div>
+            <v-btn variant="tonal" color="primary" type="submit">Update Account</v-btn>
+        </v-form>
+        </v-card>
+    </div>
 </template>
 
 <script>
@@ -41,11 +45,11 @@ export default {
                 email: "",
                 password: "",
             },
-             confirmPassword: "",
+            confirmPassword: "",
         };
     },
     methods: {
-    updateCustomerProfile() {
+        updateCustomerProfile() {
             let customerId = this.cookies.get("customer_id");
             const customer_id = parseInt(customerId);
             const fullName = this.customerData.full_name;
@@ -75,7 +79,8 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     // Refresh customer data after updating
-                    // this.fetchCustomerData();
+                    this.fetchCustomerData();
+                    // Add a toast for fail or success
                     this.customerData.full_name = fullName;
                     console.log("Updated full name:", this.customerData.full_name);
 
@@ -84,7 +89,7 @@ export default {
 
                     this.customerData.password = password;
                     console.log("Updated password:", this.customerData.password);
-                    
+
                 })
                 .catch(error => {
                     console.error(error);

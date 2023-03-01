@@ -93,5 +93,4 @@ class Customer
             return false;
         }
     }
-
 }

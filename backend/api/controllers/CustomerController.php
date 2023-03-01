@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo json_encode($response);
             exit();
-            
+
             break;
 
         default:
@@ -100,3 +100,47 @@ function updateCustomerProfile($customer_id, $full_name, $email, $password)
         return false;
     }
 }
+// Save customer message from contact page
+if (isset($_GET['action']) && $_GET['action'] === 'saveMessage' && isset($_GET['customerId'])) {
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    require_once "../config/DatabaseConnector.php";
+    $db = new DatabaseConnector();
+    $conn = $db->getConnection();
+
+    $customer_id = $_GET['customerId'];
+    $customer_id = intval($customer_id);
+
+    $customer_query = "SELECT id, fullname, email FROM customers WHERE id = ?";
+    $customer_stmt = $conn->prepare($customer_query);
+    $customer_stmt->bind_param("i", $customer_id);
+    $customer_stmt->execute();
+    $customer_result = $customer_stmt->get_result();
+    $customer_data = $customer_result->fetch_assoc();
+
+    $full_name = $customer_data['fullname'];
+    $email = $customer_data['email'];
+    $message = $data["message"];
+    $full_name = htmlentities($full_name);
+
+    $full_name = htmlentities($full_name);
+    $message = htmlentities($message);
+    $email = filter_var($customer_data['email'], FILTER_SANITIZE_EMAIL);
+    $message = htmlentities($message);
+    $customer = new Customer($customer_id, $full_name, $email, $message);
+
+    if (!empty($message)) {
+    $stmt = $conn->prepare("INSERT INTO messages (customerid, fullname, email, message) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("isss", $customer_id, $full_name, $email, $message);
+    $result = $stmt->execute();
+    $stmt->close();
+
+    if ($result) {
+        echo "Message saved successfully";
+    } else {
+        echo "Error saving message";
+    }
+    }
+}
+
+

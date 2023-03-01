@@ -36,15 +36,13 @@ class Cart
         $conn = new DatabaseConnector();
         $conn = $conn->getConnection();
 
-         // Join the cart and products table using productid to get all cart items for the specific customer
+        // Join the cart and products table using productid to get all cart items for the specific customer
         $query = "SELECT cart.cartitemid, cart.customerid, cart.productid, cart.price, products.title, products.image, products.description, products.category, products.img_gallery_1, products.img_gallery_2, products.img_gallery_3, products.new, products.trending FROM cart INNER JOIN products ON cart.productid = products.id WHERE cart.customerid = $customer_id";
         $result = $conn->query($query);
 
-        // If the query result is successful retrieves cart items and return it in an associative array
         if ($result) {
             $cart_items = array();
             while ($row = $result->fetch_assoc()) {
-                // Cart item contains the cart SQL and products SQL table properties
                 $cart_item = array(
                     'cart_item_id' => $row['cartitemid'],
                     'customer_id' => $row['customerid'],
@@ -62,20 +60,19 @@ class Cart
                 );
                 array_push($cart_items, $cart_item);
             }
+
             return $cart_items;
         } else {
             throw new Exception("Failed to execute query: " . $conn->error);
         }
     }
 
-    // Remove from cart function
     public static function removeFromCart($cart_item_id)
     {
         require_once '../config/DatabaseConnector.php';
         $conn = new DatabaseConnector();
         $conn = $conn->getConnection();
 
-        // SQL delete query using cart item id variable as parameter
         $stmt = $conn->prepare("DELETE FROM cart WHERE cartitemid = ?");
         $stmt->bind_param("s", $cart_item_id);
 

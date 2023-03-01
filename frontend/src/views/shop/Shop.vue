@@ -1,60 +1,41 @@
 <template>
+  <v-container class="shop-page px-0" id="main">
+    <!-- Products display -->
+    <v-container v-if="products.length">
+      <v-item-group multiple>
+        <v-row>
+          <v-col v-for="product in products" :key="product.id" class="" cols="12" md="2">
+            <v-card class="mx-auto rounded-0" max-width="" variant="elevated">
+              <router-link :to="{ name: 'Product', params: { id: product.id } }">
+                <v-img :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
+              </router-link>
 
-<!-- Shopping page -->
+              <v-card-title>
+                {{ product.title }}
+              </v-card-title>
 
-  <div id="main" class="shop-page">
-    <!-- Page header -->
-    <h1>Shop Our Whole Collection</h1>
+              <v-card-subtitle>
+                {{ product.category }}
+              </v-card-subtitle>
 
-    <!-- V-if to show spinner component while products load -->
-    <div v-if="products.length" class="container">
-      <div class="row">
-        
-        <!-- V-for loop -->
-        <div
-          class="card col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6 mb-4 mt-4"
-          v-for="product in products"
-          :key="product.id"
-        >
-        <!-- Router link to Product gallery page -->
-          <router-link :to="{ name: 'Product', params: { id: product.id } }">
-            <!-- <p>{{ product.id }}</p> -->
-            <div class="img-box">
-              <img
-                :src="product.image"
-                class="card-img-top"
-                alt="Product Image"
-              />
-            </div>
-          </router-link>
-
-
-          <div class="card-body">
-            <h6 class="card-title">{{ product.title }}</h6>
-            <p class="card-text">
-              <!-- {{ product.description }} -->
-            </p>
-            <p class="card-text">
-              {{ product.category }}
-            </p>
-          </div>
-          <div class="card-footer">
-            <p class="price">R{{ product.price }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- V-else spinner -->
+              <v-card-title>
+                R{{ product.price }}
+              </v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-item-group>
+    </v-container>
+    <!-- V-else message -->
     <div v-else>
       <Spinner />
+      No products found.
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
 import api from "@/services/api.js";
-// Components import
 import Spinner from "/src/components/Spinner.vue";
 export default {
   components: { Spinner },
@@ -65,16 +46,14 @@ export default {
   },
   mounted() {
     // API request parameters are being used to invoke a selectAll function in the backend which retrieves the product data from the database. The backend checks if the 'action' and 'tableName' parameters are set by means of a $_GET request. If both conditions (action, and tableName) are set, then the data is retrieved. 
-    api.get("/controllers/ProductController.php?action=displayAllProducts&tableName=myTable", { responseType: 'json' }).then((response) => {
+    api
+      .get("/controllers/ProductController.php?action=displayAllProducts&tableName=myTable", {
+        responseType: "json",
+      })
       // ResponseType is a configuration option in the Axios library that specifies the type of data expected to be returned in the response
-      this.products = response.data;
-      console.warn(response);
-    });
+      .then((response) => {
+        this.products = response.data;
+      });
   },
 };
 </script>
-<style scoped>
-.shop-page h1 {
-  margin-bottom: 3rem;
-}
-</style>

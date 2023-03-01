@@ -1,100 +1,98 @@
 <template>
-  <div id="footer" class="footer">
-    <div class="sale-banner">SALE COMING SOON</div>
+  <div>
+    <div id="footer" class="footer">
+      <!-- Footer wrapper -->
+      <div class="footer-wrapper">
+        <div class="footer-inner">
+          <main>
+            <div class="footer-links">
+              <ul class="footer-links-container">
+                <li class="link-heading">Shipping</li>
+                <li>Online Store</li>
+                <li>Terms and conditions</li>
+                <li>Campaigns and flash sales</li>
+                <li>Retail outlets</li>
+              </ul>
 
 
-    <!-- Footer wrapper -->
-    <div class="footer-wrapper">
-      <div class="footer-inner">
-        <main>
-          <div class="footer-links">
-            <ul class="footer-links-container">
-              <li class="link-heading">Shipping</li>
-              <li>Online Store</li>
-              <li>Terms and conditions</li>
-              <li>Campaigns and flash sales</li>
-              <li>Retail outlets</li>
-            </ul>
+              <!-- Emulation footer links -->
+              <ul class="footer-links-container">
+                <li class="link-heading">Partners</li>
+                <li>Customer service</li>
+                <li>Faqs</li>
+                <li>Account details</li>
+                <li>Returns policy</li>
+              </ul>
+
+              <!-- Emulation footer links -->
+              <ul class="footer-links-container">
+                <li class="link-heading">Buy gift vouchers</li>
+                <li>Orders</li>
+                <li>Careers</li>
+                <li>Privacy policy</li>
+                <li>Credit</li>
+              </ul>
 
 
-            <!-- Emulation footer links -->
-            <ul class="footer-links-container">
-              <li class="link-heading">Partners</li>
-              <li>Customer service</li>
-              <li>Faqs</li>
-              <li>Account details</li>
-              <li>Returns policy</li>
-            </ul>
+              <!-- Footer logo container -->
+              <section class="logo-container">
 
-            <!-- Emulation footer links -->
-            <ul class="footer-links-container">
-              <li class="link-heading">Buy gift vouchers</li>
-              <li>Orders</li>
-              <li>Careers</li>
-              <li>Privacy policy</li>
-              <li>Credit</li>
-            </ul>
+                <!-- link to home page -->
+                <RouterLink :to="{ name: 'Home' }">
+
+                  <div><img class="logo" src="../assets/logoatlas.png" alt="Logo-Image"></div>
 
 
-            <!-- Footer logo container -->
-            <section class="logo-container">
-
-              <!-- link to home page -->
-              <RouterLink :to="{ name: 'Home' }">
-
-                <div><img class="logo" src="../assets/logoatlas.png" alt="Logo-Image"></div>
-
-                
-              </RouterLink>
-            </section>
-          </div>
-          <!-- End of footer links container -->
+                </RouterLink>
+              </section>
+            </div>
+            <!-- End of footer links container -->
 
 
-          <!-- The footer's subscription container -->
-          <div class="subscription-container">
-            <div class="newsletter">Become a MEMBER of our fashion community</div>
+            <!-- The footer's subscription container -->
+            <div class="subscription-container">
+              <div class="newsletter">Become a MEMBER of our fashion community</div>
 
 
-            <!-- Container for subscription header and form -->
-            <div class="signup-container">
+              <!-- Container for subscription header and form -->
+              <div class="signup-container">
 
-              <!-- V-for used to display validation error in DOM -->
-              <div v-show="errors.length">
-                <ul>
-                  <li class="error-message" v-for="error in errors" :key="error">{{ error }}</li>
-                </ul>
-              </div>
+                <!-- V-for used to display validation error in DOM -->
+                <div v-show="errors.length">
+                  <ul>
+                    <li class="error-message" v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </div>
 
-              <!-- Subs form -->
-              <form @submit.prevent="addSubscriber">
-                <input v-model="newSubscriber" name="subscriber" type="email" placeholder="Enter your email address" />
-              </form>
-              <div class="blogs">
-                <button class="signup-btn" @click="addSubscriber">SIGNUP</button>
+                <!-- Subs form -->
+                <v-form @submit.prevent="addSubscriber" style="width:500px;">
+                  <v-text-field v-model="newSubscriber" type="email" label="Subscribe"
+                    placeholder="Enter your email address"></v-text-field>
+                </v-form>
+                <div class="blogs">
+                  <v-btn class="signup-btn" @click="addSubscriber">SIGNUP</v-btn>
+                </div>
               </div>
             </div>
+          </main>
+
+          <!-- Footer social media links -->
+          <div class="sm-links">
+            <a href="https://www.facebook.com/" target="_blank" alt="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.twitter.com/" target="_blank" alt="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/" target="_blank" alt="Instagram"><i
+                class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/" target="_blank" alt="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.tiktok.com/" target="_blank" alt="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.youtube.com/" target="_blank" alt="YouTube"><i class="fa-brands fa-youtube"></i></a>
           </div>
-        </main>
-
-
-        <!-- Footer social media links -->
-        <div class="sm-links">
-          <a href="https://www.facebook.com/" target="_blank" alt="Facebook"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://www.twitter.com/" target="_blank" alt="Twitter"><i class="fa-brands fa-twitter"></i></a>
-          <a href="https://www.instagram.com/" target="_blank" alt="Instagram"><i
-              class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.linkedin.com/" target="_blank" alt="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="https://www.tiktok.com/" target="_blank" alt="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="https://www.youtube.com/" target="_blank" alt="YouTube"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
     </div>
+
+    <!-- Subscription success message -->
+    <Toasts />
   </div>
-
-
-  <!-- Subscription success message -->
-  <Toasts />
 </template>
 
 <script>
@@ -152,7 +150,7 @@ export default {
         this.errors.push("Please enter your email address");
         return;
       }
-      
+
       // endure that the email address is a valid email address
       if (!this.validEmail(this.email)) {
         this.errors.push(
@@ -188,25 +186,11 @@ export default {
 </script>
 
 <style scoped>
-
-
-/* Footer sale banner */
-.sale-banner {
-  height: 75px;
-  background: #242626;
-  color: #fff;
-  font-size: calc(15px + 0.5rem);
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  margin-top: 5vw;
-}
-
-
 /* Withing the footer container */
 .footer-wrapper {
-  background: #2f3131;
+  margin-top: 5vw;
+  /* background: #2f3131; */
+  background-color: rgb(241, 241, 241) !important;
   color: #9d9d9d;
 }
 
@@ -214,7 +198,6 @@ export default {
 .footer-inner {
   display: block;
   margin: 0 auto;
-  background: #2f3131;
 }
 
 
@@ -253,7 +236,6 @@ input {
   font-size: calc(8px + 0.3rem);
 }
 
-
 /* Contains subs input form, including submit btn */
 .signup-container {
   display: flex;
@@ -275,17 +257,15 @@ input {
 /* Subs header text */
 .newsletter {
   padding-bottom: 5px;
-  color: #fff;
+  /* color: #fff; */
   font-weight: 600;
 }
-
 
 /* All footer contents except for footer's header and s.media links */
 main {
   display: block;
   margin: 0 auto;
   max-width: 1280px;
-  background: #2f3131;
   padding: 0 0 2rem 0;
 }
 
@@ -329,7 +309,7 @@ li:hover {
 
 /* first link on each column */
 .link-heading {
-  color: #fff;
+  color: #000;
   font-size: 13px;
 }
 

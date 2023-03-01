@@ -8,6 +8,7 @@ include '../models/Cart.php';
 if (isset($_GET['action'])) {
     $customer_id = $_GET['customerId'];
     switch ($_GET['action']) {
+        // Add to cart
         case 'addToCart':
             // uniqid() keps generating the same unique code so switched to alternative
             $cart_item_id = bin2hex(openssl_random_pseudo_bytes(16));
@@ -27,15 +28,14 @@ if (isset($_GET['action'])) {
                 echo "Missing tableName or id parameter";
             }
             break;
-            // Display cart items
+               // Display cart items
         case 'displayCartItems':
-            // Invoking displayCartItems function and then displaying the result in JSON format
+             // Invoking displayCartItems function and then displaying the result in JSON format
             $cart_items = Cart::displayCartItems($customer_id);
             echo json_encode($cart_items);
             break;
-
+            // remove from cart
         case 'removeFromCart':
-            // Getting cart item id from frontend
             $cart_item_id = $_GET['cartItemId'];
             $result = Cart::removeFromCart($cart_item_id);
             echo json_encode($result);

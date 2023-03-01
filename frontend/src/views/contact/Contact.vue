@@ -1,6 +1,6 @@
 <template>
 <!-- Contact page wrapper -->
-  <div id="main" class="contact-page">
+  <div id="main" class="mx-auto">
 
 
     <!-- Contact page header and header container -->
@@ -9,9 +9,6 @@
         
         <!-- Heading and subheading -->
         <h1>We'd Love To Hear From YOU</h1>
-        
-        <!-- Subheading -->
-        <p class="centered-text-sm">Connect with us on social media</p>  
         
         <!-- Social media links -->
       </div>
@@ -72,30 +69,16 @@ export default {
 /* Page Header */
 header {
   height: 17vw;
-  background: #000;
-  color: #fff;
   display: flex;
   flex-direction: column;
   align-content: center;
   align-items: center;
   justify-content: center;
-  margin: 5rem 0;
-  box-shadow: var(--card-shadows);
 }
-
-
-/* Social media header icons */
-.centered-text-sm {
-  text-align: center;
-  color: var(--primary-color);
-  font-size: calc(12px + 0.3rem);
-  font-weight: bold;
-}
-
 
 /* Social media header icons */
 .sm-links {
-  padding-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 
@@ -108,15 +91,15 @@ header {
 /* Social media header icons styling */
 .fa-brands {
   font-size: calc(12px + 0.5rem);
-  color: #fff;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+  color: #000;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 }
 
 
 /* Social media header icons hover */
 .fa-brands:hover {
-  transform: scale(1.5);
+  transform: scale(1.4);
   background: none;
   color: var(--primary-color);
 }
@@ -124,9 +107,7 @@ header {
 
 /* Help services container */
 .need-help-container {
-  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   padding: 2vw;
-  background: rgb(230, 230, 230);
 }
 
 

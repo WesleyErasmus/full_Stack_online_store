@@ -1,39 +1,44 @@
 <template>
-  <!-- Featured Products Component -->
-
   <!-- Featured products container -->
-  <div class="featured-products-container row">
-    <h1>Trending Collection</h1>
-
-    <!-- See all link that routes to featured products page -->
-    <span>
-      <RouterLink :to="{ name: 'FeaturedProducts' }" class="see-all">
-        see all</RouterLink>
-    </span>
-
-    <!-- Product cards container -->
-    <div class="card-group">    
-      
-      <!-- V-for loop -->
-      <div v-for="featured in products" :key="featured.id" class="card">
-
-        <!-- Routing to the Product gallery page -->
-        <router-link :to="{ name: 'Product', params: { id: featured.id } }">
-          <div class="img-box">
-            <img :src="
-              'https://source.unsplash.com/random/?fashion/id' + featured.id
-            " alt="Just Dropped" class="card-img-top" />
-          </div>
-        </router-link>
-
-        <div class="card-body"></div>
-        <div class="card-footer">
-          <small class="text-muted">#Featured</small>
-        </div>
-      </div>
+  
+  <v-container class="">
+    <!-- Featured and New Page links -->
+    <div class="page-links">
+      <!-- New products page link -->
+      <RouterLink class="text-decoration-none" :to="{ name: 'NewProducts' }">
+        <div class="new-products-link">NEW PRODUCTS</div>
+      </RouterLink>
+      <!-- Featured products page link -->
+      <RouterLink class="text-decoration-none" :to="{ name: 'FeaturedProducts' }">
+        <div class="feature-products-link">FEATURED PRODUCTS</div>
+      </RouterLink>
     </div>
-  </div>
-
+    <h1>Trending Collection</h1>
+   
+    <v-card class="mx-auto" variant="none">
+       <!-- See all link that routes to featured products page -->
+      <span>
+        <RouterLink :to="{ name: 'FeaturedProducts' }" class="see-all">
+          see all</RouterLink>
+      </span>
+      <v-container class="pa-1">
+        <v-item-group multiple>
+          <v-row>
+            <v-col v-for="featured in products" :key="featured.id" cols="12" md="2">
+              <router-link :to="{ name: 'Product', params: { id: featured.id } }">
+                <v-img :src="
+                  'https://source.unsplash.com/random/?fashion/id' + featured.id" cover height="220"
+                     aspect-ratio="4/3"
+                  class="text-right pa-2" @click="toggle">
+                </v-img>
+              </router-link>
+              <small class="text-muted">#Featured</small>
+            </v-col>
+          </v-row>
+        </v-item-group>
+      </v-container>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -46,7 +51,7 @@ export default {
   },
   mounted() {
     axios
-      .get("https://api.escuelajs.co/api/v1/products?offset=0&limit=5")
+      .get("https://api.escuelajs.co/api/v1/products?offset=0&limit=6")
       .then((response) => {
         this.products = response.data;
         console.warn(response);
@@ -56,64 +61,30 @@ export default {
 </script>
 
 <style scoped>
-
-/* Default link override */
-.green {
-  text-decoration: none;
-  color: #000 !important;
-  transition: 0.4s;
-}
-
-/* Link Hover color */
-@media (hover: hover) {
-  a:hover {
-    color: #000;
-  }
-}
-
-
 /* See all button */
 .see-all {
   color: var(--primary-color) !important;
 }
 
-
-/* Feature products cards container */
-.featured-products-container {
-  padding: 5rem 0;
+/* Top banner links container */
+.page-links {
+  height: 50px;
+  background: #000;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2.5rem 0;
 }
 
-
-/* MEDIA QUERIES */
-@media screen and (min-width: 481px) and (max-width: 661px) {
-
-  .card-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-  }
-
-  .card {
-    width: 45%;
-
-  }
+/* Links in block below app header */
+.new-products-link,
+.feature-products-link {
+  color: #bbb;
 }
 
-
-@media screen and (min-width: 0) and (max-width: 480px) {
-  .card-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-  }
-
-  .card {
-    width: 40%;
-
-  }
+.new-products-link:hover,
+.feature-products-link:hover {
+  color: #fff;
+  cursor: pointer;
 }
 </style>

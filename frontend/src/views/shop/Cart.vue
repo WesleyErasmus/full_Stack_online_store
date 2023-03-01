@@ -1,80 +1,27 @@
 <template>
-  <div id="main" class="cart-page">
+  <div id="main" class="cart-page mx-auto">
 
-    
-        <!-- Page heading -->
-      <h1 class="large-cart-heading">Your Cart: {{ cartLength }}</h1>
-    
-      <!-- V-if that displays empty cart message if cart is empty -->
-      <div v-if="!shoppingCart.length">Your Cart is empty</div>
-
-      <!-- V-if used to display spinner component while products are loading -->
-      <div v-if="shoppingCart.length" class="cart-items">
-
-        <!-- flex parent container to display product content-->
-        <div class="cart-item" v-for="product in shoppingCart" :key="product.id">
-      <!-- flex child-1 container -->
-          <div class="parent">
-            <div class="img-box child-1">
-              <img :src="
-                product.image" class="" alt="Product Image" 
-                style="max-width: 200px; max-height: 200px;"
-                />
-            </div>
-
-            <!-- flex child-2 container -->
-            <div class="child-2 col">
-              <p style="display: none;">Cart Item Id: {{ product.cart_item_id }}</p>
-              <div class="card-title">{{ product.title }}</div>
-              <div class="card-text">Product details</div>
-              <div class="card-description">{{ product.description }}</div>
-              <div class="card-text">Category: {{ product.category }}</div>
-            </div>
-
-            <!-- child-3 -->
-            <div class="child-3 row">
-              <div class="price">R{{ product.price }}</div>
-            </div>
-
-            <!-- End of parent container -->
-          </div>
-
-          <!-- Container for remove from cart button -->
-          <div class="button-counter">
-            <div>
-              <button class="remove-from-cart" @click="removeFromCart(product.cart_item_id)">
-                <span class="cart-icon material-symbols-outlined">
-                  remove_shopping_cart </span>Remove from Cart
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-  <!-- Cart array length and price total container -->
-      <div class="cart-sum-total">
-
-        <!-- Displays amount of items in the cart -->
-        <div class="count-text">
-          Total items in cart: <span class="count-number">{{ cartLength }}</span>
-        </div>
-
-        <!-- Displays total cart price -->
-        <div class="total">
-          Total: <span class="total-number">R{{ priceTotal }}</span>
-        </div>
-
-        <!-- Checkout btn container -->
-        <div class="checkout">
-
-         <!-- Proceed to checkout button -->
-          <button class="checkout-btn">Proceed To Checkout</button>
-        </div>
+    <div>
+      <ul>
+        <li v-for="(cartItem, index) in shoppingCart" :key="index">
+          <p>Cart Item Id: {{ cartItem.cart_item_id }}</p>
+          <p>Customer Id: {{ cartItem.customer_id }}</p>
+          <p>Product Id: {{ cartItem.product_id }}</p>
+          <p>Price: R{{ cartItem.price }}</p>
+          <p>Title: {{ cartItem.title }}</p>
+          <p>Description: {{ cartItem.description }}</p>
+          <p>Category: {{ cartItem.category }}</p>
+          <p>
+            <img :src="cartItem.image" alt="" style="max-width: 200px; max-height: 200px;">
+          </p>
+           <button @click="removeFromCart(cartItem.cart_item_id)">Remove from Cart</button>
+        </li>
+      </ul>
+    </div>
 
     <!-- End of Cart Page Wrapper -->
     <!-- Remove cart message toast-->
     <Toasts />
-  </div>
   </div>
 </template>
 
@@ -96,7 +43,6 @@ export default {
     };
   },
   computed: {
-
     // Displays cart array length
     cartLength() {
       return this.shoppingCart.length;
@@ -106,7 +52,7 @@ export default {
     priceTotal() {
       let total = 0;
       this.shoppingCart.forEach((product, i) => {
-        total += parseInt(product.price);
+        total += product.price;
       });
       return total;
     },
@@ -122,8 +68,6 @@ export default {
         x.className = x.className.replace("show", "");
       }, 1000);
     },
-    
-    
     // Remove products from cart function
      removeFromCart(cartItemId) {
       api.get(`/controllers/CartController.php?action=removeFromCart&tableName=myTable&cartItemId=${cartItemId}`, { responseType: 'json' })
@@ -137,8 +81,13 @@ export default {
           console.error(error);
         });
 
-      // Product removed message
-      this.itemRemovedMessage()
+        this.itemRemovedMessage()
+    },
+    
+    // Updates local storage function
+    saveToLocalStorage() {
+      const parsed = JSON.stringify(this.shoppingCart);
+      localStorage.setItem("shoppingCart", parsed);      
     },
   },
   mounted() {
@@ -150,7 +99,7 @@ export default {
     api.get(`/controllers/CartController.php?action=displayCartItems&tableName=myTable&customerId=${customer_id}`, { responseType: 'json' })
       .then((response) => {
         this.shoppingCart = response.data;
-
+        
         console.warn(response);
         // console.log(this.shoppingCart)
         console.log("customer_id:", customer_id, typeof customer_id);
@@ -190,7 +139,6 @@ export default {
   font-weight: bold;
   font-size: calc(11px + 0.6em);
 }
-
 
 /* CART PRODUCT STYLING */
 
@@ -245,7 +193,6 @@ export default {
   font-weight: bold;
 }
 
-
 /* Google cart icon */
 .cart-icon {
   font-size: 20px;
@@ -254,11 +201,10 @@ export default {
     margin-right: 10px;
 }
 
-
 /* Container for remove from cart button */
 .button-counter {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 /* Prevent zoom on hover */
@@ -332,7 +278,6 @@ button:hover {
   }
 }
 
-
 @media screen and (min-width: 662px) and (max-width: 840px) {
 
   .cart-sum-total {
@@ -358,7 +303,6 @@ button:hover {
       display: none;
     }
 }
-
 
 @media screen and (min-width: 481px) and (max-width: 661px) {
 
@@ -387,7 +331,6 @@ button:hover {
     display: none;
   }
 }
-
 
 @media screen and (min-width: 0) and (max-width: 480px) {
   .cart-sum-total {
