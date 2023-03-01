@@ -33,8 +33,22 @@
 import api from "@/services/api.js";
 import Toasts from "@/components/Toasts.vue";
 import router from "/src/router";
+import { useCookies } from "vue3-cookies";
 export default {
     components: { Toasts },
+    setup() {
+        const { cookies } = useCookies();
+        return { cookies };
+    },
+    mounted() {
+        let customerId = this.cookies.get("customer_id");
+        const customer_id = parseInt(customerId);
+        // if (customer_id) { 
+        //     // Check if the customer is logged in
+        //     router.push({ name: 'Home' }); 
+        //     // Redirect the customer to the Home page
+        // }
+    },
     data() {
         return {
             fullName: "",
@@ -44,7 +58,7 @@ export default {
     },
     methods: {
         customerSignUp() {
-            api.post("/controllers/CustomerController.php", JSON.stringify({
+            api.post("/controllers/CustomerController.php?action=customerSignUp", JSON.stringify({
                 // Data properties that get requested by the backend CustomerController.php controller
                 fullName: this.fullName,
                 email: this.email,
@@ -58,13 +72,13 @@ export default {
                     console.log(response);
 
                     if (response.data) {
-                        
-                    var x = document.getElementById("snackbar5");
-                    x.className = "show";
-                    setTimeout(function () {
-                    router.push({ name: 'Login' });
-                    x.className = x.className.replace("show", "");
-                    }, 2000);
+
+                        var x = document.getElementById("snackbar5");
+                        x.className = "show";
+                        setTimeout(function () {
+                            router.push({ name: 'Login' });
+                            x.className = x.className.replace("show", "");
+                        }, 2000);
 
                     }
                 })

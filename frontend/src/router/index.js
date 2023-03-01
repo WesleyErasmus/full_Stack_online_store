@@ -72,11 +72,19 @@ const router = createRouter({
       path: "/login",
       name: "Login",
       component: Login,
+      // Defining metadata to login page so that it is only accesable to users that are not logged in. In the mounted lifecycle hook there is a check to see if the user is logged in
+      meta: {
+        requiresGuest: true,
+      },
     },
     {
       path: "/sign-up",
       name: "SignUp",
       component: SignUp,
+      // Defining metadata to sign-up page so that it is only accesable to users that are not logged in. In the mounted lifecycle hook there is a check to see if the user is logged in
+      meta: {
+        requiresGuest: true,
+      },
     },
     {
       path: "/profile",

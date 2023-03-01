@@ -1,7 +1,6 @@
 <template>
     <div id="main">
         <h1>My Profile</h1>
-        <div v-if="customerData.password">
             <form @submit.prevent="updateCustomerProfile">
                 <div>
                     <label for="name">Name:</label>
@@ -15,13 +14,13 @@
                     <label for="password">Password:</label>
                     <input id="password" v-model="customerData.password" type="password" />
                 </div>
+                  <div>
+            <label for="confirm-password">Confirm Password:</label>
+            <input id="confirm-password" v-model="confirmPassword" type="password" />
+          </div>
                 <button type="submit">Update Account</button>
             </form>
         </div>
-        <div v-else>
-            <Spinner />
-        </div>
-    </div>
 </template>
 
 <script>
@@ -36,52 +35,76 @@ export default {
     },
     data() {
         return {
+            // Customer data that gets displayed in the input fields
             customerData: {
                 full_name: "",
                 email: "",
                 password: "",
             },
+             confirmPassword: "",
         };
     },
     methods: {
-        updateCustomerProfile() {
-            const customerId = this.cookies.get("customer_id");
+    updateCustomerProfile() {
+            let customerId = this.cookies.get("customer_id");
+            const customer_id = parseInt(customerId);
             const fullName = this.customerData.full_name;
             const email = this.customerData.email;
             const password = this.customerData.password;
 
-            api.post(`/controllers/CustomerController.php`, {
-                action: 'updateProfile',
-                customerId: customerId,
+            // Update customerData object with new data from inputs
+            this.customerData.full_name = fullName;
+            this.customerData.email = email;
+            this.customerData.password = password;
+
+            // Check if password and confirm password match before continuing with the function code
+            if (password !== this.confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            api.post(`/controllers/CustomerController.php?action=updateCustomerProfile&customerId=${customer_id}`, {
                 full_name: fullName,
                 email: email,
                 password: password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
             })
                 .then(response => {
                     console.log(response.data);
-                    // handle success
+                    // Refresh customer data after updating
+                    // this.fetchCustomerData();
+                    this.customerData.full_name = fullName;
+                    console.log("Updated full name:", this.customerData.full_name);
+
+                    this.customerData.email = email;
+                    console.log("Updated email:", this.customerData.email);
+
+                    this.customerData.password = password;
+                    console.log("Updated password:", this.customerData.password);
+                    
                 })
                 .catch(error => {
                     console.error(error);
-                    // handle error
                 });
-        }
+        },
+        fetchCustomerData() {
+            let customerId = this.cookies.get("customer_id");
+            const customer_id = parseInt(customerId);
+            api.get(`/controllers/CustomerController.php?customerId=${customerId}`, { responseType: 'json' })
+                .then((response) => {
+                    this.customerData = response.data;
+                    console.warn(response);
+                    console.log("customer_id:", customer_id, typeof customer_id);
+                    this.customerData.password = "";
+                });
+        },
     },
     mounted() {
-        // User id cookie
-        let customerId = this.cookies.get("customer_id");
-        const customer_id = parseInt(customerId);
-
-        // Display cart items for a customer. Customerid parameter displaying only cart items with the customers id
-        api.get(`/controllers/CustomerController.php?action=getProfile&customerId=${customerId}`, { responseType: 'json' })
-            .then((response) => {
-                this.customerData = response.data;
-
-
-                console.warn(response);
-                // console.log(this.shoppingCart)
-                console.log("customer_id:", customer_id, typeof customer_id);
-            });
+        // Fetch customer data on component mount
+        this.fetchCustomerData();
     },
 }
 </script>

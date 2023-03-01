@@ -20,6 +20,7 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink :to="{ name: 'Cart' }">Cart</RouterLink>
         <RouterLink :to="{ name: 'FeaturedProducts' }">Trending</RouterLink>
         <RouterLink :to="{ name: 'NewProducts' }">New In</RouterLink>
+        <RouterLink :to="{ name: 'Profile' }">Profile</RouterLink>
         <RouterLink :to="{ name: 'About' }">About</RouterLink>
         <RouterLink :to="{ name: 'Contact' }">Contact</RouterLink>
         <RouterLink :to="{ name: 'Login' }">
@@ -28,8 +29,10 @@ import { RouterLink, RouterView } from "vue-router";
             <button v-else>Login</button>
         </div>
         </RouterLink>
+        <!-- Hides signup button if user is already logged in -->
+        <div v-if="!loggedIn">
         <RouterLink :to="{ name: 'SignUp' }">Sign-up</RouterLink>
-        <RouterLink :to="{ name: 'Profile' }">Profile</RouterLink>
+        </div>
 
         <!-- Shopping Cart Icon in header -->
         <div id="navbar-cart" class="cart-icon-link-container">
@@ -71,10 +74,12 @@ import { mapMutations } from 'vuex';
 
 import Footer from "../src/components/Footer.vue";
 import Product from "../src/views/shop/Product.vue";
+import { useCookies } from "vue3-cookies";
 export default {
   components: { Footer, Product },
   // props to bring in cart array length count
   props: ["shoppingCart"],
+
   data() {
     return {
       cartCount: 0,
@@ -86,6 +91,7 @@ export default {
       customerId: null
     }
   },
+  
   methods: {
     // Back redirect button / using router history feature
     back() {

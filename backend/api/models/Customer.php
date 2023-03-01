@@ -94,18 +94,4 @@ class Customer
         }
     }
 
-    public function updateCustomerProfile($customer_id, $full_name, $email, $password)
-    {
-        require_once '../config/DatabaseConnector.php';
-        $conn = new DatabaseConnector();
-        $conn = $conn->getConnection();
-
-        $update_customer_profile = "UPDATE customers SET fullname = '$full_name', email = '$email', password = '$password' WHERE id = '$customer_id'";
-
-        if ($conn->query($update_customer_profile) === TRUE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
