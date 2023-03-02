@@ -1,10 +1,10 @@
 <template>
-    <div class="mt-16">
-        <v-toolbar color="transparent" class="elevation-0" density="" theme="light">
+    <v-layout class="mt-7">
+        <v-app-bar color="transparent" class="elevation-0" theme="light">
             <template v-slot:prepend>
                 <v-app-bar-nav-icon>
 
-                    <v-btn variant="tonal" class="mr-5" icon color="primary">
+                    <v-btn size="small" variant="tonal" class="mr-5" icon color="primary">
                         <v-icon>mdi-grid-large</v-icon>
 
                     </v-btn>
@@ -15,29 +15,32 @@
             </template>
             <template v-slot:append>
             </template>
-        </v-toolbar>
-        <v-card max-width="" class="mx-auto" variant="none">
-            <v-container class="pa-1">
-                <v-item-group multiple>
-                    <v-row>
-                        <v-col v-for="(item, i) in items" :key="i" cols="12" md="3">
-                            <v-item>
-                                <v-img :src="item.src" cover height="250" class="text-right pa-2" @click="toggle">
-                                    <v-card-body
-                                        class="d-flex flex-column fill-height justify-center align-center text-white">
-                                        <v-btn class="ms-2" variant="outlined" color="secondary" size="small">
-                                            <a class="text-white text-decoration-none elevated-4" href="" target="_blank">{{
-                                                item.title }}</a>
-                                        </v-btn>
-                                    </v-card-body>
-                                </v-img>
-                            </v-item>
-                        </v-col>
-                    </v-row>
-                </v-item-group>
-            </v-container>
-        </v-card>
-    </div>
+        </v-app-bar>
+        <v-main>
+            <v-card max-width="" class="mx-auto" variant="none">
+                <v-container class="pa-1">
+                    <v-item-group multiple>
+                        <v-row>
+                            <v-col v-for="(item, i) in items" :key="i" cols="12" md="3">
+                                <v-item>
+                                    <v-img :src="item.src" cover height="250" class="text-right pa-2" @click="toggle">
+                                        <v-card-body
+                                            class="d-flex flex-column fill-height justify-center align-center text-white">
+                                            <v-btn class="ms-2" variant="outlined" color="secondary" size="small">
+                                                <a class="text-white text-decoration-none elevated-4" href=""
+                                                    target="_blank">{{
+                                                        item.title }}</a>
+                                            </v-btn>
+                                        </v-card-body>
+                                    </v-img>
+                                </v-item>
+                            </v-col>
+                        </v-row>
+                    </v-item-group>
+                </v-container>
+            </v-card>
+        </v-main>
+    </v-layout>
 </template>
 
 <script>

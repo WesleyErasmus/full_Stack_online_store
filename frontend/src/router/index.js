@@ -7,11 +7,12 @@ import Home from '../views/home/Home.vue'
 import Shop from '../views/shop/Shop.vue'
 import Product from "../views/shop/Product.vue";
 import Cart from "../views/shop/Cart.vue";
-import About from "../views/About.vue";
+import About from "../views/about/About.vue";
 import Contact from "../views/contact/Contact.vue";
-import FeaturedProducts from "../views/FeaturedProducts.vue";
-import NewProducts from "../views/NewProducts.vue";
+import FeaturedProducts from "../views/Shop/FeaturedProducts.vue";
+import NewProducts from "../views/Shop/NewProducts.vue";
 import NotFound from "../views/NotFound.vue";
+import AccessDenied from "../views/AccessDenied.vue";
 import Login from "../views/signIn/Login.vue";
 import SignUp from "../views/signIn/SignUp.vue";
 import Profile from "../views/profile/CustomerProfilePage.vue";
@@ -69,6 +70,11 @@ const router = createRouter({
       component: NotFound,
     },
     {
+      path: "/access-denied",
+      name: "AccessDenied",
+      component: AccessDenied,
+    },
+    {
       path: "/login",
       name: "Login",
       component: Login,
@@ -81,7 +87,6 @@ const router = createRouter({
       path: "/sign-up",
       name: "SignUp",
       component: SignUp,
-      // Defining metadata to sign-up page so that it is only accesable to users that are not logged in. In the mounted lifecycle hook there is a check to see if the user is logged in
       meta: {
         requiresGuest: true,
       },
@@ -90,6 +95,10 @@ const router = createRouter({
       path: "/profile",
       name: "Profile",
       component: Profile,
+      // Defining metadata to profile page so that it is only accesable to users that are not logged in. In the mounted lifecycle hook there is a check to see if the user is logged in
+      meta: {
+        requiresGuest: true,
+      },
     },
   ],
   scrollBehavior(to, from, savedPosition) {

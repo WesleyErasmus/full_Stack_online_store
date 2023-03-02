@@ -31,6 +31,7 @@
 import api from "@/services/api.js";
 import { useCookies } from "vue3-cookies";
 import Spinner from "/src/components/Spinner.vue";
+import router from "/src/router";
 export default {
     components: { Spinner },
     setup() {
@@ -110,6 +111,14 @@ export default {
     mounted() {
         // Fetch customer data on component mount
         this.fetchCustomerData();
+
+        let customerId = this.cookies.get("customer_id");
+        const customer_id = parseInt(customerId);
+        if (!customer_id) {
+            // Check if the customer is logged in
+            router.push({ name: 'AccessDenied' });
+            // Redirect the customer to the Home page
+        }
     },
 }
 </script>

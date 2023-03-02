@@ -1,11 +1,11 @@
 <template>
   <!-- Blogs container -->
-  <v-layout class="pt-16 mt-16">
-    <v-app-bar class="elevation-0" density="" theme="light">
+  <v-layout class="mt-7">
+    <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
         <v-app-bar-nav-icon>
           
-          <v-btn variant="tonal" class="mr-5" icon color="primary">
+          <v-btn variant="tonal" size="small" class="mr-5" icon color="primary">
             <v-icon>mdi-hanger</v-icon>
           
           </v-btn>
@@ -18,7 +18,7 @@
       </template>
     </v-app-bar>
 
-    <div class="">
+    <v-main class="">
       <v-row dense>
         <v-col cols="6">
           <v-card theme="dark">
@@ -66,7 +66,7 @@
           </v-card>
         </v-col>
       </v-row>
-    </div>
+    </v-main>
   </v-layout>
 </template>
 

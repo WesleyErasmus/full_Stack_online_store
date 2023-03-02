@@ -1,7 +1,7 @@
 <template>
   <!-- Featured products container -->
-  <div class="mt-0 pt-0">
-    <v-app-bar class="elevation-0" density="" theme="light">
+  <v-layout class="mt-3">
+    <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
         <v-app-bar-title class="text-high-emphasis">
           See what's trending
@@ -40,11 +40,12 @@
                 </div>
               </v-card-actions>
             </v-card>
+            <hr>
           </v-col>
         </v-row>
       </v-item-group>
     </v-main>
-  </div>
+  </v-layout>
 </template>
 <!-- <small class="text-muted">#JustDropped</small> -->
 <script>

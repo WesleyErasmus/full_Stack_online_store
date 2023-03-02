@@ -3,6 +3,24 @@
     <div v-if="products">
       <!-- Page toolbar -->
       <div class="pt-5 mt-5">
+        <!-- Disable add to cart button for guest users -->
+        <v-alert color="warning" variant="tonal"
+          class="mb-3 text-caption rounded text-center" v-if="!customer_id">
+          <v-spacer></v-spacer>
+          Please
+          <RouterLink :to="{ name: 'Login' }" class="text-primary font-weight-bold text-decoration-none">
+            Login
+          </RouterLink> or
+
+
+          <RouterLink :to="{ name: 'SignUp' }" class=" text-primary font-weight-bold text-decoration-none">
+            Sign-Up
+          </RouterLink>
+
+          to add items to the
+          cart.
+          <v-spacer></v-spacer>
+        </v-alert>
         <v-toolbar dark prominent>
           <v-app-bar-nav-icon :to="{ name: 'Cart' }">
             <v-icon>mdi-cart</v-icon>
@@ -70,7 +88,9 @@
                       <div>{{ product.description }}</div>
                     </v-card-text>
                     <!-- Add to cart button -->
-                    <v-btn class="my-5 mx-3" block variant="tonal" @click="addToCart()">
+                    <!-- Disable add to cart button for guest users -->
+                    <v-btn color="primary" size="large" class="my-5 mx-3" block variant="tonal" :disabled="!customer_id"
+                      @click="addToCart()">
                       <span class="material-symbols-outlined">
                         add_shopping_cart
                       </span>
@@ -135,6 +155,7 @@ export default {
       mainImageSrc: '',
       products: null,
       shoppingCart: [],
+      customer_id: this.cookies.get("customer_id")
     };
   },
 
@@ -191,6 +212,10 @@ export default {
     },
   },
   mounted() {
+
+    let customerId = this.cookies.get("customer_id");
+    const customer_id = parseInt(customerId);
+
     api.get(`/controllers/ProductController.php?action=displayProductById&tableName=myTable&id=${this.id}`, { responseType: 'json' })
       .then((response) => {
         this.products = response.data;

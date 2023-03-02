@@ -19,10 +19,12 @@
                 </div>
 
             </v-app-bar-title>
+            <!-- Prevent access to guest users -->
             <RouterLink :to="{ name: 'SignUp' }" class="text-decoration-none">
                 <v-btn v-if="!customer_id" variant="outlined" color="primary" size="small"
                     class="give-btn text-overline mb-3 mr-5">Sign-Up</v-btn>
             </RouterLink>
+            <!-- Conditionally changing the value of the login/logout button based on the the user is a guest or a signed in customer -->
             <RouterLink :to="{ name: 'Login' }" class="text-decoration-none">
                 <v-btn v-if="!customer_id" variant="elevated" color="primary" size="small"
                     class="give-btn text-overline mb-3 mr-5">Login</v-btn>
@@ -46,10 +48,14 @@
                         HOME
                     </RouterLink>
                     <RouterLink class="nav-tab-item" :to="{ name: 'Shop' }">SHOP</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
+
+                    <!-- Prevent access to guest users -->
+                    <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
                     <RouterLink class="nav-tab-item" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
                     <RouterLink class="nav-tab-item" :to="{ name: 'NewProducts' }">NEW</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'Profile' }">PROFILE</RouterLink>
+
+                    <!-- Prevent access to guest users -->
+                    <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Profile' }">PROFILE</RouterLink>
                     <RouterLink class="nav-tab-item" :to="{ name: 'About' }">ABOUT</RouterLink>
                     <RouterLink class="nav-tab-item" :to="{ name: 'Contact' }">CONTACT</RouterLink>
                 </div>
@@ -58,8 +64,10 @@
                 <div>
                     <a @click="smoothScrollToTop" class="back-to-top-btn text-primary mr-5">Back to top</a>
                 </div>
+
+                <!-- Prevent access to guest users -->
                 <!-- Shopping Cart Icon in header -->
-                <RouterLink class="shopping-cart-icon" :to="{ name: 'Cart' }">
+                <RouterLink v-if="customer_id" class="shopping-cart-icon" :to="{ name: 'Cart' }">
                     <!-- Shopping cart icon & link to cart -->
                     <v-btn variant="tonal" size="large" icon color="primary">
                         <v-icon>mdi-cart</v-icon>
@@ -89,6 +97,14 @@ export default {
             email: "",
             password: "",
             customer_id: this.cookies.get("customer_id")
+        }
+    },
+    watch: {
+        cookies: {
+            handler(newCookies) {
+                customer_id = newCookies.customer_id;
+            },
+            deep: true
         }
     },
     methods: {
@@ -259,7 +275,7 @@ export default {
 
 /* Social media header icons styling */
 .fa-brands {
-    font-size: calc(15px + 0.5rem);
+    font-size: calc(13px + 0.5rem);
     color: #000;
     -webkit-transition: 0.3s ease-out;
     transition: 0.3s ease-out;

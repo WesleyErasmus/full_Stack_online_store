@@ -49,9 +49,10 @@
 import api from "@/services/api.js";
 import Toasts from "@/components/Toasts.vue";
 import { useCookies } from "vue3-cookies";
+import router from "/src/router";
 export default {
     components: { Toasts },
-    setup() {
+      setup() {
         const { cookies } = useCookies();
         return { cookies };
     },
@@ -63,10 +64,14 @@ export default {
             customer_id: this.cookies.get("customer_id")
         };
     },
-    computed: {
-          isLoggedIn() {
-            return customer_id;
-        },
+      mounted() {
+        let customerId = this.cookies.get("customer_id");
+        const customer_id = parseInt(customerId);
+        if (customer_id) {
+            // Check if the customer is logged in
+            router.push({ name: 'Home' });
+            // Redirect the customer to the Home page
+        }
     },
     methods: {
         customerLogin() {
