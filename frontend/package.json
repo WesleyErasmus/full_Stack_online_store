@@ -11,8 +11,7 @@
     "vue": "^3.2.37",
     "vue-router": "^4.1.2",
     "vue3-cookies": "^1.0.6",
-    "vuetify": "^3.1.6",
-    "vuex": "^4.0.2"
+    "vuetify": "^3.1.6"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",

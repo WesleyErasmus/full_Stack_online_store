@@ -1,20 +1,25 @@
 <template>
     <div>
-        <!-- Home page Image Banner -->
-        <RouterLink :to="{ name: 'FeaturedProducts' }">
-                <v-img alt="Image Banner" class="img-banner bg-grey-lighten-2"
-                aspect-ratio="1" cover
-                    src="https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"></v-img>
+        <RouterLink class="text-decoration-none" :to="{ name: 'FeaturedProducts' }">
+            <v-parallax class="mt-6"
+                src="https://images.unsplash.com/photo-1507553532144-b9df5e38c8d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1213&q=80"
+                height="51vh">
+                <div class="d-flex flex-column fill-height justify-center align-center text-white">
+                    <img class="logo-image" src="../../assets/logofull.png" alt="Logo">
+                    <h2>
+                        Just Be Yourself.
+                    </h2>
+                </div>
+            </v-parallax>
         </RouterLink>
-
     </div>
 </template>
 
 <style scoped>
-/* Home page top banner img */
-.img-banner {
-    margin-top: 1rem;
-    height: 42vh;
-    /* width: 90vw; */
+.logo-image {
+    width: 130px;
+}
+h2 {
+    /* text-shadow: var(--text-shadow); */
 }
 </style>

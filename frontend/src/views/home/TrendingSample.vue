@@ -1,48 +1,54 @@
 <template>
   <!-- Featured products container -->
-  
-  <v-container class="">
-    <!-- Featured and New Page links -->
-    <div class="page-links">
-      <!-- New products page link -->
-      <RouterLink class="text-decoration-none" :to="{ name: 'NewProducts' }">
-        <div class="new-products-link">NEW PRODUCTS</div>
-      </RouterLink>
-      <!-- Featured products page link -->
-      <RouterLink class="text-decoration-none" :to="{ name: 'FeaturedProducts' }">
-        <div class="feature-products-link">FEATURED PRODUCTS</div>
-      </RouterLink>
-    </div>
-    <h1>Trending Collection</h1>
-   
-    <v-card class="mx-auto" variant="none">
-       <!-- See all link that routes to featured products page -->
-      <span>
-        <RouterLink :to="{ name: 'FeaturedProducts' }" class="see-all">
-          see all</RouterLink>
-      </span>
-      <v-container class="pa-1">
-        <v-item-group multiple>
-          <v-row>
-            <v-col v-for="featured in products" :key="featured.id" cols="12" md="2">
-              <router-link :to="{ name: 'Product', params: { id: featured.id } }">
-                <v-img :src="
-                  'https://source.unsplash.com/random/?fashion/id' + featured.id" cover height="220"
-                     aspect-ratio="4/3"
-                  class="text-right pa-2" @click="toggle">
-                </v-img>
-              </router-link>
-              <small class="text-muted">#Featured</small>
-            </v-col>
-          </v-row>
-        </v-item-group>
-      </v-container>
-    </v-card>
-  </v-container>
-</template>
+  <div class="mt-0 pt-0">
+    <v-app-bar class="elevation-0" density="" theme="light">
+      <template v-slot:prepend>
+        <v-app-bar-title class="text-high-emphasis">
+          See what's trending
+        </v-app-bar-title>
+      </template>
+      <template v-slot:append>
+        <v-card-actions>
+          <v-btn variant="outlined" color="primary" size="small">shop our popular products</v-btn>
+        </v-card-actions>
+      </template>
+    </v-app-bar>
 
+    <v-main class="mx-auto" v-if="products.length">
+      <v-item-group multiple>
+        <v-row>
+          <v-col v-for="product in products" :key="product.id" cols="12" md="2">
+            <v-card class="mx-auto rounded-0" max-width="200" variant="none">
+              <router-link :to="{ name: 'Product', params: { id: product.id } }">
+                <v-img :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
+              </router-link>
+              <v-card-title class="text-subtitle-2 font-weight-bold pa-0">
+                {{ product.title }}
+              </v-card-title>
+              <v-card-subtitle class="pa-0">
+                {{ product.category }}
+              </v-card-subtitle>
+              <v-card-actions class="pa-0 ma-0" style="min-height: 28px !important; height: 28px !important;">
+                <v-card-text class="pa-0 text-subtitle-1 font-italic">
+                  R{{ product.price }}
+                </v-card-text>
+                <v-spacer></v-spacer>
+                <div class="my-2">
+                  <router-link class="text-decoration-none" :to="{ name: 'Product', params: { id: product.id } }">
+                    <v-btn size="small" color="surface-variant" variant="text" icon="mdi-heart"></v-btn>
+                  </router-link>
+                </div>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-item-group>
+    </v-main>
+  </div>
+</template>
+<!-- <small class="text-muted">#JustDropped</small> -->
 <script>
-import axios from "axios";
+import api from "@/services/api.js";
 export default {
   data() {
     return {
@@ -50,41 +56,22 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get("https://api.escuelajs.co/api/v1/products?offset=0&limit=6")
+    api
+      .get("/controllers/ProductController.php?action=displayAllProducts&tableName=myTable", {
+        responseType: "json",
+      })
       .then((response) => {
         this.products = response.data;
-        console.warn(response);
       });
+
+    // event listener for escape key press
+    document.addEventListener("keydown", this.clearSearchOnEscape);
   },
-};
+}
 </script>
 
 <style scoped>
-/* See all button */
 .see-all {
   color: var(--primary-color) !important;
-}
-
-/* Top banner links container */
-.page-links {
-  height: 50px;
-  background: #000;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 2.5rem 0;
-}
-
-/* Links in block below app header */
-.new-products-link,
-.feature-products-link {
-  color: #bbb;
-}
-
-.new-products-link:hover,
-.feature-products-link:hover {
-  color: #fff;
-  cursor: pointer;
 }
 </style>

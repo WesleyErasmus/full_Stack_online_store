@@ -10,10 +10,15 @@
   --primary-color: #385f73;
   --btn-shadows: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   --card-shadows: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  --card-padding: 0.85vw ;
+  --card-padding: 0.85vw;
   --primary-grey: #9d9d9d;
   --secondary-grey: #c1c1c1;
   --screen-width: max-width: 1440px;
+  --text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  --primary-color-2: #f6f6f6;
+  --secondary-color: #e5e5e5;
+  --tertiary-color: #d4d4d4;
+  --quaternary-color: #333333;
 }
 
 
@@ -22,5 +27,5 @@
 
 /* Main styling for all pages between header and footer */
 #main {
-  max-width: 1440px;
+  max-width: 1240px;
 }

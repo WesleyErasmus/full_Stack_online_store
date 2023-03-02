@@ -1,6 +1,21 @@
 <template>
-    <v-container>
-        <h1 class="">Categories</h1>
+    <div class="mt-16">
+        <v-toolbar color="transparent" class="elevation-0" density="" theme="light">
+            <template v-slot:prepend>
+                <v-app-bar-nav-icon>
+
+                    <v-btn variant="tonal" class="mr-5" icon color="primary">
+                        <v-icon>mdi-grid-large</v-icon>
+
+                    </v-btn>
+                </v-app-bar-nav-icon>
+                <v-app-bar-title class="">
+                    Shop categories
+                </v-app-bar-title>
+            </template>
+            <template v-slot:append>
+            </template>
+        </v-toolbar>
         <v-card max-width="" class="mx-auto" variant="none">
             <v-container class="pa-1">
                 <v-item-group multiple>
@@ -8,7 +23,13 @@
                         <v-col v-for="(item, i) in items" :key="i" cols="12" md="3">
                             <v-item>
                                 <v-img :src="item.src" cover height="250" class="text-right pa-2" @click="toggle">
-                                    <v-btn class="text-white" variant="text">{{ item.title }}</v-btn>
+                                    <v-card-body
+                                        class="d-flex flex-column fill-height justify-center align-center text-white">
+                                        <v-btn class="ms-2" variant="outlined" color="secondary" size="small">
+                                            <a class="text-white text-decoration-none elevated-4" href="" target="_blank">{{
+                                                item.title }}</a>
+                                        </v-btn>
+                                    </v-card-body>
                                 </v-img>
                             </v-item>
                         </v-col>
@@ -16,7 +37,7 @@
                 </v-item-group>
             </v-container>
         </v-card>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -28,7 +49,7 @@ export default {
                 title: 'Shirts',
             },
             {
-                src: 'https://images.unsplash.com/photo-1535530705774-695729778c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                src: 'https://images.unsplash.com/photo-1654894887475-765708cf11a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=708&q=80',
                 title: 'Pants',
             },
             {

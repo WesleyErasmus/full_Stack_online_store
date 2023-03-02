@@ -1,86 +1,112 @@
 <template>
-  <div id="main" class="product-page">
-    <div class="product">
-      <div v-if="products">
-        <div v-for="product in products" :key="product.id">
-          <h1 class="page-heading">Product Details</h1>
-          <div></div>
-          <RouterLink :to="{ name: 'Cart' }">
-            <div class="view-cart">View Cart</div>
-          </RouterLink>
-          <div class="product-container">
-            <div class="product-image-container">
-              <!-- Image 1 -->
-              <div class="img-box">
-                <img class="product-img" :src="product.img_gallery_1" alt="Product Image 1" @click="toggleModal1" />
-              </div>
-              <!-- Image 2 -->
-              <div class="img-box">
-                <img class="product-img" :src="product.img_gallery_2" alt="Product Image 2" @click="toggleModal2" />
-              </div>
-              <!-- Image 2 -->
-              <div class="img-box">
-                <img class="product-img" :src="product.img_gallery_3" alt="Product Image 3" @click="toggleModal3" />
-              </div>
-              <teleport to="#modals" v-if="showModal1">
-                <Modal @close="toggleModal1">
-                  <img class="product-img-zoomed" :src="product.img_gallery_1" alt="Product Image 1" />
-                  <template v-slot:links>
-                    <button class="close-modal-button" @click="toggleModal1"><span class="material-symbols-outlined">
-                        close </span></button>
-                  </template>
-                </Modal>
-              </teleport>
-              <!-- Image modal 2 -->
-              <teleport to="#modals" v-if="showModal2">
-                <Modal @close="toggleModal2">
-                  <img class="product-img-zoomed" :src="product.img_gallery_2" alt="Product Image 2" />
-                  <template v-slot:links>
-                    <button class="close-modal-button" @click="toggleModal2"><span class="material-symbols-outlined">
-                        close </span></button>
-                  </template>
-                </Modal>
-              </teleport>
-              <!-- Image modal 3 -->
-              <teleport to="#modals" v-if="showModal3">
-                <Modal @close="toggleModal3">
-                  <img class="product-img-zoomed" :src="product.img_gallery_3" alt="Product Image 3" />
-                  <template v-slot:links>
-                    <button class="close-modal-button" @click="toggleModal3">
-                      <span class="material-symbols-outlined"> close </span>
-                    </button>
-                  </template>
-                </Modal>
-              </teleport>
-            </div>
-            <div class="product-details">
-              <span class="product-id">Product id: {{ product.id }}</span>
-
-              <h3 class="product-title" ref="title">{{ product.title }}</h3>
-
-              <div class="product-price">R{{ product.price }}</div>
-
-              <div class="product-department">
-                Department: {{ product.category }}
-              </div>
-              <div class="product-description-title">Product Details</div>
-              <div class="product-description">{{ product.description }}</div>
-
-              <!-- Add to cart button -->
-              <button class="add-to-cart-btn" @click="addToCart()">
-                <span class="material-symbols-outlined shopping-cart-icon">
-                  add_shopping_cart
-                </span>
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
+  <div id="main" class="mx-auto">
+    <div v-if="products">
+      <!-- Page toolbar -->
+      <div class="pt-5 mt-5">
+        <v-toolbar dark prominent>
+          <v-app-bar-nav-icon :to="{ name: 'Cart' }">
+            <v-icon>mdi-cart</v-icon>
+          </v-app-bar-nav-icon>
+          <v-toolbar-title>
+            <RouterLink :to="{ name: 'Cart' }">
+              <div class="view-cart">Go to cart</div>
+            </RouterLink>
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn variant="outlined">
+            Continue Shopping
+          </v-btn>
+        </v-toolbar>
       </div>
-      <div v-else>
-        <Spinner />
-      </div>
+      <!-- Product display card -->
+      <v-card variant="none">
+        <v-container fluid>
+          <v-row dense>
+            <v-col>
+              <v-card v-for="product in products" :key="product.id" variant="none">
+                <!-- card body container -->
+                <v-container class="product-card-flex-container">
+                  <!-- All images container -->
+                  <div class="product-card-flex-inner">
+                    <!-- Image gallery container -->
+                    <div class="d-flex flex-column img-gallery-container">
+                      <!-- Default image -->
+                      <v-img :src="product.image" @click="updateMainImage(product.image)" class="mx-3" width="110px"
+                        aspect-ratio="1/1" cover>
+                        <v-card-title class="text-white"></v-card-title>
+                      </v-img>
+                      <!-- Image gallery 1 -->
+                      <v-img :src="product.img_gallery_1" @click="updateMainImage(product.img_gallery_1)"
+                        class="ma-3 mb-0" width="110px" aspect-ratio="1/1" cover>
+                        <v-card-title class="text-white"></v-card-title>
+                      </v-img>
+                      <!-- Image gallery 2 -->
+                      <v-img :src="product.img_gallery_2" @click="updateMainImage(product.img_gallery_2)" class="ma-3"
+                        width="110px" aspect-ratio="1/1" cover>
+                      </v-img>
+                      <!-- Image gallery 3 -->
+                      <v-img :src="product.img_gallery_3" @click="updateMainImage(product.img_gallery_3)" class="mx-3"
+                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" width="110px" aspect-ratio="1/1" cover>
+                      </v-img>
+                    </div>
+                    <!-- Preview image -->
+                    <div>
+                      <v-img :src="mainImageSrc" aspect-ratio="1/1" min-width="480px" @click="dialog = true">
+                      </v-img>
+                    </div>
+                  </div>
+                  <!-- Card text -->
+                  <div class="card-body-text py-3">
+                    <v-card-item class="text-h6 mb-1">{{ product.title }}</v-card-item>
+                    <v-card-title>R{{ product.price }}</v-card-title>
+                    <hr class="ma-3">
+                    <v-card-subtitle class="pt-3">
+                      <div>
+                        Department: {{ product.category }}
+                      </div>
+                    </v-card-subtitle>
+                    <v-card-text>
+                      <div>Product Details</div>
+                      <div>{{ product.description }}</div>
+                    </v-card-text>
+                    <!-- Add to cart button -->
+                    <v-btn class="my-5 mx-3" block variant="tonal" @click="addToCart()">
+                      <span class="material-symbols-outlined">
+                        add_shopping_cart
+                      </span>
+                      Add to Cart
+                    </v-btn>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <div class="my-2">
+                        <v-btn size="small" color="surface-variant" variant="text" icon="mdi-heart"></v-btn>
+                        <v-btn size="small" color="surface-variant" variant="text" icon="mdi-bookmark"></v-btn>
+                        <v-btn size="small" color="surface-variant" variant="text" icon="mdi-share-variant"></v-btn>
+                      </div>
+                    </v-card-actions>
+                  </div>
+                </v-container>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card>
     </div>
+    <div v-else>
+      <Spinner />
+    </div>
+    <!-- Zoomed product dialog -->
+    <v-dialog v-model="dialog" max-width="100%">
+      <v-card>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
+        </v-card-actions>
+        <v-card-item class="pb-5">
+          <v-img :src="mainImageSrc" class="mx-auto" max-height="600" />
+        </v-card-item>
+      </v-card>
+    </v-dialog>
     <Toasts />
   </div>
 </template>
@@ -89,39 +115,35 @@
 // component imports
 import api from "@/services/api.js";
 import Spinner from "/src/components/Spinner.vue";
-import Modal from "/src/components/Modal.vue";
 import Toasts from "/src/components/Toasts.vue";
 import { useCookies } from "vue3-cookies";
 export default {
-  components: { Spinner, Modal, Toasts },
+  components: { Spinner, Toasts },
   // Id. props used for dynamic routing / props enabled on product component. See router/index.js
   props: ["id"],
-   setup() {
+  setup() {
     const { cookies } = useCookies();
     return { cookies };
   },
   data() {
     return {
+      // for carousel
+      model: null,
+      // for dialog
+      dialog: false,
+      // main image on display
+      mainImageSrc: '',
       products: null,
       shoppingCart: [],
-      showModal1: false,
-      showModal2: false,
-      showModal3: false,
     };
   },
+
   methods: {
-    // Product Zoom Modals
-    toggleModal1() {
-      this.showModal1 = !this.showModal1;
-    },
-    toggleModal2() {
-      this.showModal2 = !this.showModal2;
-    },
-    toggleModal3() {
-      this.showModal3 = !this.showModal3;
+    updateMainImage(imageSrc) {
+      this.mainImageSrc = imageSrc;
     },
 
-     // Add to cart success message
+    // Add to cart success message
     addToCartSuccessToast() {
       var x = document.getElementById("snackbar");
       x.className = "show";
@@ -136,13 +158,13 @@ export default {
       // Declaring varaibes and setting values to the variables
       const productId = parseInt(this.products[0].id);
       const price = parseInt(this.products[0].price);
-      
+
       // User id cookie
       let customerId = this.cookies.get("customer_id");
       let customer_id = parseInt(customerId);
 
       // Post values to store in cart SQL table
-      api.post(`/controllers/CartController.php?action=addToCart&tableName=myTable&id=${productId}&customerId=${customer_id}`,{
+      api.post(`/controllers/CartController.php?action=addToCart&tableName=myTable&id=${productId}&customerId=${customer_id}`, {
         productId: productId,
         customerId: customer_id,
         price: price
@@ -159,9 +181,9 @@ export default {
             console.log("price:", price, typeof price);
 
             // Calling toast message
-            this.addToCartSuccessToast();  
+            this.addToCartSuccessToast();
           }
-          
+
         })
         .catch(error => {
           console.error(error);
@@ -172,6 +194,7 @@ export default {
     api.get(`/controllers/ProductController.php?action=displayProductById&tableName=myTable&id=${this.id}`, { responseType: 'json' })
       .then((response) => {
         this.products = response.data;
+        this.mainImageSrc = this.products[0].image;
         console.warn(response);
       });
   },
@@ -179,164 +202,33 @@ export default {
 </script>
 
 <style scoped>
-/* Page container */
-.product-page {
-  box-shadow: var(--card-shadows);
-}
-
 /* View cart button below page header */
 .view-cart {
   display: inline-block;
-  color: var(--primary-color);
-  font-weight: bold;
-  text-decoration: underline;
+  color: black;
 }
 
 .view-cart:hover {
   color: var(--primary-grey);
 }
 
-
-/* Product details wrapper */
-.product {
-  margin-top: 2vw;
-  padding: 2rem;
-}
-
-/* Flex container for images layout */
-.product-container {
+.product-card-flex-container {
   display: flex;
-  flex-direction: row;
-  padding: 2vw 0;
-}
-
-/* Contains images only */
-.product-image-container {
-  position: relative;
-  width: 590px;
-  display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  align-content: center;
-  flex-direction: column;
 }
 
-/* Individual image container for hover effect */
-.img-box {
+.product-card-flex-inner {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  overflow: hidden;
-  margin: 0.2rem;
 }
 
-
-/* Product images */
-.product-img {
-  width: 270px;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+.img-gallery-container {
+  min-width: 135px;
+  opacity: 0.5;
 }
 
-.product-img:hover {
-  position: relative;
-  transform: scale(1.2);
-  cursor: zoom-in;
+.card-body-text {
+  width: 520px;
 }
 
-
-/* Modal product images */
-.product-img-zoomed {
-  width: 100%;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
-}
-
-.product-img-zoomed:hover {
-  position: relative;
-}
-
-/* Close modal button / modal can also be closed if you click anywhere else on the screen */
-.close-modal-button {
-  padding: 0;
-  margin: 0;
-  background: transparent;
-}
-
-/* Product details container */
-.product-details {
-  width: 450px;
-  margin-left: 2rem;
-}
-
-
-/* Product title container */
-.product-title {
-  padding: 0 0.5rem;
-}
-
-
-/* Product price text styling */
-.product-price {
-  font-size: calc(14px + 1rem);
-  font-weight: bold;
-  padding: 0 0.5rem;
-  color: var(--primary-color);
-}
-
-
-/* Product id font sizing */
-.product-id {
-  padding: 0 0.5rem;
-  font-size: calc(8px + 0.2rem);
-}
-
-
-/* Compartment text container */
-.product-department {
-  color: grey;
-  padding: 0 0.5rem;
-}
-
-/* Description and title container */
-.product-description-title {
-  padding: 0 0.5rem;
-  margin-top: 3rem;
-  color: rgb(102, 102, 102);
-  font-weight: 600;
-  padding-bottom: 0.2rem;
-}
-
-/* Product description font styling */
-.product-description {
-  padding: 0 0.5rem;
-  color: grey;
-  font-size: calc(8px + 0.35rem);
-}
-
-/* Add to cart button */
-.add-to-cart-btn {
-  margin-top: 3rem;
-  width: 100%;
-  background: var(--primary-color);
-  padding: 0.5rem;
-  border-radius: 6px;
-  color: #fff;
-  font-size: calc(13px + 0.5rem);
-  box-shadow: var(--card-shadows);
-}
-
-
-/* Google fonts shopping cart icon */
-.shopping-cart-icon {
-  position: relative;
-  bottom: -4px;
-  margin-right: 13px;
-  font-size: 28px;
-}
-
-.add-to-cart-btn:hover {
-  opacity: 0.8;
-}
+.modal-close-btn {}
 </style>

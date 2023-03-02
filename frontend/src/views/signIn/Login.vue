@@ -48,7 +48,6 @@
 <script>
 import api from "@/services/api.js";
 import Toasts from "@/components/Toasts.vue";
-import { mapMutations } from 'vuex';
 import { useCookies } from "vue3-cookies";
 export default {
     components: { Toasts },
@@ -58,20 +57,18 @@ export default {
     },
     data() {
         return {
-            loggedIn: null,
             fullName: "",
             email: "",
             password: "",
-            customerId: null
+            customer_id: this.cookies.get("customer_id")
         };
     },
     computed: {
-        isLoggedIn() {
-            return this.loggedIn;
+          isLoggedIn() {
+            return customer_id;
         },
     },
     methods: {
-     ...mapMutations(["customerLogin"]),
         customerLogin() {
             api
                 .post(
@@ -92,9 +89,6 @@ export default {
 
                          // Save the customer_id cookie received from backend
                         this.cookies.set("customer_id", response.data.customer_id);
-
-                        // commit the customerLogin mutation
-                        this.$store.commit("customerLogin");
                         
                         // Route user to home page and then refresh page to change login btn to logout
                          this.$router.push({ name: 'Home' }).then(() => {
@@ -116,15 +110,6 @@ export default {
                     console.error(error);
                 });
         },
-    },
-    mounted() {
-        if (localStorage.getItem("isLoggedIn")) {
-            try {
-                this.loggedIn = localStorage.getItem("isLoggedIn");
-            } catch (e) {
-                localStorage.removeItem("isLoggedIn");
-            }
-        }
     },
 };
 </script>
