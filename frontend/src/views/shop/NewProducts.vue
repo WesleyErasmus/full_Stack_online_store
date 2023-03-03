@@ -2,7 +2,7 @@
   <!-- New Products display -->
   <div id="main" class="px-0 pt-4 mx-auto page-container">
     <!-- DIsplays no products message if products don't load -->
-    <v-container id="main" class="mt-0 pt-0 px-0 mx-auto" v-if="products.length">
+    <v-container id="main" class="mt-0 pt-0 px-0 mx-auto" v-if="newProducts.length">
       <v-layout class="mt-0">
         <v-app-bar class="elevation-0" theme="dark">
           <template v-slot:prepend>
@@ -35,7 +35,7 @@
             <v-item-group multiple>
               <v-row>
                 <!-- V-for loop -->
-                <v-col v-for="product in products" :key="product.id" cols="12" sm="4" md="2" lg="2">
+                <v-col v-for="product in newProducts" :key="product.id" cols="12" sm="4" md="2" lg="2">
                   <v-card class="mx-auto rounded-0" max-width="200" variant="none">
                     <!-- Product image and link to product view page -->
                     <router-link :to="{ name: 'Product', params: { id: product.id } }">
@@ -86,6 +86,7 @@ export default {
   data() {
     return {
       products: [],
+      newProducts: [],
 
     };
   },
@@ -99,7 +100,12 @@ export default {
         this.products = response.data;
       });
   },
-
+  // Only displays products that are new
+  computed: {
+    newProducts() {
+      return this.products.filter(product => product.new === "1");
+    }
+  },
 };
 </script>
 

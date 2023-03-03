@@ -16,11 +16,11 @@
       </template>
     </v-app-bar>
     <v-main>
-      <div class="mx-auto" v-if="products.length">
+      <div class="mx-auto" v-if="newProducts.length">
         <v-item-group multiple>
           <v-row>
             <!-- .v-col-sm-6 md-5 .offset-md-2 .v-col-lg-6 .offset-lg-0 -->
-            <v-col v-for="product in products" :key="product.id" cols="12" sm="4" md="2" lg="2">
+            <v-col v-for="product in newProducts" :key="product.id" cols="12" sm="4" md="2" lg="2">
               <v-card class="mx-auto rounded-0" max-width="200" variant="none">
                 <router-link :to="{ name: 'Product', params: { id: product.id } }">
                   <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
@@ -58,6 +58,7 @@ export default {
   data() {
     return {
       products: [],
+      newProducts: [],
     };
   },
   mounted() {
@@ -71,6 +72,12 @@ export default {
 
     // event listener for escape key press
     document.addEventListener("keydown", this.clearSearchOnEscape);
+  },
+   // Only displays products that are new
+  computed: {
+    newProducts() {
+      return this.products.filter(product => product.new === "1");
+    }
   },
 }
 </script>

@@ -24,10 +24,10 @@
       </v-banner-actions>
     </v-banner>
     <!-- Products display -->
-    <v-container class="mt-0 px-0 pt-0 mx-auto" v-if="products.length">
+    <v-container class="mt-0 px-0 pt-0 mx-auto" v-if="featuredProducts.length">
       <v-item-group multiple>
         <v-row>
-          <v-col v-for="product in products" :key="product.id" cols="12" sm="4" md="2" lg="2">
+          <v-col v-for="product in featuredProducts" :key="product.id" cols="12" sm="4" md="2" lg="2">
             <v-card class="mx-auto rounded-0" max-width="200" variant="none">
               <router-link :to="{ name: 'Product', params: { id: product.id } }">
                 <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       products: [],
-
+      featuredProducts: [],
     };
   },
   mounted() {
@@ -81,7 +81,12 @@ export default {
         this.products = response.data;
       });
   },
-
+  // Only displays products that are featured
+  computed: {
+    featuredProducts() {
+      return this.products.filter(product => product.new === "1");
+    }
+  }
 };
 </script>
 
