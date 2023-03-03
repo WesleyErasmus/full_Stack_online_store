@@ -1,7 +1,8 @@
 <template>
+  <!-- Shop page -->
   <v-layout class="px-0 page-container">
     <!-- Search and filter inputs -->
-    <v-app-bar class="pt-3 v-app-filter-bar" theme="dark">
+    <v-app-bar class="pt-3 v-app-filter-bar" color="grey-darken-2">
       <v-app-bar-nav-icon class="ml-10"><v-icon>mdi-grid-large</v-icon></v-app-bar-nav-icon>
       <v-toolbar-subtitle>Shop All Products</v-toolbar-subtitle>
       <v-spacer></v-spacer>
@@ -25,23 +26,29 @@
     <v-container id="main" class="mt-16 pt-16 mx-auto" v-if="sortedProducts.length">
       <v-item-group multiple>
         <v-row>
+          <!-- Products v-for loop -->
           <v-col v-for="product in sortedProducts" :key="product.id" cols="12" md="2">
             <v-card class="mx-auto rounded-0" max-width="200" variant="none">
+              <!-- Product view link using product id for dynamic routing -->
               <router-link :to="{ name: 'Product', params: { id: product.id } }">
                 <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
               </router-link>
+              <!-- Product title -->
               <v-card-title class="text-subtitle-2 font-weight-bold pa-0">
                 {{ product.title }}
               </v-card-title>
+              <!-- Product category -->
               <v-card-subtitle class="pa-0">
                 {{ product.category }}
               </v-card-subtitle>
               <v-card-actions class="pa-0 ma-0" style="min-height: 28px !important; height: 28px !important;">
+                <!-- Product price -->
                 <v-card-text class="pa-0 text-subtitle-1 font-italic">
                   R{{ product.price }}
                 </v-card-text>
                 <v-spacer></v-spacer>
                 <div class="my-2">
+                  <!-- Link to product view page -->
                   <router-link class="text-decoration-none" :to="{ name: 'Product', params: { id: product.id } }">
                     <v-btn size="small" color="surface-variant" variant="text" icon="mdi-heart"></v-btn>
                   </router-link>
@@ -52,6 +59,7 @@
         </v-row>
       </v-item-group>
     </v-container>
+    <!-- No found products message -->
     <div v-else>
       No products found.
     </div>
@@ -73,6 +81,7 @@ export default {
     };
   },
   mounted() {
+    // Get products
     api
       .get("/controllers/ProductController.php?action=displayAllProducts&tableName=myTable", {
         responseType: "json",
@@ -119,12 +128,14 @@ export default {
 
   },
   methods: {
+    // Sort from hight to low and low to high
     getSortOrders() {
       return [
         { text: "Price low to high", value: "price-low-to-high" },
         { text: "Price high to low", value: "price-high-to-low" },
       ];
     },
+    // Clear search
     clearSearchOnEscape(event) {
       if (event.key === "Escape") {
         this.search = "";
@@ -138,7 +149,7 @@ export default {
 .page-container {
   min-height: 70vh;
 }
-
+/* Search bars styling */
 .v-app-filter-bar {
   position: fixed !important;
   top: 135px !important;

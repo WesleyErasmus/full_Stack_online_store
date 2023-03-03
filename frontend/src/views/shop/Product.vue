@@ -1,4 +1,5 @@
 <template>
+  <!-- Product view page -->
   <div id="main" class="mx-auto">
     <div v-if="products">
       <!-- Page toolbar -->
@@ -7,34 +8,35 @@
         <v-alert color="warning" variant="tonal" class="mb-3 text-caption rounded text-center" v-if="!customer_id">
           <v-spacer></v-spacer>
           Please
+          <!-- Link to login page -->
           <RouterLink :to="{ name: 'Login' }" class="text-primary font-weight-bold text-decoration-none">
             Login
           </RouterLink> or
-
-
+          <!-- Link to sign up page -->
           <RouterLink :to="{ name: 'SignUp' }" class=" text-primary font-weight-bold text-decoration-none">
             Sign-Up
           </RouterLink>
-
           to add items to the
           cart.
           <v-spacer></v-spacer>
         </v-alert>
         <v-toolbar dark prominent>
+          <!-- Go to cart page link -->
           <v-app-bar-nav-icon :to="{ name: 'Cart' }">
             <v-icon>mdi-cart</v-icon>
           </v-app-bar-nav-icon>
           <v-toolbar-title>
+            <!-- Go to cart page link -->
             <RouterLink :to="{ name: 'Cart' }">
               <div class="view-cart">Go to cart</div>
             </RouterLink>
           </v-toolbar-title>
           <v-spacer></v-spacer>
-            <!-- Link to shop page -->
-             <RouterLink :to="{ name: 'Shop' }" class="text-decoration-none text-black mr-5">
-          <v-btn variant="outlined">
-            Continue Shopping
-          </v-btn>
+          <!-- Link to shop page -->
+          <RouterLink :to="{ name: 'Shop' }" class="text-decoration-none text-black mr-5">
+            <v-btn variant="outlined">
+              Continue Shopping
+            </v-btn>
           </RouterLink>
         </v-toolbar>
       </div>
@@ -66,13 +68,13 @@
                       </v-img>
                       <!-- Image gallery 3 -->
                       <v-img :src="product.img_gallery_3" @click="updateMainImage(product.img_gallery_3)"
-                        class="mx-3 product-img" width="110px"
-                        aspect-ratio="1/1" cover>
+                        class="mx-3 product-img" width="110px" aspect-ratio="1/1" cover>
                       </v-img>
                     </div>
                     <!-- Preview image -->
                     <div>
-                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1" min-width="480px" @click="dialog = true">
+                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1" min-width="480px"
+                        @click="dialog = true">
                       </v-img>
                     </div>
                   </div>
@@ -101,6 +103,7 @@
                     </v-btn>
                     <v-card-actions>
                       <v-spacer></v-spacer>
+                      <!-- card links for aesthetics -->
                       <div class="my-2">
                         <v-btn size="small" color="surface-variant" variant="text" icon="mdi-heart"></v-btn>
                         <v-btn size="small" color="surface-variant" variant="text" icon="mdi-bookmark"></v-btn>
@@ -115,12 +118,14 @@
         </v-container>
       </v-card>
     </div>
+    <!-- page loading spinner -->
     <div v-else>
       <Spinner />
     </div>
     <!-- Zoomed product dialog -->
     <v-dialog v-model="dialog" max-width="100%">
       <v-card>
+        <!-- Zoomed image modal/dialog button -->
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
@@ -130,10 +135,10 @@
         </v-card-item>
       </v-card>
     </v-dialog>
+    <!-- Add to cart success message -->
     <Toasts />
   </div>
 </template>
-
 <script>
 // component imports
 import api from "@/services/api.js";
@@ -163,6 +168,7 @@ export default {
   },
 
   methods: {
+    // Function to change which image is the source of the main image display
     updateMainImage(imageSrc) {
       this.mainImageSrc = imageSrc;
     },
@@ -178,8 +184,9 @@ export default {
       }, 2000);
     },
 
+    // Add to cart function
     addToCart() {
-      // Declaring varaibes and setting values to the variables
+      // Declaring variables and setting values to the variables
       const productId = parseInt(this.products[0].id);
       const price = parseInt(this.products[0].price);
 
@@ -215,10 +222,9 @@ export default {
     },
   },
   mounted() {
-
     let customerId = this.cookies.get("customer_id");
     const customer_id = parseInt(customerId);
-
+    // Get product based on the product id
     api.get(`/controllers/ProductController.php?action=displayProductById&tableName=myTable&id=${this.id}`, { responseType: 'json' })
       .then((response) => {
         this.products = response.data;
@@ -239,7 +245,7 @@ export default {
 .view-cart:hover {
   color: var(--primary-grey);
 }
-
+/* Product images flex container */
 .product-card-flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -263,10 +269,8 @@ export default {
   cursor: pointer;
   opacity: 0.75;
 }
+
 .click-img-zoom:hover {
-cursor: zoom-in;
+  cursor: zoom-in;
 }
-
-
-
 </style>

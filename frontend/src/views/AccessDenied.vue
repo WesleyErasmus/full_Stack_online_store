@@ -1,9 +1,12 @@
 <template>
+    <!-- Access denied page -->
     <div class="mt-5 page-container">
         <v-container fluid>
             <v-row align="center" justify="center">
                 <v-col class="text-center" cols="12">
+                    <!-- Page header -->
                     <h1>Access Denied</h1>
+                    <!-- Page subheading -->
                     <h3 class="sub-heading">You're not authorized to access this page</h3>
                     <p class="body-1 text-medium-emphasis">Looks like you've taken a wrong turn. Either you aren't logged in or you don't have
                         the proper permissions to access this page.</p>

@@ -1,4 +1,5 @@
 <template>
+  <!-- Login page -->
   <div class="container mx-auto page-container">
     <v-layout class="mt-3 form-container mx-auto">
       <v-app-bar class="text-center rounded-t-xl" color="primary">
@@ -13,15 +14,18 @@
           <!-- LOGIN FORM -->
           <v-form @submit.prevent="customerLogin" class=" pa-4">
             <div class="form-floating mb-3">
+              <!-- Email input -->
               <v-text-field type="email" name="email" v-model="email" class="form-control" id="validationCustom01"
                 placeholder="Enter your email address" required />
               <label for="validationCustom01">Email</label>
             </div>
+            <!-- Password input -->
             <div class="form-floating mb-3">
               <v-text-field type="password" v-model="password" class="form-control" id="validationCustom02"
                 placeholder="Enter your password" required />
               <label for="validationCustom02">Password</label>
             </div>
+            <!-- Login button -->
             <v-btn color="primary" class="w-100 btn btn-lg login-btn btn-warning" type="submit">
               Login
             </v-btn>
@@ -61,6 +65,7 @@ export default {
     }
   },
   methods: {
+    // Customer login function
     customerLogin() {
       api
         .post(

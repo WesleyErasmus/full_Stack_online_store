@@ -1,13 +1,14 @@
 <template>
+    <!-- Categories component -->
     <v-layout class="mt-7">
         <v-app-bar color="transparent" class="elevation-0" theme="light">
             <template v-slot:prepend>
                 <v-app-bar-nav-icon>
-
                     <v-btn size="small" variant="tonal" class="mr-5" icon color="primary">
                         <v-icon>mdi-grid-large</v-icon>
                     </v-btn>
                 </v-app-bar-nav-icon>
+                <!-- Component heading -->
                 <v-app-bar-title class="">
                     Shop categories
                 </v-app-bar-title>
@@ -16,15 +17,19 @@
             </template>
         </v-app-bar>
         <v-main>
+            <!-- Category cards -->
             <v-card max-width="" class="mx-auto" variant="none">
                 <v-container class="pa-1">
                     <v-item-group multiple>
                         <v-row>
+                            <!-- V for loop -->
                             <v-col v-for="(item, i) in items" :key="i" cols="12" md="3">
                                 <v-item>
+                                    <!-- Images -->
                                     <v-img :src="item.src" cover height="250" class="text-right pa-2" @click="toggle">
                                         <v-card-body
                                             class="d-flex flex-column fill-height justify-center align-center text-white">
+                                            <!-- Card button -->
                                             <v-btn class="ms-2" variant="outlined" color="secondary" size="small">
                                                 <a class="text-white text-decoration-none elevated-4" href=""
                                                     target="_blank">{{
