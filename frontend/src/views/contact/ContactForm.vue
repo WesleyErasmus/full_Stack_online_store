@@ -18,9 +18,9 @@
       </div>
     </v-container>
     <!-- Chip group and Card Safety container -->
-    <v-card class="d-flex justify-center pa-10 my-5" variant="outlined" color="grey-lighten-2">
+    <v-card class="d-flex justify-center flex-wrap pa-10 my-5" variant="outlined" color="grey-lighten-2">
       <!-- FAQS -->
-      <v-card class="ma-3 rounded-b-xl rounded-t-xl" max-width="500px" variant="none">
+      <v-card class="ma-3 rounded-b-xl rounded-t-xl" max-width="480px" width="100%" variant="none">
         <v-row justify="center">
           <v-col cols="12">
             <v-sheet elevation="0" rounded="xl">
@@ -40,7 +40,7 @@
         </v-row>
       </v-card>
       <!-- Card Safety -->
-      <v-card class="ma-3 rounded-b-xl rounded-t-xl" max-width="500px" variant="elevated">
+      <v-card class="ma-3 rounded-b-xl rounded-t-xl" max-width="480px" width="100%" variant="elevated">
         <v-row justify="center">
           <v-col cols="12">
             <v-sheet elevation="0" rounded="xl">
