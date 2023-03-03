@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="px-0">
+  <v-layout class="px-0 page-container">
     <!-- Search and filter inputs -->
     <v-app-bar class="pt-3 v-app-filter-bar" theme="dark">
       <v-app-bar-nav-icon class="ml-10"><v-icon>mdi-grid-large</v-icon></v-app-bar-nav-icon>
@@ -28,7 +28,7 @@
           <v-col v-for="product in sortedProducts" :key="product.id" cols="12" md="2">
             <v-card class="mx-auto rounded-0" max-width="200" variant="none">
               <router-link :to="{ name: 'Product', params: { id: product.id } }">
-                <v-img :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
+                <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
               </router-link>
               <v-card-title class="text-subtitle-2 font-weight-bold pa-0">
                 {{ product.title }}
@@ -135,6 +135,10 @@ export default {
 </script>
 
 <style scoped>
+.page-container {
+  min-height: 70vh;
+}
+
 .v-app-filter-bar {
   position: fixed !important;
   top: 135px !important;

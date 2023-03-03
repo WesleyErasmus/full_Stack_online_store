@@ -9,7 +9,9 @@
       </template>
       <template v-slot:append>
         <v-card-actions>
+          <RouterLink class="text-decoration-none" :to="{ name: 'FeaturedProducts' }">
           <v-btn variant="outlined" color="primary" size="small">shop our popular products</v-btn>
+          </RouterLink>
         </v-card-actions>
       </template>
     </v-app-bar>
@@ -20,7 +22,7 @@
           <v-col v-for="product in products" :key="product.id" cols="12" md="2">
             <v-card class="mx-auto rounded-0" max-width="200" variant="none">
               <router-link :to="{ name: 'Product', params: { id: product.id } }">
-                <v-img :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
+                <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
               </router-link>
               <v-card-title class="text-subtitle-2 font-weight-bold pa-0">
                 {{ product.title }}

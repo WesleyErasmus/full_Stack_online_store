@@ -1,79 +1,92 @@
 <template>
+  <div id="main" class="mx-auto page-container">
+    <v-banner
+      lines="two"
+      theme="dark"
+      color="deep-purple-accent-4"
+      class="my-7"
+    >
+      <template v-slot:prepend>
+        <v-avatar
+          color="deep-purple-accent-4"
+          icon="mdi-new-box"
+        ></v-avatar>
+      </template>
 
-<!-- Featured products page -->
-  <div id="main" class="featured-products-page">
+      <v-banner-text class="text-subtitle-1">
+        Atlas online fashion store stays ahead of the competition by being the first to acquire the latest trending fashion ensuring our customers have access to the latest and most sought-after fashion.
+      </v-banner-text>
 
-    <!-- Page heading -->
-    <h1>Trending Collection</h1>
-
-    <!-- V-if to display spinner while products load -->
-    <div v-if="products.length" class="container">
-      <div class="row">
-        
-        <!-- V-for loop -->
-        <div
-         class="card col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6 mb-4 mt-4"
-          v-for="product in featuredProducts"
-          :key="product.id"
-        >
-
-        <!-- Router link to Product gallery page -->
-          <router-link :to="{ name: 'Product', params: { id: product.id } }">
-            <div class="img-box">
-            <img
-              :src="
-                'https://source.unsplash.com/random/?fashion/id' + product.id
-              "
-              class="card-img-top"
-              alt="Product Image"
-            />
-            </div>
-          </router-link>
-
-
-          <div class="card-body">
-            <h6 class="card-title">{{ product.title }}</h6>
-            <p class="card-text">
-              {{ product.category.name }}
-            </p>
-          </div>
-          <div class="card-footer">
-            <p class="price">R{{ product.price }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Page spinner component on load -->
+      <v-banner-actions>
+        <RouterLink class="text-decoration-none text-white" :to="{ name: 'Cart' }">
+        <v-btn color="white" variant="outlined" size="small">View cart</v-btn>
+        </RouterLink>
+      </v-banner-actions>
+    </v-banner>
+    <!-- Products display -->
+    <v-container class="mt-0 px-0 pt-0 mx-auto" v-if="products.length">
+      <v-item-group multiple>
+        <v-row>
+          <v-col v-for="product in products" :key="product.id" cols="12" md="2">
+            <v-card class="mx-auto rounded-0" max-width="200" variant="none">
+              <router-link :to="{ name: 'Product', params: { id: product.id } }">
+                <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
+              </router-link>
+              <v-card-title class="text-subtitle-2 font-weight-bold pa-0">
+                {{ product.title }}
+              </v-card-title>
+              <v-card-subtitle class="pa-0">
+                {{ product.category }}
+              </v-card-subtitle>
+              <v-card-actions class="pa-0 ma-0" style="min-height: 28px !important; height: 28px !important;">
+                <v-card-text class="pa-0 text-subtitle-1 font-italic">
+                  R{{ product.price }}
+                </v-card-text>
+                <v-spacer></v-spacer>
+                <div class="my-2">
+                  <router-link class="text-decoration-none" :to="{ name: 'Product', params: { id: product.id } }">
+                    <v-btn size="small" color="surface-variant" variant="text" icon="mdi-heart"></v-btn>
+                  </router-link>
+                </div>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-item-group>
+    </v-container>
     <div v-else>
-      <Spinner />
+      No products found.
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-// Components import
-import Spinner from "/src/components/Spinner.vue"
+import api from "@/services/api.js";
+import Spinner from "/src/components/Spinner.vue";
+
 export default {
-    components: { Spinner },
+  components: { Spinner },
   data() {
     return {
       products: [],
+
     };
   },
-  computed: {
-    // Function for filtering out all products within a specific category
-    featuredProducts() {
-      return this.products.filter((product) => product.category.id == "1");
-    },
-  },
   mounted() {
-    axios.get("https://api.escuelajs.co/api/v1/products/").then((response) => {
-      this.products = response.data;
-      console.warn(response);
-    });
+    api
+      .get("/controllers/ProductController.php?action=displayAllProducts&tableName=myTable", {
+        responseType: "json",
+      })
+      .then((response) => {
+        this.products = response.data;
+      });
   },
+
 };
 </script>
 
+<style scoped>
+.page-container {
+  min-height: 70vh;
+}
+</style>

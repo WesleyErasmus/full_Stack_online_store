@@ -19,7 +19,4 @@
 .logo-image {
     width: 130px;
 }
-h2 {
-    /* text-shadow: var(--text-shadow); */
-}
 </style>

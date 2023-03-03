@@ -4,8 +4,7 @@
       <!-- Page toolbar -->
       <div class="pt-5 mt-5">
         <!-- Disable add to cart button for guest users -->
-        <v-alert color="warning" variant="tonal"
-          class="mb-3 text-caption rounded text-center" v-if="!customer_id">
+        <v-alert color="warning" variant="tonal" class="mb-3 text-caption rounded text-center" v-if="!customer_id">
           <v-spacer></v-spacer>
           Please
           <RouterLink :to="{ name: 'Login' }" class="text-primary font-weight-bold text-decoration-none">
@@ -31,9 +30,12 @@
             </RouterLink>
           </v-toolbar-title>
           <v-spacer></v-spacer>
+            <!-- Link to shop page -->
+             <RouterLink :to="{ name: 'Shop' }" class="text-decoration-none text-black mr-5">
           <v-btn variant="outlined">
             Continue Shopping
           </v-btn>
+          </RouterLink>
         </v-toolbar>
       </div>
       <!-- Product display card -->
@@ -49,27 +51,28 @@
                     <!-- Image gallery container -->
                     <div class="d-flex flex-column img-gallery-container">
                       <!-- Default image -->
-                      <v-img :src="product.image" @click="updateMainImage(product.image)" class="mx-3" width="110px"
-                        aspect-ratio="1/1" cover>
+                      <v-img :src="product.image" @click="updateMainImage(product.image)" class="mx-3 product-img"
+                        width="110px" aspect-ratio="1/1" cover>
                         <v-card-title class="text-white"></v-card-title>
                       </v-img>
                       <!-- Image gallery 1 -->
                       <v-img :src="product.img_gallery_1" @click="updateMainImage(product.img_gallery_1)"
-                        class="ma-3 mb-0" width="110px" aspect-ratio="1/1" cover>
+                        class="ma-3 mb-0 product-img" width="110px" aspect-ratio="1/1" cover>
                         <v-card-title class="text-white"></v-card-title>
                       </v-img>
                       <!-- Image gallery 2 -->
-                      <v-img :src="product.img_gallery_2" @click="updateMainImage(product.img_gallery_2)" class="ma-3"
-                        width="110px" aspect-ratio="1/1" cover>
+                      <v-img :src="product.img_gallery_2" @click="updateMainImage(product.img_gallery_2)"
+                        class="ma-3 product-img" width="110px" aspect-ratio="1/1" cover>
                       </v-img>
                       <!-- Image gallery 3 -->
-                      <v-img :src="product.img_gallery_3" @click="updateMainImage(product.img_gallery_3)" class="mx-3"
-                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" width="110px" aspect-ratio="1/1" cover>
+                      <v-img :src="product.img_gallery_3" @click="updateMainImage(product.img_gallery_3)"
+                        class="mx-3 product-img" width="110px"
+                        aspect-ratio="1/1" cover>
                       </v-img>
                     </div>
                     <!-- Preview image -->
                     <div>
-                      <v-img :src="mainImageSrc" aspect-ratio="1/1" min-width="480px" @click="dialog = true">
+                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1" min-width="480px" @click="dialog = true">
                       </v-img>
                     </div>
                   </div>
@@ -89,8 +92,8 @@
                     </v-card-text>
                     <!-- Add to cart button -->
                     <!-- Disable add to cart button for guest users -->
-                    <v-btn color="primary" size="large" class="my-5 mx-3" block variant="tonal" :disabled="!customer_id"
-                      @click="addToCart()">
+                    <v-btn color="primary" size="large" class="my-5 mx-3" block variant="elevated"
+                      :disabled="!customer_id" @click="addToCart()">
                       <span class="material-symbols-outlined">
                         add_shopping_cart
                       </span>
@@ -255,5 +258,15 @@ export default {
   width: 520px;
 }
 
-.modal-close-btn {}
+/* Individual image container for hover effect */
+.product-img:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+.click-img-zoom:hover {
+cursor: zoom-in;
+}
+
+
+
 </style>

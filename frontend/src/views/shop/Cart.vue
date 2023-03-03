@@ -1,44 +1,85 @@
 <template>
-  <div id="main">
+  <div class="page-container mx-auto" id="main">
 
-    <div class="pa-4 cart-card-container">
-    <v-row class="fill-height" align="center" justify="center">
-      <v-col cols="12" md="6">
-        <div v-for="item in shoppingCart" :key="item.id">
-          <v-card class="ma-2" variant="none">
-            <v-row>
-              <v-col cols="3">
-                <v-img :src="item.image" height="150px" cover>
-                </v-img>
-              </v-col>
-              <v-col cols="9">
-                <v-card-title class="font-weight-bold py-0">
-                  {{ item.title }}
-                </v-card-title>
-                <div>
-                  <v-card-text class="ma-0 text-caption font-weight-medium py-1">
-                    {{ item.category }}
-                  </v-card-text>
-                  <v-card-subtitle class="text-caption font-weight-medium">
-                    {{ item.description }}
-                  </v-card-subtitle>
-                </div>
-                <v-card-actions class="pt-0">
-                  <v-spacer></v-spacer>
-                  <!-- <router-link :to="{ name: 'Product', params: { id: product.id } }"> -->
-                <v-btn class="mt-2 text-primary" size="small" variant="elevated">View Product</v-btn>
-                <!-- </router-link> -->
-                  <v-btn color="error" size="large" icon="mdi-delete-off" class="mt-2 mr-6">
-                  </v-btn>
-                
-                </v-card-actions>
-              </v-col>
-            </v-row>
-          </v-card>
-        </div>
-      </v-col>
-    </v-row>
-  </div>
+    <!-- Page heading -->
+    <h1>Your cart items: {{ cartLength }}</h1>
+    <!-- V-if that displays empty cart message if cart is empty -->
+    <div v-if="!shoppingCart.length">Your Cart is empty</div>
+
+    <!-- DIsplays cart details or cart when there are cart items -->
+    <div class="mr-7 cart-card-container">
+      <div class="cart-items">
+      <v-row class="fill-height" align="start">
+        <v-col cols="auto">
+          <div v-for="item in shoppingCart" :key="item.id">
+            <v-card class="ma-2" variant="none">
+              <v-row>
+                <v-col cols="3">
+                  <v-img class="product-img-scale" :src="item.image" max-width="125px" max-height="150px" height="100%" cover>
+                  </v-img>
+                </v-col>
+                <v-col cols="9">
+                  <v-card-title class="text-subtitle-1 font-weight-bold ml-0 pa-0">
+                    {{ item.title }}
+                  </v-card-title>
+                  <div>
+                    <div class="ma-0 text-caption font-weight-medium py-1">
+                      {{ item.category }}
+                    </div>
+                    <v-card-subtitle class="text-caption pl-0 font-weight-medium">
+                      {{ item.description }}
+                    </v-card-subtitle>
+                    <div class="ma-0 font-weight-bold py-1">
+                      R{{ item.price }}
+                    </div>
+                  </div>
+                  <v-card-actions class="pt-0 mt-0">
+                    <v-spacer></v-spacer>
+                    <router-link :to="{ name: 'Product', params: { id: item.product_id } }">
+                      <v-btn class="mt-0 text-primary" size="small" variant="elevated">View Product</v-btn>
+                    </router-link>
+                    <v-btn color="error" size="large" icon="mdi-cart-off" class="mt-0 mr-6"
+                      @click="removeFromCart(item.cart_item_id)">
+                    </v-btn>
+                  </v-card-actions>
+                </v-col>
+              </v-row>
+            </v-card>
+          </div>
+        </v-col>
+      </v-row>
+      </div>
+      <!-- Display cart details -->
+      <div>
+      <v-card class="cart-total pa-5 ml-10"
+      variant="tonal" color="black">
+          <v-card-title class="text-h5 font-weight-bold">
+            Cart:
+          </v-card-title>
+          <v-card-subtitle>
+            Total items in cart: <span>{{ cartLength }}</span>
+          </v-card-subtitle>
+          
+            
+          <v-card-title class="text-h6">
+            Total: <span class="font-weight-bold">R{{ priceTotal }}</span>
+          </v-card-title>
+          <v-card-text>
+            Delivery
+          <v-icon class="mr-1">mdi-truck-check</v-icon>
+          </v-card-text>
+          <v-card-text class="mt-1 pt-0">
+            Payment methods: 
+          <v-icon class="mr-2">mdi-credit-card-outline</v-icon>
+          <v-icon class="mr-2">mdi-contactless-payment-circle-outline</v-icon>
+          <v-icon class="mr-2">mdi-cash</v-icon>
+          </v-card-text>
+          <v-card-actions class="mt-3">
+            <v-btn block color="primary" size="large" variant="elevated">Proceed To Checkout</v-btn>
+          </v-card-actions>
+      </v-card>
+      </div>
+    </div>
     <Toasts />
   </div>
 </template>
@@ -56,6 +97,7 @@ export default {
   },
   data() {
     return {
+      sticky: true,
       shoppingCart: [],
       total: 0,
     };
@@ -69,7 +111,7 @@ export default {
     priceTotal() {
       let total = 0;
       this.shoppingCart.forEach((product, i) => {
-        total += product.price;
+        total += parseInt(product.price);
       });
       return total;
     },
@@ -100,8 +142,9 @@ export default {
 
       this.itemRemovedMessage()
     },
+
   },
- mounted() {
+  mounted() {
     // User id cookie
     let customerId = this.cookies.get("customer_id");
     if (!customerId) {
@@ -125,5 +168,21 @@ export default {
 </script>
 
 <style scoped>
-
+.page-container {
+  min-height: 70vh;
+}
+.cart-items {
+  max-width: 700px;
+}
+.cart-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+}
+.cart-total {
+  width: 350px;
+  height: 350px;
+}
 </style>
+

@@ -1,30 +1,64 @@
 <template>
-    <div id="main">
-        <h1>My Profile</h1>
-        <v-card width="500px"
-        class="pa-5 ma-5"
-        >
-        <v-form @submit.prevent="updateCustomerProfile">
-            <div>
-                <label for="name">Name:</label>
-                <v-text-field id="name" v-model="customerData.full_name" type="text" />
+    <!-- class="pa-0" -->
+    <v-container class="page-container">
+        <v-img id="main" class="mx-auto" height="100%" cover aspect-ratio="16/9"
+            src="https://images.unsplash.com/photo-1557207201-0a45788f977b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+            <div class="d-flex fill-height justify-center align-start">
+                <v-container fluid class="d-flex justify-center">
+                    <v-card min-width="480px" class="pa-0 ma-5" variant="elevated">
+                        <v-toolbar density="compact" color="black" class="text-center py-3">
+                            <v-toolbar-title class="text-h5">Your Account</v-toolbar-title>
+                        </v-toolbar>
+                        <v-container class="ml-4">
+                            <div class="d-flex">
+                                <v-icon size="42" color="grey" class="mr-3">mdi-account</v-icon>
+                                <!-- User name & email -->
+                                <div class="ml-1">
+                                    <div class="text-h6">
+                                        {{ customerData.full_name }}
+                                    </div>
+                                    <div class="text-medium-emphasis">
+                                        {{ customerData.email }}
+                                    </div>
+                                </div>
+                            </div>
+                        </v-container>
+                        <v-form class="px-10 pb-3" @submit.prevent="updateCustomerProfile">
+                            <div>
+                                <label for="name">Edit Name:</label>
+                                <v-text-field id="name" v-model="customerData.full_name" type="text" />
+                            </div>
+                            <div>
+                                <label for="email">Edit Email:</label>
+                                <v-text-field id="email" v-model="customerData.email" type="email" />
+                            </div>
+                            <v-expand-transition>
+                                <div v-show="show">
+                                    <div>
+                                        <label for="password">Edit Password:</label>
+                                        <v-text-field id="password" v-model="customerData.password" type="password" />
+                                    </div>
+                                    <div>
+                                        <label for="confirm-password">Confirm Password:</label>
+                                        <v-text-field id="confirm-password" v-model="confirmPassword" type="password" />
+                                    </div>
+                                </div>
+                            </v-expand-transition>
+                            <v-card-actions>
+
+                                <v-btn size="small" class="pl-0 ml-0" color="primary"
+                                    :icon="show ? 'mdi-chevron-up-circle' : 'mdi-chevron-down-circle'"
+                                    @click="show = !show"></v-btn>
+                                <span class="text-caption text-grey">Update password</span>
+                                <v-spacer></v-spacer>
+                                <v-btn size="small" variant="outlined" color="primary" type="submit">Update Account</v-btn>
+                            </v-card-actions>
+                        </v-form>
+                    </v-card>
+                </v-container>
             </div>
-            <div>
-                <label for="email">Email:</label>
-                <v-text-field id="email" v-model="customerData.email" type="email" />
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <v-text-field id="password" v-model="customerData.password" type="password" />
-            </div>
-            <div>
-                <label for="confirm-password">Confirm Password:</label>
-                <v-text-field id="confirm-password" v-model="confirmPassword" type="password" />
-            </div>
-            <v-btn variant="tonal" color="primary" type="submit">Update Account</v-btn>
-        </v-form>
-        </v-card>
-    </div>
+        </v-img>
+    </v-container>
 </template>
 
 <script>
@@ -40,6 +74,7 @@ export default {
     },
     data() {
         return {
+            show: false,
             // Customer data that gets displayed in the input fields
             customerData: {
                 full_name: "",
@@ -123,7 +158,7 @@ export default {
 }
 </script>
 <style scoped>
-input {
-    width: 250px;
+.page-container {
+  min-height: 70vh;
 }
 </style>

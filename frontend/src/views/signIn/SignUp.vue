@@ -1,31 +1,41 @@
 <template>
-    <div class="container mx-auto">
-        <v-card class="my-5 pa-5" width="550px" variant="tonal">
-            <v-form @submit.prevent="customerSignUp" class="sign-up-form row p-4 p-md-5 rounded-3 bg-light needs-validation"
-                novalidate>
-                <div class="">
+    <div class="page-container mx-auto">
+        <v-layout class="mt-3 form-container mx-auto">
+            <v-app-bar class="text-center rounded-t-xl" color="secondary">
+                <v-app-bar-title class="text-high-emphasis">
+                    <div class="text-white">
+                        Sign-Up
+                    </div>
+                </v-app-bar-title>
+            </v-app-bar>
+            <v-main class="mb-10">
+                <v-card class="pa-5 rounded-b-xl rounded-t-0" width="550px" variant="tonal">
+                    <v-form @submit.prevent="customerSignUp" class="sign-up-form row p-4 p-md-5 bg-light needs-validation"
+                        novalidate>
+                        <div class="">
+                            <v-text-field v-model="fullName" type="text" name="fullname" class="form-control"
+                                id="validationCustom02" placeholder="Enter your full name" />
+                            <label for="validationCustom02">Full Name</label>
+                        </div>
+                        <div class="form-floating ps-1 mb-3 col-md-6">
 
-                    <v-text-field v-model="fullName" type="text" name="fullname" class="form-control"
-                        id="validationCustom02" placeholder="Enter your full name" />
-                    <label for="validationCustom02">Full Name</label>
-                </div>
-                <div class="form-floating ps-1 mb-3 col-md-6">
+                            <v-text-field v-model="email" type="email" name="email" class="form-control"
+                                id="validationCustom04" placeholder="Enter your email" />
+                            <label for="validationCustom04">Email</label>
+                        </div>
+                        <div class="form-floating ps-1 mb-3 col-md-6">
 
-                    <v-text-field v-model="email" type="email" name="email" class="form-control" id="validationCustom04"
-                        placeholder="Enter your email" />
-                    <label for="validationCustom04">Email</label>
-                </div>
-                <div class="form-floating ps-1 mb-3 col-md-6">
+                            <v-text-field v-model="password" type="password" name="password" class="form-control"
+                                id="validationCustom03" placeholder="Enter your password" />
+                            <label for="validationCustom03">Password</label>
+                        </div>
 
-                    <v-text-field v-model="password" type="password" name="password" class="form-control"
-                        id="validationCustom03" placeholder="Enter your password" />
-                    <label for="validationCustom03">Password</label>
-                </div>
-
-                <v-btn color="primary" class="w-100 btn btn-lg btn-secondary login-btn" type="submit">Sign-up</v-btn>
-                <hr class="my-4">
-            </v-form>
-        </v-card>
+                        <v-btn variant="elevated" color="secondary" class="w-100 btn btn-lg btn-secondary login-btn"
+                            type="submit">Sign-up</v-btn>
+                    </v-form>
+                </v-card>
+            </v-main>
+        </v-layout>
         <Toasts />
     </div>
 </template>
@@ -90,3 +100,8 @@ export default {
     },
 };
 </script>
+<style scoped>
+.page-container {
+    min-height: 70vh;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-15">
+    <div class="my-15">
         <v-card class="mb-10 text-center elevated-0" color="black" variant="elevated">
                 <v-card-title class="text-center text-">
                     About us</v-card-title>

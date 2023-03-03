@@ -8,7 +8,9 @@
           Get to know us.
         </v-app-bar-title>
         <template v-slot:append>
+          <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Shop' }">
           <v-btn variant="outlined" size="small">shop</v-btn>
+          </RouterLink>
         </template>
       </v-app-bar>
       <v-main>

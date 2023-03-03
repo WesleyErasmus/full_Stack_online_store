@@ -5,20 +5,17 @@
         </div>
         <v-row>
             <v-col v-for="review in reviews" :key="review.id" cols="12" sm="6" md="4">
-                <v-card class="mx-auto" max-width="500">
-                    <v-card-title class="">
+                <v-card color="white" variant="elevated" class="mx-auto" max-width="500">
+                    <v-card-title>
                         {{ review.title }}
                     </v-card-title>
                     <v-card-text>
                         <div class="d-flex align-center mb-3">
-                            <v-icon v-for="(n, i) in review.rating" :key="i" class="mr-1" color="yellow darken-2">
+                            <v-icon v-for="(n, i) in review.rating" :key="i" class="mr-1" color="primary">
                                 {{ n <= 0 ? 'mdi-star-outline' : 'mdi-star' }} </v-icon>
                         </div>
                         <p class="text-body-2">{{ review.content }}</p>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn color="" text>Read More</v-btn>
-                    </v-card-actions>
                 </v-card>
             </v-col>
         </v-row>

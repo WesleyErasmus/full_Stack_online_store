@@ -1,6 +1,6 @@
 <template>
     <div class="nav-spacing">
-        <v-app-bar class="nav-contact-info" theme="light">
+        <v-app-bar class="nav-contact-info px-10" theme="dark">
             <v-app-bar-title class="text-start text-caption">
 
                 <div class="sm-links">
@@ -49,32 +49,36 @@
                     </RouterLink>
                     <RouterLink class="nav-tab-item" :to="{ name: 'Shop' }">SHOP</RouterLink>
 
-                    <!-- Prevent access to guest users -->
-                    <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
+
                     <RouterLink class="nav-tab-item" :to="{ name: 'NewProducts' }">NEW</RouterLink>
+                    <RouterLink class="nav-tab-item" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
 
                     <!-- Prevent access to guest users -->
                     <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Profile' }">PROFILE</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'About' }">ABOUT</RouterLink>
+
+                    <!-- Prevent access to guest users -->
+                    <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
+
                     <RouterLink class="nav-tab-item" :to="{ name: 'Contact' }">CONTACT</RouterLink>
-                </div>
-                <!-- End of Navbar Meu Links -->
-
-                <div>
-                    <a @click="smoothScrollToTop" class="back-to-top-btn text-primary mr-5">Back to top</a>
+                    <RouterLink class="nav-tab-item" :to="{ name: 'About' }">ABOUT</RouterLink>
                 </div>
 
-                <!-- Prevent access to guest users -->
-                <!-- Shopping Cart Icon in header -->
+                <!-- Cart icon -->
                 <RouterLink v-if="customer_id" class="shopping-cart-icon" :to="{ name: 'Cart' }">
-                    <!-- Shopping cart icon & link to cart -->
-                    <v-btn variant="tonal" size="large" icon color="primary">
+
+                    <v-btn variant="outlined" size="small" icon color="primary">
                         <v-icon>mdi-cart</v-icon>
-                        <!-- Cart length count -->
                         {{ this.shoppingCart.length }}
                     </v-btn>
                 </RouterLink>
+
+                <!-- Back to top btn -->
+                <div class="back-to-top-btn">
+                    <a @click="smoothScrollToTop" class="">
+                        <v-icon>mdi-arrow-up-drop-circle-outline</v-icon>
+                        Back to top
+                    </a>
+                </div>
             </div>
         </nav>
     </div>
@@ -166,6 +170,10 @@ export default {
 </script>
 
 <style scoped>
+.back-to-top-btn {
+    cursor: pointer;
+}
+
 /* Shopping cart icon and cart item count container */
 /* Shopping cart icon */
 .shopping-cart-icon {
@@ -275,17 +283,15 @@ export default {
 
 /* Social media header icons styling */
 .fa-brands {
-    font-size: calc(13px + 0.5rem);
-    color: #000;
-    -webkit-transition: 0.3s ease-out;
-    transition: 0.3s ease-out;
+    font-size: calc(10px + 0.4rem);
+    -webkit-transition: 0.1s ease-out;
+    transition: 0.1s ease-out;
 }
-
 
 /* Social media header icons hover */
 .fa-brands:hover {
     transform: scale(1.4);
     background: none;
-    color: var(--primary-color);
+    color: #fff;
 }
 </style>

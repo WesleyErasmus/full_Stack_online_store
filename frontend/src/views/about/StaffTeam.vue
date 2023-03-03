@@ -1,5 +1,5 @@
 <template>
-    <v-layout class="mt-15">
+    <v-layout>
         <v-app-bar class="elevation-0" theme="dark" density="compact">
             <v-app-bar-title class="text-center">
                 Meet the Team

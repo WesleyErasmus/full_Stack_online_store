@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5">
+    <div class="mt-5 page-container">
         <v-container fluid>
             <v-row align="center" justify="center">
                 <v-col class="text-center" cols="12">
@@ -10,8 +10,14 @@
                     <p class="body-1 text-medium-emphasis">Don't worry, we won't judge you. Even the best of us get lost sometimes.</p>
                    <v-card-actions class="mt-4">
                     <v-spacer></v-spacer>
+                    <!-- login link -->
+                     <RouterLink :to="{ name: 'SignUp' }" class="text-decoration-none">
                     <v-btn color="primary" variant="outlined" to="/login">Login</v-btn>
-                    <v-btn color="primary" to="/signup">Signup</v-btn>
+                    </RouterLink>
+                    <!-- Sign-up link -->
+                     <RouterLink :to="{ name: 'SignUp' }" class="text-decoration-none">
+                    <v-btn color="primary">Signup</v-btn>
+                    </RouterLink>
                     <v-spacer></v-spacer>
                     </v-card-actions>
                 </v-col>
@@ -31,5 +37,7 @@ export default {
     color: #7b7b7b;
     margin-bottom: 2rem;
 }
-
+.page-container {
+  min-height: 70vh;
+}
 </style>
