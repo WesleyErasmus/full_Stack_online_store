@@ -35,7 +35,7 @@
             <v-item-group multiple>
               <v-row>
                 <!-- V-for loop -->
-                <v-col v-for="product in products" :key="product.id" cols="12" md="2">
+                <v-col v-for="product in products" :key="product.id" cols="12" sm="4" md="2" lg="2">
                   <v-card class="mx-auto rounded-0" max-width="200" variant="none">
                     <!-- Product image and link to product view page -->
                     <router-link :to="{ name: 'Product', params: { id: product.id } }">

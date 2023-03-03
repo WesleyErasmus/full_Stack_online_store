@@ -27,7 +27,7 @@
       <v-item-group multiple>
         <v-row>
           <!-- Products v-for loop -->
-          <v-col v-for="product in sortedProducts" :key="product.id" cols="12" md="2">
+          <v-col v-for="product in sortedProducts" :key="product.id" cols="12" sm="4" md="2" lg="2">
             <v-card class="mx-auto rounded-0" max-width="200" variant="none">
               <!-- Product view link using product id for dynamic routing -->
               <router-link :to="{ name: 'Product', params: { id: product.id } }">

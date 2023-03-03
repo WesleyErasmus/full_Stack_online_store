@@ -19,7 +19,7 @@
     <v-main class="mx-auto" v-if="products.length">
       <v-item-group multiple>
         <v-row>
-          <v-col v-for="product in products" :key="product.id" cols="12" md="2">
+          <v-col v-for="product in products" :key="product.id" cols="12" sm="4" md="2" lg="2">
             <v-card class="mx-auto rounded-0" max-width="200" variant="none">
               <router-link :to="{ name: 'Product', params: { id: product.id } }">
                 <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
