@@ -1,9 +1,12 @@
 <template>
     <div class="my-15">
+        <!-- Mission statement container -->
         <v-card class="mb-10 text-center elevated-0" color="black" variant="elevated">
-                <v-card-title class="text-center text-">
-                    About us</v-card-title>
+            <!-- Component heading -->
+            <v-card-title class="text-center text-">
+                About us</v-card-title>
         </v-card>
+        <!-- Timeline for, mission | vision | about-us -->
         <v-timeline direction="horizontal">
             <v-timeline-item dot-color="green-darken-2">
                 <template v-slot:opposite>

@@ -113,8 +113,10 @@ import Toasts from "/src/components/Toasts.vue";
 import { useCookies } from "vue3-cookies";
 import router from "/src/router";
 export default {
+  // Toast messages
   components: { Toasts },
   name: "Contact",
+  // Using cookies for customer id
   setup() {
     const { cookies } = useCookies();
     return { cookies };
@@ -133,6 +135,7 @@ export default {
     ],
   }),
   methods: {
+    // Message sent toast
     successMessage() {
       var x = document.getElementById("snackbar2");
       x.className = "show";
@@ -142,13 +145,12 @@ export default {
         x.className = x.className.replace("show", "");
       }, 4000);
     },
-
+    // Save message to database function
     saveCustomerMessage() {
       console.log('saveCustomerMessage Message');
-
+      // Getting customer id cookie on page/DOM mount
       let customerId = this.cookies.get("customer_id");
       console.log('Data sent:', { customerId, message: this.message });
-
       api.post(
         `/controllers/CustomerController.php?action=saveMessage&customerId=${customerId}`,
         {
@@ -172,6 +174,7 @@ export default {
           console.error(error);
         });
     },
+    // Fetch customer id function being called in my methods and lifecycle hook
     fetchCustomerData() {
       let customerId = this.cookies.get("customer_id");
       const customer_id = parseInt(customerId);
@@ -189,7 +192,6 @@ export default {
 
     let customerId = this.cookies.get("customer_id");
     const customer_id = parseInt(customerId);
-
   },
 
 };
@@ -204,7 +206,7 @@ export default {
   width: 135px;
 
 }
-
+/* Social media links */
 .sm-links a {
   padding: 10px;
   color: #000;

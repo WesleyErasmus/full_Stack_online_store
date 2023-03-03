@@ -4,6 +4,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS'); // Allo
 header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allows the specified headers to be sent in the request
 
 
+// Display all products on relevant frontend pages
 function displayAllProducts()
 {
     require_once '../config/DatabaseConnector.php';
@@ -22,6 +23,7 @@ function displayAllProducts()
     return $data;
 }
 
+// Used for product and cart pages
 function displayProductById($id)
 {
     require_once '../config/DatabaseConnector.php';

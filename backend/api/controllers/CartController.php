@@ -10,11 +10,13 @@ if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         // Add to cart
         case 'addToCart':
-            // uniqid() keps generating the same unique code so switched to alternative
+            // uniqid() keeps generating the same unique code so switched to alternative
             $cart_item_id = bin2hex(openssl_random_pseudo_bytes(16));
             $product_id = $_GET['id'];
+            // Returns assoc array
             $request_body = json_decode(file_get_contents('php://input'), true);
             $price = $request_body['price'];
+            // Checks for params and if values are set
             if (isset($_GET['tableName']) && isset($_GET['id']) && isset($_GET['customerId'])) {
                 $cart_item = new Cart($cart_item_id, $customer_id, $product_id, $price);
                 $result = $cart_item->addToCart(
@@ -42,6 +44,7 @@ if (isset($_GET['action'])) {
             break;
 
         default:
+        // Throws error if API param are incorrect
             echo "Invalid action";
     }
 }

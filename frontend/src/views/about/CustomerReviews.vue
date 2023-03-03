@@ -4,16 +4,20 @@
             <h1 class="text-center font-emphasis-high mb-5">Customer Reviews</h1>
         </div>
         <v-row>
+            <!-- Customer review for loop -->
             <v-col v-for="review in reviews" :key="review.id" cols="12" sm="6" md="4">
                 <v-card color="white" variant="elevated" class="mx-auto" max-width="500">
+                    <!-- Review title -->
                     <v-card-title>
                         {{ review.title }}
                     </v-card-title>
                     <v-card-text>
+                        <!-- Star rating for loop -->
                         <div class="d-flex align-center mb-3">
                             <v-icon v-for="(n, i) in review.rating" :key="i" class="mr-1" color="primary">
                                 {{ n <= 0 ? 'mdi-star-outline' : 'mdi-star' }} </v-icon>
                         </div>
+                        <!-- Review content -->
                         <p class="text-body-2">{{ review.content }}</p>
                     </v-card-text>
                 </v-card>
@@ -21,7 +25,6 @@
         </v-row>
     </v-container>
 </template>
-
 <script>
 export default {
     data() {
@@ -78,7 +81,4 @@ export default {
 </script>
 
 <style scoped>
-.v-card {
-    background-color: #f7f7f7;
-}
 </style>

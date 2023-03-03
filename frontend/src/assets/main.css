@@ -5,8 +5,6 @@
 
 /* App root variables */
 :root {
-  /* --primary-color: hsla(160, 100%, 37%, 1); */
-  /* --primary-color: #1C9DA1; */
   --primary-color: #385f73;
   --btn-shadows: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   --card-shadows: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -23,7 +21,6 @@
 
 
 #app {}
-
 
 /* Main styling for all pages between header and footer */
 #main {

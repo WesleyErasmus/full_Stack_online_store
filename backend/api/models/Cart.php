@@ -23,13 +23,15 @@ class Cart
         require_once "../config/DatabaseConnector.php";
         $conn = new DatabaseConnector();
         $conn = $conn->getConnection();
-
+        // Insert new customer data into the table
         $stmt = $conn->prepare("INSERT INTO cart (cartitemid, customerid, productid, price) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("siii", $cart_item_id, $customer_id, $product_id, $price);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
     }
+
+    // Display customer cart items
     public static function displayCartItems($customer_id)
     {
         require_once '../config/DatabaseConnector.php';
@@ -42,6 +44,9 @@ class Cart
 
         if ($result) {
             $cart_items = array();
+
+
+            // Using while loop to loop through the new cart_item object table to display on frontend
             while ($row = $result->fetch_assoc()) {
                 $cart_item = array(
                     'cart_item_id' => $row['cartitemid'],
@@ -58,21 +63,25 @@ class Cart
                     'new' => $row['new'],
                     'trending' => $row['trending']
                 );
+                // Pushing each cart item into the cart items object array
                 array_push($cart_items, $cart_item);
             }
 
+            // Return to display on frontend
             return $cart_items;
         } else {
             throw new Exception("Failed to execute query: " . $conn->error);
         }
     }
 
+    // Remove from cart function
     public static function removeFromCart($cart_item_id)
     {
         require_once '../config/DatabaseConnector.php';
         $conn = new DatabaseConnector();
         $conn = $conn->getConnection();
 
+        // Delete table query
         $stmt = $conn->prepare("DELETE FROM cart WHERE cartitemid = ?");
         $stmt->bind_param("s", $cart_item_id);
 

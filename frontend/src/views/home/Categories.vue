@@ -6,7 +6,6 @@
 
                     <v-btn size="small" variant="tonal" class="mr-5" icon color="primary">
                         <v-icon>mdi-grid-large</v-icon>
-
                     </v-btn>
                 </v-app-bar-nav-icon>
                 <v-app-bar-title class="">

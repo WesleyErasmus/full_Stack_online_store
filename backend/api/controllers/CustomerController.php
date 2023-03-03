@@ -6,6 +6,7 @@ if (isset($_GET['customerId'])) {
     // file_get_contents() is used to read the contents of v-model input fields in the SignIn.vue page. "php://input" is a predefined parameter that reads the REQUESTED input data. json_decode, true parameter was needed because it was not returning the data as an associative array.
     $customer_id = $_GET['customerId'];
     require_once '../models/Customer.php';
+    // Set form variables to blank values
     $customer = new Customer($customer_id, '', '', '');
     $profile_data = $customer->displayCustomerData($customer_id);
     if ($profile_data) {
@@ -16,12 +17,14 @@ if (isset($_GET['customerId'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Checks for params and if values are set
     $data = json_decode(file_get_contents("php://input"), true);
 
     switch ($_GET['action']) {
             // CUSTOMER SIGNUP
         case 'customerSignUp':
             if (!empty($data["fullName"]) && !empty($data["email"]) && !empty($data["password"])) {
+                // Declaring variables & sanitizing them
                 $id = "";
                 $full_name = $data["fullName"];
                 $full_name = htmlentities($full_name);
@@ -62,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $full_name = $data['full_name'];
             $email = $data['email'];
             $password = $data['password'];
-
+            // Invokes update profile function
             $result = updateCustomerProfile($customer_id, $full_name, $email, $password);
 
             if ($result) {
@@ -107,10 +110,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'saveMessage' && isset($_GET['
     require_once "../config/DatabaseConnector.php";
     $db = new DatabaseConnector();
     $conn = $db->getConnection();
-
+    // Converting customer ID to an integer
     $customer_id = $_GET['customerId'];
     $customer_id = intval($customer_id);
 
+    // Retrieving all customer ID to send along with the messages
     $customer_query = "SELECT id, fullname, email FROM customers WHERE id = ?";
     $customer_stmt = $conn->prepare($customer_query);
     $customer_stmt->bind_param("i", $customer_id);
@@ -118,6 +122,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'saveMessage' && isset($_GET['
     $customer_result = $customer_stmt->get_result();
     $customer_data = $customer_result->fetch_assoc();
 
+    // Declaring variables
     $full_name = $customer_data['fullname'];
     $email = $customer_data['email'];
     $message = $data["message"];
@@ -129,6 +134,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'saveMessage' && isset($_GET['
     $message = htmlentities($message);
     $customer = new Customer($customer_id, $full_name, $email, $message);
 
+    // Insert data into the table if the message is not empty
     if (!empty($message)) {
     $stmt = $conn->prepare("INSERT INTO messages (customerid, fullname, email, message) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("isss", $customer_id, $full_name, $email, $message);

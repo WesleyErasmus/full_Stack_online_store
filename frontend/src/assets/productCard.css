@@ -1,14 +1,5 @@
-/* This styling applies to all cards in the application with exception of the flip-cards on the About page */
 
-/* This styling is used to pair or override standard Bootstrap card CSS */
-/* All card contents */
-.card {
-  border: none;
-   padding: var(--card-padding);
-}
-
-
-/* Card image  */
+/* Hover Zoom Styling for product Card image  */
 .product-img-scale {
   aspect-ratio: 2 / 3;
   border-radius: 0;

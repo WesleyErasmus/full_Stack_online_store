@@ -3,6 +3,7 @@
     <main class="footer-content">
       <v-row>
         <v-col>
+          <!-- Footer list items -->
           <ul class="footer-links">
             <li>
               <div class="text-h6">Our Address</div>
@@ -87,6 +88,7 @@ export default {
   },
   data() {
     return {
+      // Google Maps modal
       dialog: false,
     };
   },
@@ -94,11 +96,13 @@ export default {
 </script>
 
 <style scoped>
+/* Footer page container */
 .footer-component {
   padding: 4rem 7rem;
   background: rgba(211, 211, 211, 0.37);
 }
 
+/* Footer inner */
 .footer-content {
   max-width: 1440px !important;
   display: block;
@@ -108,7 +112,6 @@ export default {
 li {
   font-size: small;
 }
-
 
 .footer-links li {
   list-style-type: none;

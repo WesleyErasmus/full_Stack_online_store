@@ -1,11 +1,14 @@
 <template>
+    <!-- Meet the team component -->
     <v-layout>
         <v-app-bar class="elevation-0" theme="dark" density="compact">
+            <!-- Component title -->
             <v-app-bar-title class="text-center">
                 Meet the Team
             </v-app-bar-title>
         </v-app-bar>
         <v-main>
+            <!-- Meet the team card -->
             <div>
                 <v-row class="d-flex justify-center align-center">
                     <v-col cols="12" md="2" v-for="member in team" :key="member.id">
@@ -92,6 +95,7 @@ export default {
 </script>
 
 <style scoped>
+/* Card hover styling */
 .v-card--reveal {
     align-items: center;
     justify-content: center;
