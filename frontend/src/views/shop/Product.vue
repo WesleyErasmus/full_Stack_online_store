@@ -54,26 +54,24 @@
                     <div class="d-flex flex-column img-gallery-container">
                       <!-- Default image -->
                       <v-img :src="product.image" @click="updateMainImage(product.image)" class="mx-3 product-img"
-                        width="110px" aspect-ratio="1/1" cover>
-                        <v-card-title class="text-white"></v-card-title>
+                      aspect-ratio="1/1" cover>
                       </v-img>
                       <!-- Image gallery 1 -->
                       <v-img :src="product.img_gallery_1" @click="updateMainImage(product.img_gallery_1)"
-                        class="ma-3 mb-0 product-img" width="110px" aspect-ratio="1/1" cover>
-                        <v-card-title class="text-white"></v-card-title>
+                        class="ma-3 mb-0 product-img" aspect-ratio="1/1" cover>
                       </v-img>
                       <!-- Image gallery 2 -->
                       <v-img :src="product.img_gallery_2" @click="updateMainImage(product.img_gallery_2)"
-                        class="ma-3 product-img" width="110px" aspect-ratio="1/1" cover>
+                        class="ma-3 product-img" aspect-ratio="1/1" cover>
                       </v-img>
                       <!-- Image gallery 3 -->
                       <v-img :src="product.img_gallery_3" @click="updateMainImage(product.img_gallery_3)"
-                        class="mx-3 product-img" width="110px" aspect-ratio="1/1" cover>
+                        class="mx-3 product-img" aspect-ratio="1/1" cover>
                       </v-img>
                     </div>
                     <!-- Preview image -->
                     <div>
-                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1" min-width="480px"
+                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1"
                         @click="dialog = true">
                       </v-img>
                     </div>
@@ -255,22 +253,61 @@ export default {
   display: flex;
 }
 
+/* Small side images */
 .img-gallery-container {
-  min-width: 135px;
+  min-width: 125px;
   opacity: 0.5;
 }
 
 .card-body-text {
-  width: 520px;
+  max-width: 520px;
 }
 
 /* Individual image container for hover effect */
+
+.product-img {
+  width: 110px;
+}
+
 .product-img:hover {
   cursor: pointer;
   opacity: 0.75;
+  transform: scale(105%);
 }
 
+.click-img-zoom {
+  min-width: 480px;
+}
 .click-img-zoom:hover {
   cursor: zoom-in;
+}
+
+@media screen and (max-width: 840px) {
+
+.product-card-flex-container {
+  justify-content: center;
+}
+
+.product-card-flex-inner {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.img-gallery-container {
+  opacity: 0.5;
+  display: flex;
+  flex-direction: row !important;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 110px;
+  padding-top: 10px;
+}
+.product-img {
+  width: 50px;
+  margin: 5px !important;
+}
+
 }
 </style>
