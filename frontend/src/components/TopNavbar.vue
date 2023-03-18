@@ -196,6 +196,7 @@ export default {
 /* Styling for navbar inner */
 .max-width-container {
     width: 1200px;
+    padding: 0 0.5rem;
     display: flex;
     margin: 0 auto;
     justify-content: space-between;
