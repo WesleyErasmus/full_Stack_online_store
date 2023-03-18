@@ -52,7 +52,7 @@
       <!-- Display cart details -->
       <div>
       <v-card class="cart-total pa-5 ml-10"
-      variant="tonal" color="black">
+      variant="elevated" color="white">
           <v-card-title class="text-h5 font-weight-bold">
             Cart:
           </v-card-title>

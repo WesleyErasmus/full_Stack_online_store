@@ -55,7 +55,7 @@
       </v-item-group>
     </v-container>
     <div v-else>
-      No products found.
+      <Spinner />
     </div>
   </div>
 </template>
@@ -79,12 +79,13 @@ export default {
       })
       .then((response) => {
         this.products = response.data;
+        console.log(response.data);
       });
   },
   // Only displays products that are featured
   computed: {
     featuredProducts() {
-      return this.products.filter(product => product.new === "1");
+      return this.products.filter(product => product.trending == 1);
     }
   }
 };

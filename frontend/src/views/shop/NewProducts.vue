@@ -73,7 +73,7 @@
     </v-container>
     <!-- No product found else - if no products load -->
     <div v-else>
-      No products found.
+      <Spinner />
     </div>
   </div>
 </template>
@@ -98,12 +98,13 @@ export default {
       })
       .then((response) => {
         this.products = response.data;
+        console.log(response.data);
       });
   },
   // Only displays products that are new
   computed: {
     newProducts() {
-      return this.products.filter(product => product.new === "1");
+      return this.products.filter(product => product.new == 1);
     }
   },
 };

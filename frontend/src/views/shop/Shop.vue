@@ -21,9 +21,9 @@
         <option v-for="order in getSortOrders()" :key="order.value" :value="order.value">{{ order.text }}</option>
       </select>
     </v-app-bar>
-
+    <v-main>
     <!-- Products display -->
-    <v-container id="main" class="mt-16 pt-16 mx-auto" v-if="sortedProducts.length">
+    <v-container id="main" class="mt-10 mx-auto" v-if="sortedProducts.length">
       <v-item-group multiple>
         <v-row>
           <!-- Products v-for loop -->
@@ -61,8 +61,9 @@
     </v-container>
     <!-- No found products message -->
     <div v-else>
-      No products found.
+          <Spinner />
     </div>
+    </v-main>
   </v-layout>
 </template>
 
