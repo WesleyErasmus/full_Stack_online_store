@@ -11,7 +11,7 @@
         <!-- Shop link -->
         <template v-slot:append>
           <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Shop' }">
-          <v-btn variant="outlined" size="small">shop</v-btn>
+          <v-btn variant="outlined" color="primary" size="small">shop</v-btn>
           </RouterLink>
         </template>
       </v-app-bar>
@@ -19,7 +19,7 @@
         <!-- Page image parallax -->
         <v-parallax class="mt-2"
           src="https://images.unsplash.com/photo-1643988603854-5eb5e1a992a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-          height="71vh">
+          height="70vh">
           <!-- Parallax content -->
           <div class="d-flex flex-column fill-height justify-center align-center text-white">
             <img class="logo-image" src="../../assets/logowords.png" alt="Logo">

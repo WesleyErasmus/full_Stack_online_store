@@ -1,26 +1,32 @@
 <template>
   <!-- Shop page -->
-  <v-layout class="px-0 page-container">
+  <div class="px-0 page-container">
     <!-- Search and filter inputs -->
-    <v-app-bar class="pt-3 v-app-filter-bar" color="grey-darken-2">
-      <v-spacer></v-spacer>
+    <nav class="pt-3 v-app-filter-bar">
+      <div id="main" class="filter-nav-inner mx-auto">
       <!-- Category search -->
+      <div>
       <v-select class="category-filter mr-4" variant="outlined" hide-details density="compact" v-model="categoryFilter"
         :items="categories" label="Search categories" />
+        </div>
       <!-- Search Bar -->
+      <div>
       <v-text-field class="search-bar mr-0" v-model="search" variant="outlined" hide-details density="compact"
         prepend-inner-icon="mdi-magnify" label="Search" @keydown.esc="clearSearch">
       </v-text-field>
+      </div>
       <!-- Price filter -->
+      <div>
       <v-icon class="filter-icon">mdi-filter</v-icon>
       <select v-model="sortOrder">
         <option value="">
           Sort by</option>
         <option v-for="order in getSortOrders()" :key="order.value" :value="order.value">{{ order.text }}</option>
       </select>
-      <v-spacer></v-spacer>
-    </v-app-bar>
-    <v-main>
+      </div>
+      </div>
+    </nav>
+    <div class="products-container">
     <!-- Products display -->
     <v-container id="main" class="mt-10 mx-auto" v-if="sortedProducts.length">
       <v-item-group multiple>
@@ -62,8 +68,8 @@
     <div v-else>
           <Spinner />
     </div>
-    </v-main>
-  </v-layout>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -147,20 +153,30 @@ export default {
 
 <style scoped>
 .page-container {
+  position: relative;
   min-height: 70vh;
 }
 /* Search bars styling */
 .v-app-filter-bar {
-  position: fixed !important;
-  top: 135px !important;
+  position: fixed;
+  background: lightgrey;
+  height: 80px;
+  width: 100%;
+  z-index: 9999;
 }
 
+.filter-nav-inner {
+  display: flex;
+}
+.products-container {
+  margin-top: 100px;
+}
 .category-filter {
-  max-width: 220px;
+  width: 220px;
 }
 
 .search-bar {
-  max-width: 220px;
+  width: 220px;
 }
 
 /* Remove the outline from the select element */

@@ -20,26 +20,14 @@
           cart.
           <v-spacer></v-spacer>
         </v-alert>
-        <v-toolbar dark prominent>
-          <!-- Go to cart page link -->
-          <v-app-bar-nav-icon :to="{ name: 'Cart' }">
-            <v-icon>mdi-cart</v-icon>
-          </v-app-bar-nav-icon>
-          <v-toolbar-title>
-            <!-- Go to cart page link -->
-            <RouterLink :to="{ name: 'Cart' }">
-              <div class="view-cart">Go to cart</div>
-            </RouterLink>
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <!-- Link to shop page -->
-          <RouterLink :to="{ name: 'Shop' }" class="text-decoration-none text-black mr-5">
-            <v-btn variant="outlined">
+      </div>
+        <div>
+          <RouterLink :to="{ name: 'Shop' }" class="text-decoration-none text-black d-flex justify-end">
+            <v-btn variant="outlined" color="primary">
               Continue Shopping
             </v-btn>
           </RouterLink>
-        </v-toolbar>
-      </div>
+        </div>
       <!-- Product display card -->
       <v-card variant="none">
         <v-container fluid>
@@ -54,7 +42,7 @@
                     <div class="d-flex flex-column img-gallery-container">
                       <!-- Default image -->
                       <v-img :src="product.image" @click="updateMainImage(product.image)" class="mx-3 product-img"
-                      aspect-ratio="1/1" cover>
+                        aspect-ratio="1/1" cover>
                       </v-img>
                       <!-- Image gallery 1 -->
                       <v-img :src="product.img_gallery_1" @click="updateMainImage(product.img_gallery_1)"
@@ -71,8 +59,7 @@
                     </div>
                     <!-- Preview image -->
                     <div>
-                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1"
-                        @click="dialog = true">
+                      <v-img class="click-img-zoom" :src="mainImageSrc" aspect-ratio="1/1" @click="dialog = true">
                       </v-img>
                     </div>
                   </div>
@@ -87,8 +74,8 @@
                       </div>
                     </v-card-subtitle>
                     <v-card-text>
-                      <div>Product Details</div>
-                      <div>{{ product.description }}</div>
+                      <div class="mb-2">Product Details</div>
+                      <div class="text-caption">{{ product.description }}</div>
                     </v-card-text>
                     <!-- Add to cart button -->
                     <!-- Disable add to cart button for guest users -->
@@ -243,9 +230,11 @@ export default {
 .view-cart:hover {
   color: var(--primary-grey);
 }
+
 /* Product images flex container */
 .product-card-flex-container {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 
@@ -260,7 +249,7 @@ export default {
 }
 
 .card-body-text {
-  max-width: 520px;
+  max-width: 450px;
 }
 
 /* Individual image container for hover effect */
@@ -278,36 +267,38 @@ export default {
 .click-img-zoom {
   min-width: 480px;
 }
+
 .click-img-zoom:hover {
   cursor: zoom-in;
 }
 
 @media screen and (max-width: 840px) {
 
-.product-card-flex-container {
-  justify-content: center;
-}
+  .product-card-flex-container {
+    justify-content: center;
+  }
 
-.product-card-flex-inner {
-  display: flex;
-  flex-direction: column-reverse;
-}
+  .product-card-flex-inner {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 
-.img-gallery-container {
-  opacity: 0.5;
-  display: flex;
-  flex-direction: row !important;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  height: 110px;
-  padding-top: 10px;
-}
-.product-img {
-  width: 50px;
-  margin: 5px !important;
-}
+  .img-gallery-container {
+    opacity: 0.5;
+    display: flex;
+    flex-direction: row !important;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 110px;
+    padding-top: 10px;
+  }
+
+  .product-img {
+    width: 50px;
+    margin: 5px !important;
+  }
 
 }
 </style>

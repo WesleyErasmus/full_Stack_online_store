@@ -4,9 +4,11 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template><!-- Sticky navbar -->
 <v-app>
- 
   <!-- TOP NAVBAR -->
   <TopNavbar />
+
+  <!-- Back to top button -->
+  <BackToTop/>
 
   <RouterView />
 
@@ -18,7 +20,8 @@ import { RouterLink, RouterView } from "vue-router";
 <script>
 import Footer from "../src/components/Footer.vue";
 import TopNavbar from "../src/components/TopNavbar.vue";
+import BackToTop from "../src/components/BackToTop.vue";
 export default {
-  components: { Footer, TopNavbar },
+  components: { Footer, TopNavbar, BackToTop },
 };
 </script>

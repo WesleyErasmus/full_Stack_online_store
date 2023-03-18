@@ -1,12 +1,12 @@
 <template>
   <div class="footer-component mt-15">
     <main class="footer-content">
-      <v-row>
+      <v-row class="text-caption">
         <v-col>
           <!-- Footer list items -->
           <ul class="footer-links">
             <li>
-              <div class="text-h6">Our Address</div>
+              <div class="text-body-2 font-weight-bold">Our Address</div>
             </li>
             <li>123 Loop Street</li>
             <li>City Center,</li>
@@ -38,7 +38,7 @@
         <v-col>
           <ul class="footer-links">
             <li>
-              <div class="text-h6">Shipping</div>
+              <div class="text-body-2 font-weight-bold">Shipping</div>
             </li>
             <li>Online Store</li>
             <li>Terms and conditions</li>
@@ -50,7 +50,7 @@
         <v-col>
           <ul class="footer-links">
             <li>
-              <div class="text-h6">Partners</div>
+              <div class="text-body-2 font-weight-bold">Partners</div>
             </li>
             <li>Customer service</li>
             <li>Faqs</li>
@@ -62,7 +62,7 @@
         <v-col>
           <ul class="footer-links">
             <li>
-              <div class="text-h6">Buy gift vouchers</div>
+              <div class="text-body-2 font-weight-bold">Buy gift vouchers</div>
             </li>
             <li>Orders</li>
             <li>Careers</li>
@@ -98,19 +98,19 @@ export default {
 <style scoped>
 /* Footer page container */
 .footer-component {
-  padding: 4rem 7rem;
+  padding: 4rem;
   background: rgba(211, 211, 211, 0.37);
 }
 
 /* Footer inner */
 .footer-content {
-  max-width: 1440px !important;
+  max-width: 1200px !important;
   display: block;
   margin: 0 auto;
 }
 
 li {
-  font-size: small;
+  /* font-size: small; */
 }
 
 .footer-links li {
@@ -120,7 +120,7 @@ li {
 
 .copyright-container {
   text-align: center;
-  padding: 8rem 4rem 4rem 4rem;
+  padding: 4rem 2rem 2rem 2rem;
 }
 
 .directions-btn {

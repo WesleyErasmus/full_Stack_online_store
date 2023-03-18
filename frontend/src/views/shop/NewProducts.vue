@@ -15,7 +15,7 @@
             <v-card-actions>
               <!-- link to features products -->
               <RouterLink class="text-decoration-none text-white" :to="{ name: 'FeaturedProducts' }">
-              <v-btn variant="outlined" size="small">Go to trending products</v-btn>
+              <v-btn color="primary" variant="outlined" size="small">Go to trending products</v-btn>
               </RouterLink>
             </v-card-actions>
           </template>

@@ -2,26 +2,19 @@
   <div id="main" class="mx-auto page-container">
     <v-banner
       lines="two"
-      theme="dark"
-      color="deep-purple-accent-4"
+      theme="light"
       class="my-7"
     >
       <template v-slot:prepend>
         <v-avatar
           color="deep-purple-accent-4"
-          icon="mdi-new-box"
+          icon="mdi-star-circle"
         ></v-avatar>
       </template>
 
-      <v-banner-text class="text-subtitle-1">
+      <v-banner-text class="text-subtitle-1 text-medium-emphasis">
         Atlas online fashion store stays ahead of the competition by being the first to acquire the latest trending fashion ensuring our customers have access to the latest and most sought-after fashion.
       </v-banner-text>
-
-      <v-banner-actions>
-        <RouterLink class="text-decoration-none text-white" :to="{ name: 'Cart' }">
-        <v-btn color="white" variant="outlined" size="small">View cart</v-btn>
-        </RouterLink>
-      </v-banner-actions>
     </v-banner>
     <!-- Products display -->
     <v-container class="mt-0 px-0 pt-0 mx-auto" v-if="featuredProducts.length">

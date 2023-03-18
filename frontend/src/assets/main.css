@@ -24,6 +24,7 @@
 
 /* Main styling for all pages between header and footer */
 #main {
-  max-width: 1240px;
+  max-width: 1200px;
+  padding: 0.5rem !important;
   width: 100%;
 }

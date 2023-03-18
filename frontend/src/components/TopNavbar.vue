@@ -70,14 +70,6 @@
                         {{ this.shoppingCart.length }}
                     </v-btn>
                 </RouterLink>
-
-                <!-- Back to top btn -->
-                <div class="back-to-top-btn">
-                    <a @click="smoothScrollToTop" class="">
-                        <v-icon>mdi-arrow-up-drop-circle-outline</v-icon>
-                        Back to top
-                    </a>
-                </div>
             </div>
         </nav>
     </div>
@@ -113,13 +105,8 @@ export default {
         }
     },
     methods: {
-        // Smooth scroll to top of page function
-        smoothScrollToTop() {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-        },
         // Customer logout function
         customerLogout() {
-
             // Remove cookies and send them back to the login page
             this.cookies.remove("customer_id");
             this.$router.push({ name: 'Login' }).then(() => {
@@ -208,7 +195,7 @@ export default {
 }
 /* Styling for navbar inner */
 .max-width-container {
-    width: 1240px;
+    width: 1200px;
     display: flex;
     margin: 0 auto;
     justify-content: space-between;
