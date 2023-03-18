@@ -3,8 +3,6 @@
   <v-layout class="px-0 page-container">
     <!-- Search and filter inputs -->
     <v-app-bar class="pt-3 v-app-filter-bar" color="grey-darken-2">
-      <v-app-bar-nav-icon class="ml-10"><v-icon>mdi-grid-large</v-icon></v-app-bar-nav-icon>
-      <v-toolbar-subtitle>Shop All Products</v-toolbar-subtitle>
       <v-spacer></v-spacer>
       <!-- Category search -->
       <v-select class="category-filter mr-4" variant="outlined" hide-details density="compact" v-model="categoryFilter"
@@ -20,6 +18,7 @@
           Sort by</option>
         <option v-for="order in getSortOrders()" :key="order.value" :value="order.value">{{ order.text }}</option>
       </select>
+      <v-spacer></v-spacer>
     </v-app-bar>
     <v-main>
     <!-- Products display -->

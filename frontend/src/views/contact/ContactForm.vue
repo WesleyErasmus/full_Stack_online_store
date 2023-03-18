@@ -1,63 +1,6 @@
 <template>
   <!-- Contact page message form -->
   <div id="main" class="mt-6">
-    <!-- Page heading -->
-    <v-parallax
-      src="https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-      height="175px">
-      <div class="d-flex flex-column flex-wrap fill-height justify-center align-center text-white">
-        <div class="text-h3 mb-4">
-          CONTACT US
-        </div>
-      </div>
-    </v-parallax>
-    <!-- Page subheading -->
-    <v-container class="bg-black my-3 text-center">
-      <div class="text-h5 font-weight-bold">
-        How can we help you?
-      </div>
-    </v-container>
-    <!-- Chip group and Card Safety container -->
-    <v-card class="d-flex justify-center flex-wrap pa-10 my-5" variant="outlined" color="grey-lighten-2">
-      <!-- FAQS -->
-      <v-card class="ma-3 rounded-b-xl rounded-t-xl" max-width="480px" width="100%" variant="none">
-        <v-row justify="center">
-          <v-col cols="12">
-            <v-sheet elevation="0" rounded="xl">
-              <v-sheet class="pa-3 text-center text-grey-darken-2" rounded="t-xl">
-                <div class="text-h5 font-weight-bold">Frequently asked questions</div>
-              </v-sheet>
-              <!-- CHIPS -->
-              <div class="pa-7 pt-5">
-                <v-chip-group selected-class="text-info" column>
-                  <v-chip class="" size="x-large" variant="elevated" v-for="tag in tags" :key="tag">
-                    {{ tag }}
-                  </v-chip>
-                </v-chip-group>
-              </div>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-card>
-      <!-- Card Safety -->
-      <v-card class="ma-3 rounded-b-xl rounded-t-xl" max-width="480px" width="100%" variant="elevated">
-        <v-row justify="center">
-          <v-col cols="12">
-            <v-sheet elevation="0" rounded="xl">
-              <div class="pa-6">
-                <v-card-title class="text-h6 font-weight-bold">Payment security</v-card-title>
-                <div class="pl-3">
-                  <span>Keep your credit card information safe: Never share your credit card information with anyone who
-                    doesn't have a legitimate reason to know it. Don't give out your credit card number over the phone,
-                    email, or text message unless you initiated the contact and you trust the recipient.</span>
-                  <img src="../../assets/credit-card.png" class="credit-card-icon float-end" alt="Credit-card-icon">
-                </div>
-              </div>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-card>
 
     <!-- Message form heading | Get in touch -->
     <v-container class="my-5 text-center">
@@ -78,13 +21,19 @@
         <v-card color="grey-lighten-2" class="px-4 rounded-b-xl" variant="outlined">
           <!-- Contact form section -->
           <v-form @submit.prevent="saveCustomerMessage">
+            <!-- Name input -->
+            <v-text-field v-model="fullName" variant="filled" class="text-black mx-15 mt-10" label="Full name"
+              hide-details="auto"></v-text-field>
+            <!-- Email input -->
+            <v-text-field v-model="email" variant="filled" class="text-black mx-15 mt-10" hide-details="auto"
+              label="Email address" type="email"></v-text-field>
             <!-- Message input field -->
             <v-textarea variant="filled" class="text-black mx-15 mt-10" v-model="message" label="Message"
               bg-color="grey-lighten-5" rows="2" row-height="15" auto-grow>
             </v-textarea>
             <!-- Form submit btn -->
             <v-card-actions>
-              <v-btn color="info" size="large" type="submit" :loading="isLoading" class="mt-1" block>
+              <v-btn color="primary" size="large" type="submit" :loading="isLoading" class="mt-1" block>
                 Send Message
                 <v-icon end icon="mdi-send"></v-icon>
               </v-btn>
@@ -122,17 +71,10 @@ export default {
     return { cookies };
   },
   data: () => ({
+    fullName: '',
+    email: '',
     message: '',
     customerData: [],
-    tags: [
-      'Courier Costs',
-      'Returns Policy',
-      'Collections',
-      'Gift Vouchers',
-      'Customer Service',
-      'Missing Packages',
-      'Queries',
-    ],
   }),
   methods: {
     // Message sent toast
@@ -147,13 +89,12 @@ export default {
     },
     // Save message to database function
     saveCustomerMessage() {
-      console.log('saveCustomerMessage Message');
-      // Getting customer id cookie on page/DOM mount
-      let customerId = this.cookies.get("customer_id");
-      console.log('Data sent:', { customerId, message: this.message });
+      console.log('Data sent:', { fullName: this.fullName, email: this.email, message: this.message });
       api.post(
-        `/controllers/CustomerController.php?action=saveMessage&customerId=${customerId}`,
+        `/controllers/CustomerController.php?action=saveMessage`,
         {
+          fullName: this.fullName,
+          email: this.email,
           message: this.message,
         },
         {
@@ -174,22 +115,8 @@ export default {
           console.error(error);
         });
     },
-    // Fetch customer id function being called in my methods and lifecycle hook
-    fetchCustomerData() {
-      let customerId = this.cookies.get("customer_id");
-      const customer_id = parseInt(customerId);
-      api.get(`/controllers/CustomerController.php?customerId=${customerId}`, { responseType: 'json' })
-        .then((response) => {
-          this.customerData = response.data;
-          console.warn(response);
-          console.log("customer_id:", customer_id, typeof customer_id);
-        });
-    },
   },
   mounted() {
-    // Fetch customer data on component mount
-    this.fetchCustomerData();
-
     let customerId = this.cookies.get("customer_id");
     const customer_id = parseInt(customerId);
   },
@@ -202,10 +129,6 @@ export default {
   max-width: 700px;
 }
 
-.credit-card-icon {
-  width: 135px;
-
-}
 /* Social media links */
 .sm-links a {
   padding: 10px;
