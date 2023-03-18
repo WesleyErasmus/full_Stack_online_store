@@ -1,6 +1,6 @@
 <template>
     <!-- Meet the team component -->
-    <v-layout class="staff-page-container">
+    <v-layout class="staff-page-container mt-5">
         <v-app-bar class="elevation-0" theme="" density="compact">
             <!-- Component title -->
             <v-app-bar-title class="text-h5 mb-5 text-center">

@@ -55,7 +55,7 @@ p {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background: var(--primary-color);
+    background: #6E14EF;
     color: #fff;
     font-weight: bold;
     text-align: center;

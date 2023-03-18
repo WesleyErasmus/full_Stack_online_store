@@ -1,6 +1,6 @@
 <template>
   <!-- Blogs container -->
-  <v-layout class="mt-7">
+  <v-layout class="my-15">
     <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
         <v-app-bar-nav-icon>

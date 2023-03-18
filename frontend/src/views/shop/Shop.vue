@@ -161,7 +161,7 @@ export default {
 .v-app-filter-bar {
   position: fixed;
   background: #fff;
-  min-height: 80px;
+  min-height: 70px;
   width: 100%;
   z-index: 9999;
 }

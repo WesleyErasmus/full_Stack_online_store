@@ -42,7 +42,6 @@
                 </div>
               </v-card-actions>
             </v-card>
-            <hr>
           </v-col>
         </v-row>
       </v-item-group>

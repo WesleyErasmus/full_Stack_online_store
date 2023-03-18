@@ -1,6 +1,6 @@
 <template>
     <!-- Categories component -->
-    <v-layout class="mt-7">
+    <v-layout class="mt-15">
         <v-app-bar color="transparent" class="elevation-0" theme="light">
             <template v-slot:prepend>
                 <v-app-bar-nav-icon>
@@ -31,9 +31,9 @@
                                             class="d-flex flex-column fill-height justify-center align-center text-white">
                                             <!-- Card button -->
                                             <v-btn class="ms-2" variant="outlined" color="secondary" size="small">
-                                                <a class="text-white text-decoration-none elevated-4" href=""
-                                                    target="_blank">{{
-                                                        item.title }}</a>
+                                                <span class="text-white">
+                                                    {{ item.title }}
+                                                </span>
                                             </v-btn>
                                         </v-card-body>
                                     </v-img>

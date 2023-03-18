@@ -1,6 +1,6 @@
 <template>
   <!-- Featured products container -->
-  <v-layout class="mt-3">
+  <v-layout class="mt-10">
     <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
         <v-app-bar-title class="text-high-emphasis">
@@ -43,7 +43,6 @@
                   </div>
                 </v-card-actions>
               </v-card>
-              <hr>
             </v-col>
           </v-row>
         </v-item-group>

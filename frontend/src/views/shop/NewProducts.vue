@@ -4,18 +4,12 @@
     <!-- DIsplays no products message if products don't load -->
     <v-container id="main" class="mt-0 pt-0 px-0 mx-auto" v-if="newProducts.length">
       <v-layout class="mt-0">
-        <v-app-bar class="elevation-0" theme="dark">
-          <template v-slot:prepend>
-            <!-- page heading -->
-            <v-app-bar-title class="text-high-emphasis">
-              See what's just dropped
-            </v-app-bar-title>
-          </template>
+        <v-app-bar class="elevation-0" theme="light">
           <template v-slot:append>
             <v-card-actions>
               <!-- link to features products -->
               <RouterLink class="text-decoration-none text-white" :to="{ name: 'FeaturedProducts' }">
-              <v-btn color="primary" variant="outlined" size="small">Go to trending products</v-btn>
+              <v-btn color="primary" variant="outlined" size="small">See trending products</v-btn>
               </RouterLink>
             </v-card-actions>
           </template>
@@ -23,8 +17,8 @@
         <v-main>
           <!-- Just arrived image -->
           <v-parallax
-            src="https://images.unsplash.com/photo-1536243298747-ea8874136d64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-            height="295px" cover aspect-ratio="16/9" class="my-7">
+            src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=712&q=80"
+            height="125px" cover aspect-ratio="16/9" class="mb-7">
             <!-- Image content -->
             <div class="d-flex fill-height justify-center align-center text-white">
               <div class="text-h4">Just arrived.</div>
@@ -63,7 +57,6 @@
                       </div>
                     </v-card-actions>
                   </v-card>
-                  <hr>
                 </v-col>
               </v-row>
             </v-item-group>

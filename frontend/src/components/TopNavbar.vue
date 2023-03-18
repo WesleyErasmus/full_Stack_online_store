@@ -1,77 +1,165 @@
 <template>
-    <!-- Spacer to align content main page content below navbar  -->
-    <div class="nav-spacing">
-        <!-- App Navbar -->
-        <v-app-bar class="nav-contact-info px-10" theme="dark">
-            <v-app-bar-title class="text-start text-caption">
-                <!-- Social media links -->
-                <div class="sm-links">
-                    <a class="sm-icon-item" href="https://www.facebook.com/" target="_blank" alt="Facebook"><i
-                            class="fa-brands fa-facebook"></i></a>
-                    <a class="sm-icon-item" href="https://www.twitter.com/" target="_blank" alt="Twitter"><i
-                            class="fa-brands fa-twitter"></i></a>
-                    <a class="sm-icon-item" href="https://www.instagram.com/" target="_blank" alt="Instagram"><i
-                            class="fa-brands fa-instagram"></i></a>
-                    <a class="sm-icon-item" href="https://www.linkedin.com/" target="_blank" alt="LinkedIn"><i
-                            class="fa-brands fa-linkedin"></i></a>
-                    <a class="sm-icon-item" href="https://www.tiktok.com/" target="_blank" alt="TikTok"><i
-                            class="fa-brands fa-tiktok"></i></a>
-                    <a class="sm-icon-item" href="https://www.youtube.com/" target="_blank" alt="YouTube"><i
-                            class="fa-brands fa-youtube"></i></a>
+    <div>
+        <!-- Spacer to align content main page content below navbar  -->
+        <div class="nav-spacing">
+            <!-- App Navbar -->
+            <v-app-bar class="nav-contact-info px-10" theme="dark">
+                <v-app-bar-title class="text-start text-caption">
+                    <!-- Social media links -->
+                    <div class="sm-links">
+                        <a class="sm-icon-item" href="https://www.facebook.com/" target="_blank" alt="Facebook"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a class="sm-icon-item" href="https://www.twitter.com/" target="_blank" alt="Twitter"><i
+                                class="fa-brands fa-twitter"></i></a>
+                        <a class="sm-icon-item" href="https://www.instagram.com/" target="_blank" alt="Instagram"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a class="sm-icon-item" href="https://www.linkedin.com/" target="_blank" alt="LinkedIn"><i
+                                class="fa-brands fa-linkedin"></i></a>
+                        <a class="sm-icon-item" href="https://www.tiktok.com/" target="_blank" alt="TikTok"><i
+                                class="fa-brands fa-tiktok"></i></a>
+                        <a class="sm-icon-item" href="https://www.youtube.com/" target="_blank" alt="YouTube"><i
+                                class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </v-app-bar-title>
+
+                <!-- Navbar login and sign-up links -->
+
+                <!-- Conditionally changing the value of the login/logout button based on the the user is a guest or a signed in customer -->
+                <RouterLink :to="{ name: 'SignUp' }" class="text-decoration-none">
+                    <v-btn v-if="!customer_id" variant="outlined" color="primary" size="small"
+                        class="give-btn text-overline mb-3 mr-5">Sign-Up</v-btn>
+                </RouterLink>
+
+                <RouterLink :to="{ name: 'Login' }" class="text-decoration-none">
+                    <v-btn v-if="!customer_id" variant="elevated" color="primary" size="small"
+                        class="give-btn text-overline mb-3 mr-5">Login</v-btn>
+                    <v-btn v-else variant="outlined" color="primary" size="small" class="give-btn text-overline mb-3 mr-5"
+                        @click="customerLogout">Logout</v-btn>
+                </RouterLink>
+            </v-app-bar>
+
+            <!-- Navbar page links -->
+            <nav class="app-top-navbar elevation-0">
+                <div class="max-width-container">
+                    <!-- Navbar Logo -->
+                    <RouterLink class="nav-link-item text-decoration-none text-black hidden-sm-and-down"
+                        :to="{ name: 'Home' }">
+                        <!-- Logo to display none from tablet screen size down class="hidden-sm-and-down" -->
+                        <div class="app-top-nav-logo-container">
+                            <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
+                        </div>
+                    </RouterLink>
+                    <!-- Navbar Meu Links -->
+                    <div class="top-nav-menu-tabs">
+                        <RouterLink class="nav-tab-item" :to="{ name: 'Home' }">
+                            HOME
+                        </RouterLink>
+                        <RouterLink class="nav-tab-item" :to="{ name: 'Shop' }">SHOP</RouterLink>
+                        <RouterLink class="nav-tab-item" :to="{ name: 'NewProducts' }">NEW</RouterLink>
+                        <RouterLink class="nav-tab-item" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
+                        <!-- Prevent access to guest users -->
+                        <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Profile' }">PROFILE</RouterLink>
+                        <!-- Prevent access to guest users -->
+                        <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
+                        <RouterLink class="nav-tab-item" :to="{ name: 'Contact' }">CONTACT</RouterLink>
+                        <RouterLink class="nav-tab-item" :to="{ name: 'About' }">ABOUT</RouterLink>
+                    </div>
+
+                    <!-- Cart icon -->
+                    <RouterLink v-if="customer_id" class="shopping-cart-icon" :to="{ name: 'Cart' }">
+                        <v-btn variant="outlined" size="small" icon color="primary">
+                            <v-icon>mdi-cart</v-icon>
+                            {{ this.shoppingCart.length }}
+                        </v-btn>
+                    </RouterLink>
                 </div>
-            </v-app-bar-title>
-
-
-            <!-- Navbar login and sign-up links -->
-
-            <!-- Conditionally changing the value of the login/logout button based on the the user is a guest or a signed in customer -->
-            <RouterLink :to="{ name: 'SignUp' }" class="text-decoration-none">
-                <v-btn v-if="!customer_id" variant="outlined" color="primary" size="small"
-                    class="give-btn text-overline mb-3 mr-5">Sign-Up</v-btn>
-            </RouterLink>
-
-            <RouterLink :to="{ name: 'Login' }" class="text-decoration-none">
-                <v-btn v-if="!customer_id" variant="elevated" color="primary" size="small"
-                    class="give-btn text-overline mb-3 mr-5">Login</v-btn>
-                <v-btn v-else variant="outlined" color="primary" size="small" class="give-btn text-overline mb-3 mr-5"
-                    @click="customerLogout">Logout</v-btn>
-            </RouterLink>
-        </v-app-bar>
-
-        <!-- Navbar page links -->
-        <nav class="app-top-navbar elevation-0">
-            <div class="max-width-container">
-                <!-- Navbar Logo -->
+            </nav>
+            <!--  -->
+            <v-toolbar app class="mobile-toolbar">
                 <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Home' }">
-                    <div class="app-top-nav-logo-container">
+                    <div class="app-top-nav-logo-container ml-5">
                         <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
                     </div>
                 </RouterLink>
-                <!-- Navbar Meu Links -->
-                <div class="top-nav-menu-tabs">
-                    <RouterLink class="nav-tab-item" :to="{ name: 'Home' }">
-                        HOME
-                    </RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'Shop' }">SHOP</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'NewProducts' }">NEW</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
-                    <!-- Prevent access to guest users -->
-                    <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Profile' }">PROFILE</RouterLink>
-                    <!-- Prevent access to guest users -->
-                    <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'Contact' }">CONTACT</RouterLink>
-                    <RouterLink class="nav-tab-item" :to="{ name: 'About' }">ABOUT</RouterLink>
-                </div>
+                <v-spacer></v-spacer>
 
-                <!-- Cart icon -->
-                <RouterLink v-if="customer_id" class="shopping-cart-icon" :to="{ name: 'Cart' }">
-                    <v-btn variant="outlined" size="small" icon color="primary">
-                        <v-icon>mdi-cart</v-icon>
-                        {{ this.shoppingCart.length }}
-                    </v-btn>
-                </RouterLink>
-            </div>
-        </nav>
+                <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+                    <template v-slot:activator="{ props }">
+                        <v-btn size="small" icon variant="elevated" color="primary" v-bind="props">
+                            <v-icon>mdi-menu</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-toolbar flat color="primary">
+                            <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Home' }">
+                        <div class="app-top-nav-logo-container ml-5">
+                            <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
+                        </div>
+                    </RouterLink>
+                            <v-spacer></v-spacer>
+                            <v-btn icon @click="dialog = false">
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                        </v-toolbar>
+
+                        <v-list density="compact">
+                            <v-list-subheader>MENU</v-list-subheader>
+
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink @click="dialog = false" :to="{ name: 'Home' }">
+                                        HOME
+                                    </RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                     <RouterLink @click="dialog = false" :to="{ name: 'Shop' }">SHOP</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink @click="dialog = false" :to="{ name: 'NewProducts' }">NEW</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink @click="dialog = false" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink v-if="customer_id"  
+                                    @click="dialog = false"
+                                    :to="{ name: 'Profile' }">PROFILE</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink v-if="customer_id"  
+                                    @click="dialog = false"
+                                    :to="{ name: 'Cart' }">CART</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink @click="dialog = false" :to="{ name: 'Contact' }">CONTACT</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title>
+                                    <RouterLink @click="dialog = false" :to="{ name: 'About' }">ABOUT</RouterLink>
+                                </v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-card>
+                </v-dialog>
+
+            </v-toolbar>
+            <!--  -->
+        </div>
+
+
     </div>
 </template>
 <script>
@@ -87,6 +175,8 @@ export default {
     },
     data() {
         return {
+            // Navbar mobile and tablet breakpoints
+            dialog: false,
             cartCount: 0,
             shoppingCart: [],
             fullName: "",
@@ -128,7 +218,7 @@ export default {
             }
             return this.shoppingCart.length;
         },
-    }, 
+    },
     // This method is called when the component is mounted to the DOM - lifecycle hook
     mounted() {
         let customerId = this.cookies.get("customer_id");
@@ -180,6 +270,7 @@ export default {
 .nav-contact-info div {
     height: 40px;
 }
+
 /* Styling for first v-app navbar */
 .app-top-navbar {
     z-index: 99999;
@@ -193,6 +284,7 @@ export default {
     top: 50px !important;
     background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color-2));
 }
+
 /* Styling for navbar inner */
 .max-width-container {
     width: 1200px;
@@ -213,6 +305,7 @@ export default {
     display: flex;
     align-items: center;
 }
+
 /* Navbar link/button styling */
 .top-nav-menu-tabs a {
     margin: 10px 0 0 20px;
@@ -248,5 +341,32 @@ export default {
     transform: scale(1.4);
     background: none;
     color: #fff;
+}
+
+.mobile-toolbar {
+    position: fixed;
+    display: none;
+    background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color-2));
+}
+
+@media screen and (max-width: 680px) {
+
+    .nav-spacing {
+        margin-bottom: 90px !important;
+    }
+
+    .app-top-navbar {
+        display: none;
+    }
+
+    .mobile-toolbar {
+        display: block;
+        margin-top: 50px;
+        z-index: 9999;
+    }
+
+    /* .sm-links {
+        display: none;
+    } */
 }
 </style>
