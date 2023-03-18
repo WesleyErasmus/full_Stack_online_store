@@ -57,7 +57,7 @@ After completing the installation and configuration steps, you should be able to
 | SHOP ONLINE | ADD TO YOUR CART | CREATE YOUR LOOK
 *** 
 
-![Image text](/src/assets/logofull.png)
+![Image text](./frontend/src/assets/logofull.png)
 ***
 ## General Info
 Atlas Online Fashion is an easy to use e-commerce website. The landing page displays samples of the New and Featured Collections. If you have a love for fashion, checkout the featured blog topics.
