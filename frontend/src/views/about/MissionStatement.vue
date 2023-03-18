@@ -1,11 +1,13 @@
 <template>
-    <div class="my-15">
+    <div class="mission-page-container">
         <!-- Mission statement container -->
-        <v-card class="mb-10 text-center elevated-0" color="black" variant="elevated">
+        <v-container class="my-5 mb-10 text-center">
             <!-- Component heading -->
-            <v-card-title class="text-center text-">
-                About us</v-card-title>
-        </v-card>
+            <div class="text-h5 ">
+                About us
+            </div>
+        </v-container>
+
         <!-- Timeline for, mission | vision | about-us -->
         <v-timeline direction="horizontal">
             <v-timeline-item dot-color="green-darken-2">
@@ -52,3 +54,8 @@
     </div>
 </template>
 
+<style scoped>
+.mission-page-container {
+    padding-bottom: 7rem;
+}
+</style>

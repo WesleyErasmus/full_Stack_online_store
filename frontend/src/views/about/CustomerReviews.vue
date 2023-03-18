@@ -1,14 +1,16 @@
 <template>
-    <v-container class="my-10">
-        <div class="text-center">
-            <h1 class="text-center font-emphasis-high mb-5">Customer Reviews</h1>
-        </div>
+    <v-container>
+        <v-container class="my-3 text-center">
+          <div class="text-h5">
+            Customer Reviews
+          </div>
+        </v-container>
         <v-row>
             <!-- Customer review for loop -->
             <v-col v-for="review in reviews" :key="review.id" cols="12" sm="6" md="4">
-                <v-card color="white" variant="elevated" class="mx-auto" max-width="500">
+                <v-card color="" variant="none" class="mx-auto" max-width="500">
                     <!-- Review title -->
-                    <v-card-title>
+                    <v-card-title class="text-subtitle-1">
                         {{ review.title }}
                     </v-card-title>
                     <v-card-text>
@@ -18,7 +20,7 @@
                                 {{ n <= 0 ? 'mdi-star-outline' : 'mdi-star' }} </v-icon>
                         </div>
                         <!-- Review content -->
-                        <p class="text-body-2">{{ review.content }}</p>
+                        <p class="text-caption">{{ review.content }}</p>
                     </v-card-text>
                 </v-card>
             </v-col>

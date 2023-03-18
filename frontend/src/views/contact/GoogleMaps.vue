@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-container class="pa-3 my-5 text-center">
-            <div class="text-h5 mb-0 pb-0 font-weight-bold">
+            <div class="text-h5 mb-0 pb-0">
                 Find our store
             </div>
         </v-container>

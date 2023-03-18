@@ -15,7 +15,7 @@
     </v-parallax>
     <!-- Page subheading -->
     <v-container class="my-3 text-center">
-      <div class="text-h5 font-weight-bold">
+      <div class="text-h5">
         How can we help you?
       </div>
     </v-container>

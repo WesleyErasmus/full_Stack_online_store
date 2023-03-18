@@ -4,7 +4,7 @@
 
     <!-- Message form heading | Get in touch -->
     <v-container class="my-5 text-center">
-      <div class="text-h5 font-weight-bold">
+      <div class="text-h5">
         Want to get in touch?
       </div>
     </v-container>
@@ -52,7 +52,6 @@
     </v-layout>
 
     <Toasts />
-    <hr>
   </div>
 </template>
 

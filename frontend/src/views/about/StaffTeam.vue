@@ -1,9 +1,9 @@
 <template>
     <!-- Meet the team component -->
-    <v-layout>
-        <v-app-bar class="elevation-0" theme="dark" density="compact">
+    <v-layout class="staff-page-container">
+        <v-app-bar class="elevation-0" theme="" density="compact">
             <!-- Component title -->
-            <v-app-bar-title class="text-center">
+            <v-app-bar-title class="text-h5 mb-5 text-center">
                 Meet the Team
             </v-app-bar-title>
         </v-app-bar>
@@ -104,5 +104,9 @@ export default {
     opacity: .8;
     position: absolute;
     width: 100%;
+}
+
+.staff-page-container {
+    padding-bottom: 7rem;
 }
 </style>
