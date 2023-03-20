@@ -20,20 +20,57 @@
       <v-main class="mb-10">
         <v-card color="grey-lighten-2" class="px-4 rounded-b-xl" variant="outlined">
           <!-- Contact form section -->
-          <v-form @submit.prevent="saveCustomerMessage">
+          <v-form 
+          @submit.prevent="saveCustomerMessage"
+           v-model="valid" 
+           class="px-10 pb-10"
+          >
             <!-- Name input -->
-            <v-text-field v-model="fullName" variant="filled" class="text-black mx-15 mt-10" label="Full name"
-              hide-details="auto"></v-text-field>
+            <v-text-field 
+            v-model="fullName" 
+            variant="filled" 
+            class="text-black mt-10" 
+            label="Full name"
+            hide-details="auto"
+            required
+            :rules="nameRules"
+            ></v-text-field>
             <!-- Email input -->
-            <v-text-field v-model="email" variant="filled" class="text-black mx-15 mt-10" hide-details="auto"
-              label="Email address" type="email"></v-text-field>
+            <v-text-field 
+            v-model="email" 
+            variant="filled" 
+            class="text-black mt-10" 
+            hide-details="auto"
+            label="Email address" 
+            type="email"
+            required
+            :rules="emailRules"
+            ></v-text-field>
             <!-- Message input field -->
-            <v-textarea variant="filled" class="text-black mx-15 mt-10" v-model="message" label="Message"
-              bg-color="grey-lighten-5" rows="2" row-height="15" auto-grow>
+            <v-textarea 
+            variant="filled" 
+            class="text-black mt-10" 
+            v-model="message" 
+            label="Message"
+            bg-color="grey-lighten-5" 
+            rows="2" 
+            row-height="15" 
+            auto-grow
+            required
+            counter
+             :rules="messageRules"
+            >
             </v-textarea>
             <!-- Form submit btn -->
             <v-card-actions>
-              <v-btn color="primary" size="large" type="submit" :loading="isLoading" class="mt-1" block>
+              <v-btn 
+              color="primary"
+              variant="elevated" 
+              size="large" 
+              type="submit" 
+              :disabled="!valid"
+              class="mt-1" 
+              block>
                 Send Message
                 <v-icon end icon="mdi-send"></v-icon>
               </v-btn>
@@ -74,6 +111,44 @@ export default {
     email: '',
     message: '',
     customerData: [],
+    // Message Form Validation
+    valid: false,
+    nameRules: [
+      value => {
+        if (value) return true
+
+        return 'Name is required.'
+      },
+      value => {
+        if (value?.length >= 5) return true
+
+        return 'Name must be longer than 5 characters.'
+      },
+    ],
+    emailRules: [
+      value => {
+        if (value) return true
+
+        return 'E-mail is requred.'
+      },
+      value => {
+        if (/.+@.+\..+/.test(value)) return true
+
+        return 'E-mail must be valid.'
+      },
+    ],
+    messageRules: [
+      value => {
+        if (value) return true
+
+        return 'Message is required.'
+      },
+      value => {
+        if (value?.length >= 10) return true
+
+        return 'Message must be longer than 10 characters.'
+      },
+    ],
   }),
   methods: {
     // Message sent toast
@@ -90,7 +165,7 @@ export default {
     saveCustomerMessage() {
       console.log('Data sent:', { fullName: this.fullName, email: this.email, message: this.message });
       api.post(
-        `/controllers/CustomerController.php?action=saveMessage`,
+        `/controllers/MessageController.php?action=saveMessage`,
         {
           fullName: this.fullName,
           email: this.email,
@@ -105,7 +180,7 @@ export default {
         .then(response => {
           console.log(response);
 
-          if (response.data && this.message !== "") {
+          if (response.data) {
             this.successMessage();
 
           }

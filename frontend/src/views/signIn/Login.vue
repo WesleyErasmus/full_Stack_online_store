@@ -5,28 +5,52 @@
       <v-app-bar class="text-center rounded-t-xl" color="primary">
         <v-app-bar-title class="text-high-emphasis">
           <div class="text-white">
-            Sign-Up
+            Login
           </div>
         </v-app-bar-title>
       </v-app-bar>
       <v-main class="mb-10">
         <v-card width="500px" class=" pa-5 rounded-b-xl rounded-t-0" variant="tonal">
           <!-- LOGIN FORM -->
-          <v-form @submit.prevent="customerLogin" class=" pa-4">
+          <v-form 
+          v-model="valid" 
+          @submit.prevent="customerLogin" 
+          class=" pa-4">
             <div class="form-floating mb-3">
               <!-- Email input -->
-              <v-text-field type="email" name="email" v-model="email" class="form-control" id="validationCustom01"
-                placeholder="Enter your email address" required />
-              <label for="validationCustom01">Email</label>
+              <label>Email</label>
+              <v-text-field 
+              type="email" 
+              name="email" 
+              v-model="email" 
+              class="form-control"
+              placeholder="Enter your email address" 
+              required 
+              :rules="emailRules"
+              />
+              
             </div>
             <!-- Password input -->
             <div class="form-floating mb-3">
-              <v-text-field type="password" v-model="password" class="form-control" id="validationCustom02"
-                placeholder="Enter your password" required />
-              <label for="validationCustom02">Password</label>
+              <label>Password</label>
+              <v-text-field 
+              type="password" 
+              v-model="password" 
+              class="form-control"
+              placeholder="Enter your password"
+              required
+              counter
+              :rules="passwordRules"
+              />
+              
             </div>
             <!-- Login button -->
-            <v-btn color="primary" class="w-100 btn btn-lg login-btn btn-warning" type="submit">
+            <v-btn 
+            color="primary" 
+            class="w-100 btn btn-lg login-btn btn-warning" 
+            type="submit"
+            :disabled="!valid"
+            >
               Login
             </v-btn>
             <hr class="my-4" />
@@ -52,7 +76,33 @@ export default {
       fullName: "",
       email: "",
       password: "",
-      customer_id: this.cookies.get("customer_id")
+      customer_id: this.cookies.get("customer_id"),
+      // Login Form Validation
+      valid: false,
+       emailRules: [
+        value => {
+          if (value) return true
+
+          return 'E-mail is requred.'
+        },
+        value => {
+          if (/.+@.+\..+/.test(value)) return true
+
+          return 'E-mail must be valid.'
+        },
+      ],
+      passwordRules: [
+        value => {
+          if (value) return true
+
+          return 'Password is required.'
+        },
+        value => {
+          if (value?.length >= 8) return true
+
+          return 'Password must be longer than 8 characters.'
+        },
+      ],
     };
   },
   mounted() {

@@ -12,31 +12,66 @@
             </v-app-bar>
             <v-main class="mb-10">
                 <!-- Sign up form -->
-                <v-card class="pa-5 rounded-b-xl rounded-t-0" width="550px" variant="tonal">
-                    <v-form @submit.prevent="customerSignUp" class="sign-up-form row p-4 p-md-5 bg-light needs-validation"
-                        novalidate>
+                <v-card 
+                class="pa-5 rounded-b-xl rounded-t-0" 
+                width="550px" 
+                variant="tonal">
+                 
+                    <v-form 
+                    v-model="valid" 
+                    @submit.prevent="customerSignUp" 
+                    class="sign-up-form row pa-4 p-md-5 bg-light needs-validation"
+                    >
                         <!-- Full name input -->
                         <div>
-                            <v-text-field v-model="fullName" type="text" name="fullname" class="form-control"
-                                id="validationCustom02" placeholder="Enter your full name" />
-                            <label for="validationCustom02">Full Name</label>
+                            <label>Full Name</label>
+                            <v-text-field 
+                            v-model="fullName"
+                            type="text" 
+                            name="fullname" 
+                            class="form-control"
+                            placeholder="Enter your full name"
+                            required
+                            :rules="nameRules"
+                            />
                         </div>
                         <!-- Email input -->
                         <div class="form-floating ps-1 mb-3 col-md-6">
-                            <v-text-field v-model="email" type="email" name="email" class="form-control"
-                                id="validationCustom04" placeholder="Enter your email" />
-                            <label for="validationCustom04">Email</label>
+                            <label>Email</label>
+                            <v-text-field 
+                            v-model="email" 
+                            type="email" 
+                            name="email" 
+                            class="form-control"
+                            placeholder="Enter your email"
+                            required
+                            :rules="emailRules"
+                            />
                         </div>
                         <!-- Password input -->
                         <div class="form-floating ps-1 mb-3 col-md-6">
-                            <v-text-field v-model="password" type="password" name="password" class="form-control"
-                                id="validationCustom03" placeholder="Enter your password" />
-                            <label for="validationCustom03">Password</label>
+                            <label>Password</label>
+                            <v-text-field 
+                            v-model="password" 
+                            type="password" 
+                            name="password" 
+                            class="form-control"
+                            counter
+                            placeholder="Enter your password" 
+                            required
+                            :rules="passwordRules"
+                            />
                         </div>
                         <!-- Sign-up button -->
-                        <v-btn variant="elevated" color="secondary" class="w-100 btn btn-lg btn-secondary login-btn"
-                            type="submit">Sign-up</v-btn>
+                        <v-btn 
+                        variant="elevated" 
+                        color="secondary" 
+                        class="w-100 btn btn-lg btn-secondary login-btn"
+                        type="submit"
+                        :disabled="!valid"
+                        >Sign-up</v-btn>
                     </v-form>
+                    <hr class="ma-4" />
                 </v-card>
             </v-main>
         </v-layout>
@@ -60,7 +95,45 @@ export default {
             fullName: "",
             email: "",
             password: "",
-            customer_id: this.cookies.get("customer_id")
+            customer_id: this.cookies.get("customer_id"),
+            // Sign-up Form Validation
+            valid: false,
+            nameRules: [
+                value => {
+                    if (value) return true
+
+                    return 'Name is required.'
+                },
+                value => {
+                    if (value?.length >= 5) return true
+
+                    return 'Name must be longer than 5 characters.'
+                },
+            ],
+            emailRules: [
+                value => {
+                    if (value) return true
+
+                    return 'E-mail is requred.'
+                },
+                value => {
+                    if (/.+@.+\..+/.test(value)) return true
+
+                    return 'E-mail must be valid.'
+                },
+            ],
+             passwordRules: [
+                value => {
+                    if (value) return true
+
+                    return 'Password is required.'
+                },
+                value => {
+                    if (value?.length >= 8) return true
+
+                    return 'Password must be longer than 8 characters.'
+                },
+            ],
         };
     },
     mounted() {

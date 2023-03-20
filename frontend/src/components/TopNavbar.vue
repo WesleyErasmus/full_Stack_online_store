@@ -352,7 +352,7 @@ export default {
 @media screen and (max-width: 680px) {
 
     .nav-spacing {
-        margin-bottom: 90px !important;
+        margin-bottom: 112px !important;
     }
 
     .app-top-navbar {

@@ -14,11 +14,11 @@
           <div v-for="item in shoppingCart" :key="item.id">
             <v-card class="ma-2" variant="none">
               <v-row>
-                <v-col cols="3">
+                <v-col cols="2" sm="2" md="2" lg="2">
                   <v-img class="product-img-scale" :src="item.image" max-width="125px" max-height="150px" height="100%" cover>
                   </v-img>
                 </v-col>
-                <v-col cols="9">
+                <v-col cols="5" sm="4" md="7" lg="10">
                   <v-card-title class="text-subtitle-1 font-weight-bold ml-0 pa-0">
                     {{ item.title }}
                   </v-card-title>
