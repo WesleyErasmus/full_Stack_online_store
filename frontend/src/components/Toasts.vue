@@ -32,6 +32,10 @@
     <!-- Sign-up successful message -->
     <div id="snackbar6" style="background-color: red;">Invalid email or password. Please try again.
     </div>
+    
+    <!-- Profile updated successful message -->
+    <div id="snackbar7">Account Details Updated Successfully
+    </div>
 
     </div>
 </template>
@@ -50,7 +54,8 @@ p {
 #snackbar3,
 #snackbar4,
 #snackbar5,
-#snackbar6
+#snackbar6,
+#snackbar7
  {
     visibility: hidden;
     min-width: 250px;
@@ -76,7 +81,8 @@ p {
 #snackbar3.show,
 #snackbar4.show,
 #snackbar5.show,
-#snackbar6.show
+#snackbar6.show,
+#snackbar7.show
 {
     z-index: 110;
     visibility: visible;

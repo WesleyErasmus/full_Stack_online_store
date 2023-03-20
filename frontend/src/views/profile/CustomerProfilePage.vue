@@ -23,51 +23,87 @@
                                 </div>
                             </div>
                         </v-container>
-                        <v-form class="px-10 pb-3" @submit.prevent="updateCustomerProfile">
+                        <v-form 
+                        class="px-10 pb-3" 
+                        @submit.prevent="updateCustomerProfile">
                             <div>
                                 <label for="name">Edit Name:</label>
-                                <v-text-field id="name" v-model="customerData.full_name" type="text" />
+                                <v-text-field id="name" 
+                                v-model="customerData.full_name" 
+                                type="text" 
+                                 required
+                                :rules="nameRules"
+                                />
                             </div>
                             <div>
                                 <label for="email">Edit Email:</label>
-                                <v-text-field id="email" v-model="customerData.email" type="email" />
+                                <v-text-field 
+                                id="email" 
+                                v-model="customerData.email" 
+                                type="email" 
+                                required
+                                :rules="emailRules"
+                                />
                             </div>
                             <v-expand-transition>
                                 <div v-show="show">
                                     <div>
                                         <label for="password">Edit Password:</label>
-                                        <v-text-field id="password" v-model="customerData.password" type="password" />
+                                        <v-text-field 
+                                        id="password" 
+                                        v-model="customerData.password" 
+                                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                        :type="show1 ? 'text' : 'password'"
+                                        :rules="passwordRules"
+                                        @click:append="show1 = !show1"
+                                        />
                                     </div>
                                     <div>
-                                        <label for="confirm-password">Confirm Password:</label>
-                                        <v-text-field id="confirm-password" v-model="confirmPassword" type="password" />
+                                        <label
+                                        for="confirm-password">
+                                        Confirm Password:</label>
+                                        <v-text-field
+                                         id="confirm-password" v-model="confirmPassword" 
+                                        :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                        :type="show2 ? 'text' : 'password'"
+                                        :rules="passwordRules"
+                                        @click:append="show2 = !show2"
+                                        />
                                     </div>
                                 </div>
                             </v-expand-transition>
                             <v-card-actions>
-
-                                <v-btn size="small" class="pl-0 ml-0" color="primary"
-                                    :icon="show ? 'mdi-chevron-up-circle' : 'mdi-chevron-down-circle'"
-                                    @click="show = !show"></v-btn>
-                                <span class="text-caption text-grey">Update password</span>
+                                <v-btn 
+                                size="small" 
+                                class="pl-0 ml-0" 
+                                color="primary"
+                                :icon="show ? 'mdi-chevron-up-circle' : 'mdi-chevron-down-circle'"
+                                @click="show = !show"></v-btn>
+                                <span class="text-caption text-grey">Change password</span>
                                 <v-spacer></v-spacer>
-                                <v-btn size="small" variant="outlined" color="primary" type="submit">Update Account</v-btn>
+                                <v-btn 
+                                size="small" 
+                                variant="outlined" 
+                                color="primary" 
+                                type="submit">Update</v-btn>
                             </v-card-actions>
                         </v-form>
                     </v-card>
                 </v-container>
             </div>
         </v-img>
+
+        <Toasts/>
     </v-container>
 </template>
 
 <script>
 import api from "@/services/api.js";
 import { useCookies } from "vue3-cookies";
-import Spinner from "/src/components/Spinner.vue";
+import Toasts from "/src/components/Toasts.vue";
 import router from "/src/router";
 export default {
-    components: { Spinner },
+    components: { Toasts },
     setup() {
         const { cookies } = useCookies();
         return { cookies };
@@ -82,9 +118,60 @@ export default {
                 password: "",
             },
             confirmPassword: "",
+            // Show password
+            show1: false,
+            show2: false,
+            // Profile Form Validation
+            valid: false,
+            nameRules: [
+                value => {
+                    if (value) return true
+
+                    return 'Name is required.'
+                },
+                value => {
+                    if (value?.length >= 5) return true
+
+                    return 'Name must be longer than 5 characters.'
+                },
+            ],
+            emailRules: [
+                value => {
+                    if (value) return true
+
+                    return 'E-mail is required.'
+                },
+                value => {
+                    if (/.+@.+\..+/.test(value)) return true
+
+                    return 'E-mail must be valid.'
+                },
+            ],
+            passwordRules: [
+                value => {
+                    if (value) return true
+
+                    return 'Password is required.'
+                },
+                value => {
+                    if (value?.length >= 8) return true
+
+                    return 'Password must be longer than 8 characters.'
+                },
+            ],
         };
     },
     methods: {
+         // Remove from success message
+    profileUpdatedMessage() {
+      var x = document.getElementById("snackbar7");
+      x.className = "show";
+      setTimeout(function () {
+        // Refreshes page after item is removed from cart
+        window.location.reload();
+        x.className = x.className.replace("show", "");
+      }, 1000);
+    },
         updateCustomerProfile() {
             let customerId = this.cookies.get("customer_id");
             const customer_id = parseInt(customerId);
@@ -125,6 +212,8 @@ export default {
 
                     this.customerData.password = password;
                     console.log("Updated password:", this.customerData.password);
+
+                    this.profileUpdatedMessage();
 
                 })
                 .catch(error => {
