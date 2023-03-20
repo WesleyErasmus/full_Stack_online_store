@@ -16,6 +16,7 @@ if (isset($_GET['customerId'])) {
     }
 }
 
+// CUSTOMER SIGN-UP / LOGIN
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Checks for params and if values are set
     $data = json_decode(file_get_contents("php://input"), true);
@@ -91,11 +92,13 @@ function updateCustomerProfile($customer_id, $full_name, $email, $password)
     $conn = new DatabaseConnector();
     $conn = $conn->getConnection();
 
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-    // Update the customer profile with the hashed password
-    $update_customer_profile = "UPDATE customers SET fullname = '$full_name', email = '$email', password = '$hashed_password' WHERE id = '$customer_id'";
+    // Hash the password if it is not empty
+    if (!empty($password)) {
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        $update_customer_profile = "UPDATE customers SET fullname = '$full_name', email = '$email', password = '$hashed_password' WHERE id = '$customer_id'";
+    } else {
+        $update_customer_profile = "UPDATE customers SET fullname = '$full_name', email = '$email' WHERE id = '$customer_id'";
+    }
 
     if ($conn->query($update_customer_profile) === TRUE) {
         return true;

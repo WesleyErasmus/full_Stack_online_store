@@ -58,6 +58,7 @@
         </v-card>
       </v-main>
     </v-layout>
+    <Toasts/>
   </div>
 </template>
 <script>
@@ -115,6 +116,14 @@ export default {
     }
   },
   methods: {
+      // login Fail Message
+      loginFailMessage() {
+      var x = document.getElementById("snackbar6");
+      x.className = "show";
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
     // Customer login function
     customerLogin() {
       api
@@ -144,11 +153,7 @@ export default {
 
           } else {
 
-            var x = document.getElementById("snackbar6");
-            x.className = "show";
-            setTimeout(function () {
-              x.className = x.className.replace("show", "");
-            }, 2000);
+           this.loginFailMessage()
 
             console.log("Error logging customer in");
           }

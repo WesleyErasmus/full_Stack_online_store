@@ -85,7 +85,9 @@
                                 size="small" 
                                 variant="outlined" 
                                 color="primary" 
-                                type="submit">Update</v-btn>
+                                type="submit"  
+                                 :loading="loading"                           
+                                >Update</v-btn>
                             </v-card-actions>
                         </v-form>
                     </v-card>
@@ -110,6 +112,9 @@ export default {
     },
     data() {
         return {
+            // Form submit loading
+            loading: false,
+            // Toggle change password
             show: false,
             // Customer data that gets displayed in the input fields
             customerData: {
@@ -149,11 +154,7 @@ export default {
             ],
             passwordRules: [
                 value => {
-                    if (value) return true
-
-                    return 'Password is required.'
-                },
-                value => {
+                    if (!value) return true
                     if (value?.length >= 8) return true
 
                     return 'Password must be longer than 8 characters.'
@@ -184,6 +185,9 @@ export default {
             this.customerData.email = email;
             this.customerData.password = password;
 
+            // Form loading
+            this.loading = true
+            
             // Check if password and confirm password match before continuing with the function code
             if (password !== this.confirmPassword) {
                 alert("Passwords do not match!");
@@ -203,7 +207,7 @@ export default {
                     console.log(response.data);
                     // Refresh customer data after updating
                     this.fetchCustomerData();
-                    // Add a toast for fail or success
+                    
                     this.customerData.full_name = fullName;
                     console.log("Updated full name:", this.customerData.full_name);
 
@@ -212,7 +216,7 @@ export default {
 
                     this.customerData.password = password;
                     console.log("Updated password:", this.customerData.password);
-
+                    // Toast for update success
                     this.profileUpdatedMessage();
 
                 })

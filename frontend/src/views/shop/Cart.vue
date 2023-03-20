@@ -44,7 +44,7 @@
       </div>
       <!-- Display cart details -->
       <div>
-        <v-card class="cart-total pa-5 " variant="tonal" color="primary">
+        <v-card class="cart-total pa-5 " variant="tonal">
           <v-card-title class="text-h5 font-weight-bold">
             Cart:
           </v-card-title>

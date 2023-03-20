@@ -17,12 +17,12 @@
         </div>
         <!-- Price filter -->
         <div>
+          <v-icon class="filter-icon">mdi-sort-ascending</v-icon>
           <select v-model="sortOrder">
             <option value="">
               Sort by</option>
             <option v-for="order in getSortOrders()" :key="order.value" :value="order.value">{{ order.text }}</option>
           </select>
-          <v-icon class="filter-icon">mdi-sort-ascending</v-icon>
         </div>
       </div>
     </nav>
@@ -197,7 +197,6 @@ select {
 
 .filter-icon {
   position: relative;
-  right: 70px;
 }
 @media screen and (max-width: 645px) {
   .filter-nav-inner {
