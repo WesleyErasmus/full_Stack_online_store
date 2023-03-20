@@ -219,5 +219,6 @@ export default {
 .fa-brands:hover {
   transform: scale(1.4);
   background: none;
+  color: #6e14ef;
 }
 </style>

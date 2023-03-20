@@ -1,8 +1,9 @@
 <template>
     <!-- Sign-up page -->
     <div class="page-container mx-auto">
-        <v-layout class="mt-3 form-container mx-auto">
-            <v-app-bar class="text-center rounded-t-xl" color="secondary">
+        <div class="form-container">
+        <v-layout class="mt-3 mx-auto">
+            <v-app-bar class="text-center rounded-t-xl" color="primary">
                 <!-- Page heading -->
                 <v-app-bar-title class="text-high-emphasis">
                     <div class="text-white">
@@ -13,8 +14,7 @@
             <v-main class="mb-10">
                 <!-- Sign up form -->
                 <v-card 
-                class="pa-5 rounded-b-xl rounded-t-0" 
-                width="550px" 
+                class="pa-5 rounded-b-xl rounded-t-0"                
                 variant="tonal">
                  
                     <v-form 
@@ -65,7 +65,7 @@
                         <!-- Sign-up button -->
                         <v-btn 
                         variant="elevated" 
-                        color="secondary" 
+                        color="primary" 
                         class="w-100 btn btn-lg btn-secondary login-btn"
                         type="submit"
                         :disabled="!valid"
@@ -75,6 +75,7 @@
                 </v-card>
             </v-main>
         </v-layout>
+        </div>
         <Toasts />
     </div>
 </template>
@@ -182,5 +183,14 @@ export default {
 <style scoped>
 .page-container {
     min-height: 70vh;
+}
+.form-container {
+    width: 550px;
+}
+@media screen and (max-width: 530px) {
+.form-container {
+    width: 100vw;
+}
+
 }
 </style>

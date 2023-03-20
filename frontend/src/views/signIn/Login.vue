@@ -10,7 +10,7 @@
         </v-app-bar-title>
       </v-app-bar>
       <v-main class="mb-10">
-        <v-card width="500px" class=" pa-5 rounded-b-xl rounded-t-0" variant="tonal">
+        <v-card class=" pa-5 rounded-b-xl rounded-t-0" variant="tonal">
           <!-- LOGIN FORM -->
           <v-form 
           v-model="valid" 
@@ -162,6 +162,15 @@ export default {
 </script>
 <style scoped>
 .page-container {
-  min-height: 70vh;
+    min-height: 70vh;
+}
+.form-container {
+    width: 550px;
+}
+@media screen and (max-width: 530px) {
+.form-container {
+    width: 100vw;
+}
+
 }
 </style>

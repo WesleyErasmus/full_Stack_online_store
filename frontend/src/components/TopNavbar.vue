@@ -42,9 +42,7 @@
             <nav class="app-top-navbar elevation-0">
                 <div class="max-width-container">
                     <!-- Navbar Logo -->
-                    <RouterLink class="nav-link-item text-decoration-none text-black hidden-sm-and-down"
-                        :to="{ name: 'Home' }">
-                        <!-- Logo to display none from tablet screen size down class="hidden-sm-and-down" -->
+                    <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Home' }">
                         <div class="app-top-nav-logo-container">
                             <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
                         </div>
@@ -74,92 +72,81 @@
                     </RouterLink>
                 </div>
             </nav>
-            <!--  -->
+            <!-- Mobile Navbar view -->
             <v-toolbar app class="mobile-toolbar">
                 <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Home' }">
                     <div class="app-top-nav-logo-container ml-5">
                         <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
                     </div>
                 </RouterLink>
+                <!-- Mobile nav cart icon -->
+                <RouterLink v-if="customer_id" class="shopping-cart-icon ml-7" :to="{ name: 'Cart' }">
+                            <v-btn variant="outlined" size="small" icon color="primary">
+                                <v-icon>mdi-cart</v-icon>
+                                {{ this.shoppingCart.length }}
+                            </v-btn>
+                        </RouterLink>
                 <v-spacer></v-spacer>
-
+                <!-- Mobile vie menu toggler -->
                 <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
                     <template v-slot:activator="{ props }">
-                        <v-btn size="small" icon variant="elevated" color="primary" v-bind="props">
+                        <v-btn size="small" icon variant="tonal" color="primary" v-bind="props">
                             <v-icon>mdi-menu</v-icon>
                         </v-btn>
                     </template>
+                    <!-- Mobile nav body -->
                     <v-card>
-                        <v-toolbar flat color="primary">
+                        <!-- Mobile nav toolbar image -->
+                        <v-toolbar extended flat color="grey"
+                            image="https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+                            <v-spacer></v-spacer>
+                            <!-- Atlas logo and home page link -->
                             <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Home' }">
-                        <div class="app-top-nav-logo-container ml-5">
-                            <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
-                        </div>
-                    </RouterLink>
+                                <div class="app-top-nav-logo-container ml-10 mt-10">
+                                    <img class="app-top-nav-logo" src="../assets/logoatlas.png" alt="Top Navigation Logo" />
+                                </div>
+                            </RouterLink>
                             <v-spacer></v-spacer>
                             <v-btn icon @click="dialog = false">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </v-toolbar>
-
-                        <v-list density="compact">
-                            <v-list-subheader>MENU</v-list-subheader>
-
+                        <!-- Mobile nav menu items -->
+                        <v-list density="compact" class="mobile-navbar">
                             <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink @click="dialog = false" :to="{ name: 'Home' }">
-                                        HOME
-                                    </RouterLink>
-                                </v-list-item-title>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Home' }">
+                                    HOME
+                                </RouterLink>
                             </v-list-item>
                             <v-list-item>
-                                <v-list-item-title>
-                                     <RouterLink @click="dialog = false" :to="{ name: 'Shop' }">SHOP</RouterLink>
-                                </v-list-item-title>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Shop' }">SHOP</RouterLink>
                             </v-list-item>
                             <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink @click="dialog = false" :to="{ name: 'NewProducts' }">NEW</RouterLink>
-                                </v-list-item-title>
+                                <RouterLink @click="dialog = false" :to="{ name: 'NewProducts' }">NEW</RouterLink>
                             </v-list-item>
                             <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink @click="dialog = false" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
-                                </v-list-item-title>
+                                <RouterLink @click="dialog = false" :to="{ name: 'FeaturedProducts' }">FEATURED
+                                </RouterLink>
                             </v-list-item>
                             <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink v-if="customer_id"  
-                                    @click="dialog = false"
-                                    :to="{ name: 'Profile' }">PROFILE</RouterLink>
-                                </v-list-item-title>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Contact' }">CONTACT</RouterLink>
                             </v-list-item>
                             <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink v-if="customer_id"  
-                                    @click="dialog = false"
-                                    :to="{ name: 'Cart' }">CART</RouterLink>
-                                </v-list-item-title>
+                                <RouterLink @click="dialog = false" :to="{ name: 'About' }">ABOUT</RouterLink>
                             </v-list-item>
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink @click="dialog = false" :to="{ name: 'Contact' }">CONTACT</RouterLink>
-                                </v-list-item-title>
+                            <v-list-item v-if="customer_id">
+                                <RouterLink @click="dialog = false" :to="{ name: 'Profile' }">PROFILE
+                                </RouterLink>
                             </v-list-item>
-                            <v-list-item>
-                                <v-list-item-title>
-                                    <RouterLink @click="dialog = false" :to="{ name: 'About' }">ABOUT</RouterLink>
-                                </v-list-item-title>
+                            <v-list-item v-if="customer_id">
+                                <RouterLink @click="dialog = false" :to="{ name: 'Cart' }">CART
+                                </RouterLink>
                             </v-list-item>
                         </v-list>
                     </v-card>
                 </v-dialog>
-
             </v-toolbar>
-            <!--  -->
         </div>
-
-
     </div>
 </template>
 <script>
@@ -317,7 +304,7 @@ export default {
 /* Navbar link hover effects */
 .top-nav-menu-tabs a:hover {
     color: #444;
-    border-bottom: 2px #385f73 solid;
+    border-bottom: 2px #6e14ef solid;
 }
 
 .nav-spacing {
@@ -343,13 +330,30 @@ export default {
     color: #fff;
 }
 
+/* Mobile navigation */
 .mobile-toolbar {
     position: fixed;
     display: none;
-    background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color-2));
+    background: #fff;
 }
 
-@media screen and (max-width: 680px) {
+.mobile-navbar {
+    height: 100%;
+    text-align: center;
+}
+
+.v-list-item {
+    background: rgba(128, 128, 128, 0.123);
+    padding: 0.5rem;
+    margin: 0.5rem 1rem;
+}
+
+.v-list-item a {
+    text-decoration: none;
+    color: #000;
+}
+
+@media screen and (max-width: 800px) {
 
     .nav-spacing {
         margin-bottom: 112px !important;
@@ -364,9 +368,11 @@ export default {
         margin-top: 50px;
         z-index: 9999;
     }
+}
 
-    /* .sm-links {
+@media screen and (max-width: 530px) {
+    .sm-links {
         display: none;
-    } */
+    }
 }
 </style>

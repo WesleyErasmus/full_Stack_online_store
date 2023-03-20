@@ -4,11 +4,14 @@
     <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
         <v-app-bar-title class="text-high-emphasis">
+          <RouterLink class="nav-link-item text-decoration-none" :to="{ name: 'NewProducts' }">
           See what's just dropped
+          <v-icon class="title-icon" color="primary">mdi-chevron-right</v-icon>
+          </RouterLink>
         </v-app-bar-title>
       </template>
       <template v-slot:append>
-        <v-card-actions>
+        <v-card-actions class="title-button">
           <RouterLink class="nav-link-item text-decoration-none" :to="{ name: 'NewProducts' }">
             <v-btn variant="outlined" color="primary" size="small">shop our latest fashion</v-btn>
           </RouterLink>
@@ -82,7 +85,23 @@ export default {
 </script>
 
 <style scoped>
-.see-all {
-  color: var(--primary-color) !important;
+
+.nav-link-item {
+  color: #000000DE;
+}
+
+.title-icon {
+  display: none;
+}
+
+@media screen and (max-width: 530px) {
+  /* Shop button in component header */
+  .title-button {
+    display: none;
+  }
+
+  .title-icon {
+  display: block;
+}
 }
 </style>

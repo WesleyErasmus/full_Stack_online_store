@@ -5,7 +5,7 @@
             src="https://images.unsplash.com/photo-1557207201-0a45788f977b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
             <div class="d-flex fill-height justify-center align-start">
                 <v-container fluid class="d-flex justify-center">
-                    <v-card min-width="480px" class="pa-0 ma-5" variant="elevated">
+                    <v-card class="pa-0 my-5 form-container" variant="elevated">
                         <v-toolbar density="compact" color="black" class="text-center py-3">
                             <v-toolbar-title class="text-h5">Your Account</v-toolbar-title>
                         </v-toolbar>
@@ -160,5 +160,14 @@ export default {
 <style scoped>
 .page-container {
   min-height: 70vh;
+}
+.form-container {
+    width: 550px;
+}
+@media screen and (max-width: 530px) {
+.form-container {
+    width: 100vw;
+}
+
 }
 </style>

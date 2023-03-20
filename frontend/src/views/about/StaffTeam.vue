@@ -11,7 +11,7 @@
             <!-- Meet the team card -->
             <div>
                 <v-row class="d-flex justify-center align-center">
-                    <v-col cols="12" sm="4" md="2" lg="2" v-for="member in team" :key="member.id">
+                    <v-col cols="6" sm="4" md="2" lg="2" v-for="member in team" :key="member.id">
                         <div>
                             <v-hover v-slot="{ isHovering, props }">
                                 <v-card class="mx-auto text-center rounded-0" color="grey-lighten-4" max-width="600" v-bind="props">
