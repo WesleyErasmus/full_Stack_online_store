@@ -178,7 +178,7 @@ export default {
         // Refreshes page after item is removed from cart
         window.location.reload();
         x.className = x.className.replace("show", "");
-      }, 1000);
+      }, 4000);
     },
     updateError() {
         var x = document.getElementById("snackbar8");

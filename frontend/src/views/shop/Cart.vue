@@ -125,7 +125,7 @@ export default {
         // Refreshes page after item is removed from cart
         window.location.reload();
         x.className = x.className.replace("show", "");
-      }, 1000);
+      }, 4000);
     },
     // Remove from cart failure message
     itemRemovedFailedMessage() {
@@ -133,7 +133,7 @@ export default {
       x.className = "show";
       setTimeout(function () {
         x.className = x.className.replace("show", "");
-      }, 3000);
+      }, 4000);
     },
     // Remove products from cart function
     removeFromCart(cartItemId) {

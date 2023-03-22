@@ -1,7 +1,7 @@
 <template>
     <!-- These toast messages will appear on user actions success: Product added to cart / product removed from cart / Subscription form submission / Contact us form submission -->
 
-    <div>
+    <div class="">
     <!-- Add to cart success message -->
     <div id="snackbar">
         <p>Product Successfully Added To Cart!</p>
@@ -10,7 +10,7 @@
 
     <!-- Message form submission message -->
     <div id="snackbar2">Your Submission was Successful!
-        <p>We'll send you a follow email from us shortly.😊</p>
+        <p>We'll send you a follow email from us shortly.</p>
     </div>
 
 
@@ -49,7 +49,6 @@
 
 p {
     margin-bottom: 0;
-    font-weight: bold;
 }
 
 /* Toast message styling */
@@ -65,9 +64,8 @@ p {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background: #6E14EF;
+    background: green;
     color: #fff;
-    font-weight: bold;
     text-align: center;
     border-radius: 3px;
     padding: 18px;
@@ -75,7 +73,6 @@ p {
     z-index: 9999 !important;
     left: 50%;
     bottom: 30px;
-    font-size: calc(13px + 0.35rem);
     box-shadow: var(--card-shadows);
 }
 

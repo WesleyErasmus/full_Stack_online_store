@@ -123,7 +123,7 @@ export default {
       x.className = "show";
       setTimeout(function () {
         x.className = x.className.replace("show", "");
-      }, 3000);
+      }, 4000);
     },
     // Customer login function
     customerLogin() {

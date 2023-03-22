@@ -166,7 +166,7 @@ export default {
         // Refreshes page after item is removed from cart
         window.location.reload();
         x.className = x.className.replace("show", "");
-      }, 2000);
+      }, 4000);
     },
     // Add to cart Error message
     addToCartError() {

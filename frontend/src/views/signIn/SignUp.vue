@@ -155,7 +155,7 @@ export default {
             setTimeout(function () {
                 router.push({ name: 'Login' });
                 x.className = x.className.replace("show", "");
-            }, 2000);
+            }, 4000);
         },
         // Sign-up Error message
         signUpError() {

@@ -122,37 +122,66 @@
                         <v-list density="compact" class="mobile-navbar">
                             <!-- Home -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'Home' }">HOME</RouterLink>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Home' }">
+                                    <v-btn block variant="tonal">
+                                    HOME
+                                    </v-btn>
+                                </RouterLink>
                             </v-list-item>
                             <!-- Shop -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'Shop' }">SHOP</RouterLink>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Shop' }">
+                                    <v-btn block variant="tonal">
+                                    SHOP
+                                    </v-btn>
+                                </RouterLink>
                             </v-list-item>
                             <!-- New -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'NewProducts' }">NEW</RouterLink>
+                                <RouterLink @click="dialog = false" :to="{ name: 'NewProducts' }">
+                                    <v-btn block variant="tonal">
+                                    NEW
+                                    </v-btn>
+                                </RouterLink>
                             </v-list-item>
                             <!-- Featured -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'FeaturedProducts' }">FEATURED
+                                <RouterLink @click="dialog = false" :to="{ name: 'FeaturedProducts' }">
+                                    <v-btn block variant="tonal">
+                                    FEATURED
+                                    </v-btn>
                                 </RouterLink>
                             </v-list-item>
                             <!-- Contact -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'Contact' }">CONTACT</RouterLink>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Contact' }">
+                                    <v-btn block variant="tonal">
+                                    CONTACT
+                                    </v-btn>
+                                </RouterLink>
                             </v-list-item>
                             <!-- About -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'About' }">ABOUT</RouterLink>
+                                <RouterLink @click="dialog = false" :to="{ name: 'About' }">
+                                    <v-btn block variant="tonal">
+                                    ABOUT
+                                    </v-btn>    
+                                </RouterLink>
                             </v-list-item>
                             <!-- Profile -->
                             <v-list-item v-if="customer_id">
-                                <RouterLink @click="dialog = false" :to="{ name: 'Profile' }">PROFILE
+                                <RouterLink @click="dialog = false" :to="{ name: 'Profile' }">
+                                    <v-btn block variant="tonal">
+                                    PROFILE
+                                    </v-btn>
                                 </RouterLink>
                                 <!-- Cart -->
                             </v-list-item>
                             <v-list-item v-if="customer_id">
-                                <RouterLink @click="dialog = false" :to="{ name: 'Cart' }">CART
+                                <RouterLink @click="dialog = false" :to="{ name: 'Cart' }">
+                                    <v-btn block variant="tonal">
+                                    CART
+                                    </v-btn>
                                 </RouterLink>
                             </v-list-item>
                         </v-list>
@@ -359,9 +388,7 @@ export default {
 }
 /* Mobile app nav links */
 .v-list-item {
-    background: rgba(128, 128, 128, 0.123);
-    padding: 0.5rem;
-    margin: 0.5rem 1rem;
+    margin: 0.5rem 0rem;
 }
 
 .v-list-item a {
