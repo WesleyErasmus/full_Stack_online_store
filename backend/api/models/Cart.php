@@ -17,18 +17,24 @@ class Cart
         $this->product_id = $product_id;
         $this->price = $price;
     }
-    // Cart Sign up function
+    // Add to cart function
     public function addToCart($cart_item_id, $customer_id, $product_id, $price)
     {
         require_once "../config/DatabaseConnector.php";
         $conn = new DatabaseConnector();
         $conn = $conn->getConnection();
-        // Insert new customer data into the table
+        // Insert new customer cart data into the table
         $stmt = $conn->prepare("INSERT INTO cart (cartitemid, customerid, productid, price) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("siii", $cart_item_id, $customer_id, $product_id, $price);
         $result = $stmt->execute();
-        $stmt->close();
-        return $result;
+        // Checking if the SQL statement was successfully executed or not
+        if ($result) {
+            $stmt->close();
+            return true;
+        } else {
+            $stmt->close();
+            return false;
+        }
     }
 
     // Display customer cart items
@@ -85,10 +91,11 @@ class Cart
         $stmt = $conn->prepare("DELETE FROM cart WHERE cartitemid = ?");
         $stmt->bind_param("s", $cart_item_id);
 
+        // Checking if the SQL statement was successfully executed or not
         if ($stmt->execute()) {
             return true;
         } else {
-            throw new Exception("Failed to remove item from cart: " . $conn->error);
-        }
+            return false;
+        }        
     }
 }

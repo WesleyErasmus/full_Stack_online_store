@@ -147,6 +147,23 @@ export default {
         }
     },
     methods: {
+        // Sign-up Success Message
+        signUpSuccessMessage() {
+            var x = document.getElementById("snackbar5");
+            x.className = "show";
+            setTimeout(function () {
+                router.push({ name: 'Login' });
+                x.className = x.className.replace("show", "");
+            }, 2000);
+        },
+        // Sign-up Error message
+        signUpError() {
+            var x = document.getElementById("snackbar8");
+            x.className = "show";
+            setTimeout(function () {
+            x.className = x.className.replace("show", "");
+            }, 4000);
+        },
         // Customer sign-up method
         customerSignUp() {
             api.post("/controllers/CustomerController.php?action=customerSignUp", JSON.stringify({
@@ -164,17 +181,13 @@ export default {
 
                     if (response.data) {
                         // Sign-up successful message
-                        var x = document.getElementById("snackbar5");
-                        x.className = "show";
-                        setTimeout(function () {
-                            router.push({ name: 'Login' });
-                            x.className = x.className.replace("show", "");
-                        }, 2000);
+                        this.signUpSuccessMessage();
 
                     }
                 })
                 .catch(error => {
                     console.error(error);
+                    this.signUpError();
                 });
         },
     },

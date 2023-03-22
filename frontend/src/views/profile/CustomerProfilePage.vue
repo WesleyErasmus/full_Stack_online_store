@@ -173,6 +173,15 @@ export default {
         x.className = x.className.replace("show", "");
       }, 1000);
     },
+    updateError() {
+        var x = document.getElementById("snackbar8");
+            x.className = "show";
+            setTimeout(function () {
+                // Refreshes page after item is removed from cart
+                window.location.reload();
+                x.className = x.className.replace("show", "");
+            }, 4000);
+    },
         updateCustomerProfile() {
             let customerId = this.cookies.get("customer_id");
             const customer_id = parseInt(customerId);
@@ -187,7 +196,7 @@ export default {
 
             // Form loading
             this.loading = true
-            
+
             // Check if password and confirm password match before continuing with the function code
             if (password !== this.confirmPassword) {
                 alert("Passwords do not match!");
@@ -222,6 +231,7 @@ export default {
                 })
                 .catch(error => {
                     console.error(error);
+                    this.updateError()
                 });
         },
         fetchCustomerData() {

@@ -168,6 +168,14 @@ export default {
         x.className = x.className.replace("show", "");
       }, 2000);
     },
+    // Add to cart Error message
+    addToCartError() {
+      var x = document.getElementById("snackbar8");
+      x.className = "show";
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 4000);
+    },
 
     // Add to cart function
     addToCart() {
@@ -189,15 +197,18 @@ export default {
           "Content-Type": "application/json"
         },
       })
-        .then(response => {
+          .then(response => {
           console.log(response);
-          if (response) {
+          if (response.data === true) { // check if the response is true
             console.log("customer_id:", customer_id, typeof customer_id);
             console.log("this.id:", productId, typeof productId);
             console.log("price:", price, typeof price);
 
             // Calling toast message
             this.addToCartSuccessToast();
+          } else { // handle error
+            console.log("Error adding item to cart");
+            this.addToCartError();
           }
 
         })

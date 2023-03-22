@@ -6,10 +6,10 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allows t
 include '../models/Cart.php';
 
 if (isset($_GET['action'])) {
-    $customer_id = $_GET['customerId'];
     switch ($_GET['action']) {
         // Add to cart
         case 'addToCart':
+            $customer_id = $_GET['customerId'];
             // uniqid() keeps generating the same unique code so switched to alternative
             $cart_item_id = bin2hex(openssl_random_pseudo_bytes(16));
             $product_id = $_GET['id'];
@@ -25,13 +25,14 @@ if (isset($_GET['action'])) {
                     $product_id,
                     $price
                 );
-                echo json_encode($result);
-            } else {
-                echo "Missing tableName or id parameter";
-            }
+                    echo json_encode($result);
+                } else {
+                    echo "Missing tableName or id parameter";
+                }
             break;
                // Display cart items
         case 'displayCartItems':
+            $customer_id = $_GET['customerId'];
              // Invoking displayCartItems function and then displaying the result in JSON format
             $cart_items = Cart::displayCartItems($customer_id);
             echo json_encode($cart_items);
@@ -44,7 +45,7 @@ if (isset($_GET['action'])) {
             break;
 
         default:
-        // Throws error if API param are incorrect
+        // Throws error if API params are incorrect
             echo "Invalid action";
     }
 }

@@ -108,7 +108,7 @@ export default {
     },
   },
   methods: {
-    // Remove from success message
+    // Remove from cart success message
     itemRemovedMessage() {
       var x = document.getElementById("snackbar3");
       x.className = "show";
@@ -118,20 +118,37 @@ export default {
         x.className = x.className.replace("show", "");
       }, 1000);
     },
+    // Remove from cart failure message
+    itemRemovedFailedMessage() {
+      var x = document.getElementById("snackbar8");
+      x.className = "show";
+      setTimeout(function () {
+        // Refreshes page after item is removed from cart
+        // window.location.reload();
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
     // Remove products from cart function
     removeFromCart(cartItemId) {
       api.get(`/controllers/CartController.php?action=removeFromCart&tableName=myTable&cartItemId=${cartItemId}`, { responseType: 'json' })
         .then((response) => {
+          
           if (response.data === true) {
             // Remove cart item from shoppingCart array
             this.shoppingCart = this.shoppingCart.filter(item => item.cart_item_id !== cartItemId);
+
+            // Cart item successfully removed message
+            this.itemRemovedMessage();
+          }
+          else {
+            console.log("Error removing item from cart");
+            this.itemRemovedFailedMessage()
+            console.log(response.data);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
-
-      this.itemRemovedMessage()
     },
 
   },

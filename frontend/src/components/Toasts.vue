@@ -37,6 +37,10 @@
     <div id="snackbar7">Account Details Updated Successfully
     </div>
 
+    <!-- Profile updated successful message -->
+    <div id="snackbar8">An error occurred. Please try again.
+    </div>
+
     </div>
 </template>
 
@@ -55,7 +59,8 @@ p {
 #snackbar4,
 #snackbar5,
 #snackbar6,
-#snackbar7
+#snackbar7,
+#snackbar8
  {
     visibility: hidden;
     min-width: 250px;
@@ -82,7 +87,8 @@ p {
 #snackbar4.show,
 #snackbar5.show,
 #snackbar6.show,
-#snackbar7.show
+#snackbar7.show,
+#snackbar8.show
 {
     z-index: 110;
     visibility: visible;
