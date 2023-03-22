@@ -116,6 +116,7 @@ export default {
       return this.products.filter((product) => {
         //  Declaring a boolean variables called "matchesSearch" to check if the filter term is included in the product's or category
         const matchesSearch =
+          product.title.toLowerCase().includes(this.search.toLowerCase()) ||
           product.category.toLowerCase().includes(this.search.toLowerCase());
         const matchesCategory =
           !this.categoryFilter || product.category === this.categoryFilter;
