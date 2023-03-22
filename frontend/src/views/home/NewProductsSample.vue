@@ -1,8 +1,9 @@
 <template>
-  <!-- Featured products container -->
+  <!-- New products container -->
   <v-layout class="mt-10">
     <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
+        <!-- Component title with router link -->
         <v-app-bar-title class="text-high-emphasis">
           <RouterLink class="nav-link-item text-decoration-none" :to="{ name: 'NewProducts' }">
           See what's just dropped
@@ -10,6 +11,7 @@
           </RouterLink>
         </v-app-bar-title>
       </template>
+      <!-- New products page link button -->
       <template v-slot:append>
         <v-card-actions class="title-button">
           <RouterLink class="nav-link-item text-decoration-none" :to="{ name: 'NewProducts' }">
@@ -22,24 +24,30 @@
       <div class="mx-auto" v-if="newProducts.length">
         <v-item-group multiple>
           <v-row>
-            <!-- .v-col-sm-6 md-5 .offset-md-2 .v-col-lg-6 .offset-lg-0 -->
+            <!-- V-for loop -->
             <v-col v-for="product in newProducts" :key="product.id" cols="12" sm="4" md="2" lg="2">
               <v-card class="mx-auto rounded-0" max-width="200" variant="none">
+                <!-- Dynamic routing to view product in Product gallery page -->
                 <router-link :to="{ name: 'Product', params: { id: product.id } }">
+                  <!-- Product image -->
                   <v-img class="product-img-scale" :src="product.image" height="270px" cover aspect-ratio="1/1"></v-img>
                 </router-link>
+                <!-- Product title -->
                 <v-card-title class="text-subtitle-2 font-weight-bold pa-0">
                   {{ product.title }}
                 </v-card-title>
+                <!-- Product category -->
                 <v-card-subtitle class="pa-0">
                   {{ product.category }}
                 </v-card-subtitle>
                 <v-card-actions class="pa-0 ma-0" style="min-height: 28px !important; height: 28px !important;">
+                  <!-- Product price -->
                   <v-card-text class="pa-0 text-subtitle-1 font-italic">
                     R{{ product.price }}
                   </v-card-text>
                   <v-spacer></v-spacer>
                   <div class="my-2">
+                    <!-- Dynamic routing to view product in Product gallery page -->
                     <router-link class="text-decoration-none" :to="{ name: 'Product', params: { id: product.id } }">
                       <v-btn size="small" color="surface-variant" variant="text" icon="mdi-heart"></v-btn>
                     </router-link>
@@ -53,13 +61,13 @@
     </v-main>
   </v-layout>
 </template>
-<!-- <small class="text-muted">#JustDropped</small> -->
 <script>
 import api from "@/services/api.js";
 export default {
   data() {
     return {
       products: [],
+      // Array only containing new products
       newProducts: [],
     };
   },
@@ -71,21 +79,18 @@ export default {
       .then((response) => {
         this.products = response.data;
       });
-
-    // event listener for escape key press
-    document.addEventListener("keydown", this.clearSearchOnEscape);
   },
    // Only displays products that are new
   computed: {
     newProducts() {
-      return this.products.filter(product => product.new === "1").slice(0, 6);;
+      return this.products.filter(product => product.new === "1").slice(0, 6);
     }
   },
 }
 </script>
 
 <style scoped>
-
+/* Component link text color */
 .nav-link-item {
   color: #000000DE;
 }

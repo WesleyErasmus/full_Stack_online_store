@@ -12,7 +12,7 @@
                         <v-container class="ml-4">
                             <div class="d-flex">
                                 <v-icon size="42" color="grey" class="mr-3">mdi-account</v-icon>
-                                <!-- User name & email -->
+                                <!-- Displays User name & email -->
                                 <div class="ml-1">
                                     <div class="text-h6">
                                         {{ customerData.full_name }}
@@ -23,9 +23,11 @@
                                 </div>
                             </div>
                         </v-container>
+                        <!-- Profile update form -->
                         <v-form 
                         class="px-10 pb-3" 
                         @submit.prevent="updateCustomerProfile">
+                            <!-- Full name field -->
                             <div>
                                 <label for="name">Edit Name:</label>
                                 <v-text-field id="name" 
@@ -35,6 +37,7 @@
                                 :rules="nameRules"
                                 />
                             </div>
+                            <!-- Email field -->
                             <div>
                                 <label for="email">Edit Email:</label>
                                 <v-text-field 
@@ -45,8 +48,10 @@
                                 :rules="emailRules"
                                 />
                             </div>
+                            <!-- Expands card to display password fields -->
                             <v-expand-transition>
                                 <div v-show="show">
+                                    <!-- Password field -->
                                     <div>
                                         <label for="password">Edit Password:</label>
                                         <v-text-field 
@@ -58,6 +63,7 @@
                                         @click:append="show1 = !show1"
                                         />
                                     </div>
+                                    <!-- Confirm password field -->
                                     <div>
                                         <label
                                         for="confirm-password">
@@ -72,6 +78,7 @@
                                     </div>
                                 </div>
                             </v-expand-transition>
+                            <!-- Expand card btn & Update changes button -->
                             <v-card-actions>
                                 <v-btn 
                                 size="small" 
@@ -218,13 +225,13 @@ export default {
                     this.fetchCustomerData();
                     
                     this.customerData.full_name = fullName;
-                    console.log("Updated full name:", this.customerData.full_name);
+                    // console.log("Updated full name:", this.customerData.full_name);
 
                     this.customerData.email = email;
-                    console.log("Updated email:", this.customerData.email);
+                    // console.log("Updated email:", this.customerData.email);
 
                     this.customerData.password = password;
-                    console.log("Updated password:", this.customerData.password);
+                    // console.log("Updated password:", this.customerData.password);
                     // Toast for update success
                     this.profileUpdatedMessage();
 
@@ -234,6 +241,7 @@ export default {
                     this.updateError()
                 });
         },
+        // Display customer data according to customer ID stored in cookies
         fetchCustomerData() {
             let customerId = this.cookies.get("customer_id");
             const customer_id = parseInt(customerId);
@@ -241,7 +249,7 @@ export default {
                 .then((response) => {
                     this.customerData = response.data;
                     console.warn(response);
-                    console.log("customer_id:", customer_id, typeof customer_id);
+                    // console.log("customer_id:", customer_id, typeof customer_id);
                     this.customerData.password = "";
                 });
         },
@@ -261,9 +269,11 @@ export default {
 }
 </script>
 <style scoped>
+/* Page container */
 .page-container {
   min-height: 70vh;
 }
+/* Form container */
 .form-container {
     width: 550px;
 }
@@ -271,6 +281,5 @@ export default {
 .form-container {
     width: 100vw;
 }
-
 }
 </style>

@@ -77,6 +77,7 @@ export default {
       fullName: "",
       email: "",
       password: "",
+      // Getting customer id on login
       customer_id: this.cookies.get("customer_id"),
       // Login Form Validation
       valid: false,
@@ -148,14 +149,13 @@ export default {
 
             // Route user to home page and then refresh page to change login btn to logout
             this.$router.push({ name: 'Home' }).then(() => {
-              window.location.reload();
+            window.location.reload();
             });
 
           } else {
 
-           this.loginFailMessage()
-
-            console.log("Error logging customer in");
+          this.loginFailMessage()
+          console.log("Error logging customer in");
           }
         })
         .catch((error) => {

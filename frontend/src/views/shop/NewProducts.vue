@@ -1,7 +1,7 @@
 <template>
   <!-- New Products display -->
   <div id="main" class="px-0 pt-4 mx-auto page-container">
-    <!-- DIsplays no products message if products don't load -->
+    <!-- Displays no products message if products don't load -->
     <v-container id="main" class="mt-0 pt-0 px-0 mx-auto" v-if="newProducts.length">
       <v-layout class="mt-0">
         <v-app-bar class="elevation-0" theme="light">
@@ -79,8 +79,8 @@ export default {
   data() {
     return {
       products: [],
+      // Array containing only new products
       newProducts: [],
-
     };
   },
   mounted() {
@@ -91,7 +91,7 @@ export default {
       })
       .then((response) => {
         this.products = response.data;
-        console.log(response.data);
+        // console.log(response.data);
       });
   },
   // Only displays products that are new
@@ -104,6 +104,7 @@ export default {
 </script>
 
 <style scoped>
+/* Page container */
 .page-container {
   min-height: 70vh;
 }

@@ -13,17 +13,22 @@
                 <v-row class="d-flex justify-center align-center">
                     <v-col cols="6" sm="4" md="2" lg="2" v-for="member in team" :key="member.id">
                         <div>
+                            <!-- Hover effect -->
                             <v-hover v-slot="{ isHovering, props }">
                                 <v-card class="mx-auto text-center rounded-0" color="grey-lighten-4" max-width="600" v-bind="props">
+                                    <!-- Staff images -->
                                     <v-img aspect-ratio="1/1" cover :src="member.portrait">
                                         <v-expand-transition>
                                             <div v-if="isHovering"
                                                 class="d-flex transition-fast-in-fast-out bg-black v-card--reveal px-3"
                                                 style="height: 100%;">
+                                                <!-- Staff member name -->
                                                 <div class="text-h6 ma-0 pa-0">{{ member.name }}</div>
+                                                <!-- Job title -->
                                                 <div class="text-overline text-decoration-underline ma-0 pa-0">{{
                                                     member.job_title }}
                                                 </div>
+                                                <!-- Staff bio's -->
                                                 <div class="text-caption ma-0 pa-0">{{ member.bio }}</div>
                                             </div>
                                         </v-expand-transition>

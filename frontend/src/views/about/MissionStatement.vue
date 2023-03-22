@@ -10,6 +10,7 @@
 
         <!-- Timeline for, mission | vision | about-us -->
         <v-timeline direction="horizontal">
+            <!-- Vision -->
             <v-timeline-item dot-color="green-darken-2">
                 <template v-slot:opposite>
                     <v-icon size="54" color="green-darken-2">mdi-earth</v-icon>
@@ -23,6 +24,7 @@
                     </p>
                 </div>
             </v-timeline-item>
+            <!-- Mission -->
             <v-timeline-item dot-color="info">
                 <template v-slot:opposite>
                     <v-icon color="info" size="54">mdi-charity</v-icon>
@@ -37,6 +39,7 @@
                     </p>
                 </div>
             </v-timeline-item>
+            <!-- Who we are -->
             <v-timeline-item dot-color="indigo">
                 <template v-slot:opposite>
                     <v-icon size="54" color="indigo">mdi-account-group</v-icon>

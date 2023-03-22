@@ -19,6 +19,7 @@
 </template>
 
 <style scoped>
+/* Logo sizing */
 .logo-image {
     width: 130px;
 }

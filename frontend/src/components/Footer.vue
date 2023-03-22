@@ -44,7 +44,6 @@
             <li>Terms and conditions</li>
             <li>Campaigns and flash sales</li>
             <li>Retail outlets</li>
-
           </ul>
         </v-col>
         <v-col>
@@ -56,7 +55,6 @@
             <li>Faqs</li>
             <li>Account details</li>
             <li>Returns policy</li>
-
           </ul>
         </v-col>
         <v-col>
@@ -68,12 +66,11 @@
             <li>Careers</li>
             <li>Privacy policy</li>
             <li>Credit</li>
-
           </ul>
         </v-col>
       </v-row>
     </main>
-
+  <!-- Copyright container + social media links  -->
     <div class="copyright-container">
       <div class="sm-links mb-4">
           <a class="sm-icon-item" href="https://www.facebook.com/" target="_blank" alt="Facebook"><i
@@ -125,11 +122,7 @@ export default {
   display: block;
   margin: 0 auto;
 }
-
-li {
-  /* font-size: small; */
-}
-
+/* Footer list items */
 .footer-links li {
   list-style-type: none;
   padding: 0.25rem 3vw;
@@ -139,7 +132,7 @@ li {
   text-align: center;
   padding: 4rem 2rem 2rem 2rem;
 }
-
+/* Google maps dialog activator button */
 .directions-btn {
   background: #000;
   color: #fff;

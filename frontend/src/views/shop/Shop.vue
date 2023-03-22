@@ -10,7 +10,7 @@
             prepend-inner-icon="mdi-magnify" label="Search" @keydown.esc="clearSearch">
           </v-text-field>
         </div>
-        <!-- Category search -->
+        <!-- Category filter -->
         <div>
           <v-select class="category-filter mr-4" variant="outlined" hide-details density="compact"
             v-model="categoryFilter" :items="categories" label="Search categories" />
@@ -81,8 +81,11 @@ export default {
   data() {
     return {
       products: [],
+      // Returns list of products that match the customer search term
       search: "",
+      // Returns list of products in filtered category
       categoryFilter: "",
+      // Displays products in ascending or descending order of product price
       sortOrder: "",
     };
   },
@@ -96,20 +99,23 @@ export default {
         this.products = response.data;
       });
 
-    // event listener for escape key press
+    // Event listener to clear search when esc button is pressed
     document.addEventListener("keydown", this.clearSearchOnEscape);
   },
 
-  // remove the event listener when the component is destroyed
+  // Remove the event listener when the component is destroyed
   beforeDestroy() {
     document.removeEventListener("keydown", this.clearSearchOnEscape);
+
+    // This code is ensuring that any existing event listeners are removed when the component is no longer needed to prevent potential memory leaks and unexpected behavior
   },
   computed: {
-    // Filter products by search input and category filter
+    // This function returns a filtered array of products based on the search term and category filter
     filteredProducts() {
+      // Using filter method on the "products" array to create a new array of products that match the conditions in the code block
       return this.products.filter((product) => {
+        //  Declaring a boolean variables called "matchesSearch" to check if the filter term is included in the product's or category
         const matchesSearch =
-          product.title.toLowerCase().includes(this.search.toLowerCase()) ||
           product.category.toLowerCase().includes(this.search.toLowerCase());
         const matchesCategory =
           !this.categoryFilter || product.category === this.categoryFilter;
@@ -123,13 +129,24 @@ export default {
       } else if (this.sortOrder === "price-high-to-low") {
         return this.filteredProducts.sort((a, b) => b.price - a.price);
       } else {
+        //  No selected sort order, we return the unsorted "filteredProducts" array
         return this.filteredProducts;
       }
     },
     // List of available categories for filter dropdown
     categories() {
+      // Creates a new Set containing all the unique categories in the "products" array
       const categoriesSet = new Set(this.products.map((product) => product.category));
       return ["", ...categoriesSet];
+
+      // Code explanation for future reference: 
+      /**
+       * In the categories() computed property, new Set() is used to create a new Set object. A Set is a built-in object in JavaScript that allows you to store unique values of any type (primitive values or object references) without any duplicates.
+
+        In this code, the products array is being mapped to extract the category property   of each product.
+
+        After the Set is created, a spread syntax is used to convert the Set back into an array, and add an empty string at the beginning to represent the "All Categories" option.
+       */
     },
 
   },
@@ -141,7 +158,7 @@ export default {
         { text: "Price high to low", value: "price-high-to-low" },
       ];
     },
-    // Clear search
+    // Clear search when the escape key is pressed
     clearSearchOnEscape(event) {
       if (event.key === "Escape") {
         this.search = "";
@@ -152,6 +169,7 @@ export default {
 </script>
 
 <style scoped>
+/* Page container */
 .page-container {
   position: relative;
   min-height: 70vh;
@@ -172,7 +190,7 @@ export default {
   align-content: end;
   align-items: center;
 }
-
+/* Products container */
 .products-container {
   margin-top: 100px;
 }

@@ -9,6 +9,7 @@
     <!-- DIsplays cart details or cart when there are cart items -->
     <div class="mr-7 cart-card-container">
       <div class="cart-items">
+        <!-- V-for loop -->
         <div v-for="item in shoppingCart" :key="item.id">
           <v-card class="ma-2 cart-item-card" variant="none">
             <div>
@@ -16,24 +17,30 @@
               </v-img>
             </div>
             <div class="ml-3 card-body">
+              <!-- Cart item title -->
               <v-card-title class="text-subtitle-1 font-weight-bold ml-0 pa-0">
                 {{ item.title }}
               </v-card-title>
               <div>
+                <!-- Cart item category -->
                 <div class="ma-0 text-caption font-weight-medium py-1">
                   {{ item.category }}
                 </div>
+                <!-- Cart item description -->
                 <v-card-subtitle class="text-caption pl-0 font-weight-medium">
                   {{ item.description }}
                 </v-card-subtitle>
+                <!-- Cart item price -->
                 <div class="ma-0 font-weight-bold py-1">
                   R{{ item.price }}
                 </div>
               </div>
+              <!-- View product button using dynamic routing to view product in product gallery page -->
               <v-card-actions class="pt-0 mt-0">
                 <router-link class="text-decoration-none" :to="{ name: 'Product', params: { id: item.product_id } }">
                   <v-btn class="mt-0 text-black" size="small" variant="tonal">View Product</v-btn>
                 </router-link>
+                <!-- Remove from cart button -->
                 <v-btn color="error" variant="tonal" size="small" icon="mdi-cart-off" class="mt-0 ml-6"
                   @click="removeFromCart(item.cart_item_id)">
                 </v-btn>
@@ -48,13 +55,15 @@
           <v-card-title class="text-h5 font-weight-bold">
             Cart:
           </v-card-title>
+          <!-- Display number of items in cart -->
           <v-card-subtitle>
             Total items in cart: <span>{{ cartLength }}</span>
           </v-card-subtitle>
-
+          <!-- Display total cost of cart items -->
           <v-card-title class="text-h6">
             Total: <span class="font-weight-bold">R{{ priceTotal }}</span>
           </v-card-title>
+          <!-- Placeholder info -->
           <v-card-text>
             Delivery
             <v-icon class="mr-1">mdi-truck-check</v-icon>
@@ -88,8 +97,8 @@ export default {
   },
   data() {
     return {
-      sticky: true,
       shoppingCart: [],
+      // Total cost of cart items
       total: 0,
     };
   },
@@ -123,8 +132,6 @@ export default {
       var x = document.getElementById("snackbar8");
       x.className = "show";
       setTimeout(function () {
-        // Refreshes page after item is removed from cart
-        // window.location.reload();
         x.className = x.className.replace("show", "");
       }, 3000);
     },
@@ -143,7 +150,7 @@ export default {
           else {
             console.log("Error removing item from cart");
             this.itemRemovedFailedMessage()
-            console.log(response.data);
+            // console.log(response.data);
           }
         })
         .catch(error => {
@@ -166,7 +173,7 @@ export default {
       .then((response) => {
         this.shoppingCart = response.data;
         console.warn(response);
-        console.log("customer_id:", customer_id, typeof customer_id);
+        // console.log("customer_id:", customer_id, typeof customer_id);
       })
       .catch((error) => {
         console.error(error);
@@ -176,14 +183,18 @@ export default {
 </script>
 
 <style scoped>
+/* Page container */
 .page-container {
   min-height: 70vh;
 }
-
-.cart-items {
-  /* max-width: 500px; */
+/* Container for all cart items */
+.cart-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: start;
 }
-
+/* Cart item card styling */
 .cart-item-card {
   display: flex;
 }
@@ -191,14 +202,7 @@ export default {
 .card-body {
   max-width: 275px;
 }
-
-.cart-card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: start;
-}
-
+/* Container for cart total & proceed to checkout button */
 .cart-total {
   width: 350px;
   height: 330px;

@@ -28,10 +28,11 @@ if (
         $result = $stmt->execute();
         $stmt->close();
 
+        // Returns associative array with success status of true or false
         if ($result) {
-            echo "Message saved successfully";
+            echo json_encode(array("success" => true));
         } else {
-            echo "Error saving message";
+            echo json_encode(array("success" => false));
         }
     }
 }

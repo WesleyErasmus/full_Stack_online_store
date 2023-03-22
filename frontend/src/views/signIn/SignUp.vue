@@ -96,6 +96,7 @@ export default {
             fullName: "",
             email: "",
             password: "",
+            // Getting customer id from cookies
             customer_id: this.cookies.get("customer_id"),
             // Sign-up Form Validation
             valid: false,

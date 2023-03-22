@@ -200,9 +200,9 @@ export default {
           .then(response => {
           console.log(response);
           if (response.data === true) { // check if the response is true
-            console.log("customer_id:", customer_id, typeof customer_id);
-            console.log("this.id:", productId, typeof productId);
-            console.log("price:", price, typeof price);
+            // console.log("customer_id:", customer_id, typeof customer_id);
+            // console.log("this.id:", productId, typeof productId);
+            // console.log("price:", price, typeof price);
 
             // Calling toast message
             this.addToCartSuccessToast();

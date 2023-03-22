@@ -2,9 +2,11 @@
     <div>
         <!-- Spacer to align content main page content below navbar  -->
         <div class="nav-spacing">
+
             <!-- App Navbar -->
             <v-app-bar class="nav-contact-info px-10" theme="dark">
                 <v-app-bar-title class="text-start text-caption">
+
                     <!-- Social media links -->
                     <div class="sm-links">
                         <a class="sm-icon-item" href="https://www.facebook.com/" target="_blank" alt="Facebook"><i
@@ -23,13 +25,11 @@
                 </v-app-bar-title>
 
                 <!-- Navbar login and sign-up links -->
-
-                <!-- Conditionally changing the value of the login/logout button based on the the user is a guest or a signed in customer -->
                 <RouterLink :to="{ name: 'SignUp' }" class="text-decoration-none">
                     <v-btn v-if="!customer_id" variant="outlined" color="primary" size="small"
                         class="give-btn text-overline mb-3 mr-5">Sign-Up</v-btn>
                 </RouterLink>
-
+                <!-- Conditionally changing the value of the login/logout button based on the the user is a guest or a signed in customer -->
                 <RouterLink :to="{ name: 'Login' }" class="text-decoration-none">
                     <v-btn v-if="!customer_id" variant="elevated" color="primary" size="small"
                         class="give-btn text-overline mb-3 mr-5">Login</v-btn>
@@ -49,17 +49,23 @@
                     </RouterLink>
                     <!-- Navbar Meu Links -->
                     <div class="top-nav-menu-tabs">
-                        <RouterLink class="nav-tab-item" :to="{ name: 'Home' }">
-                            HOME
-                        </RouterLink>
+                        <!-- Home -->
+                        <RouterLink class="nav-tab-item" :to="{ name: 'Home' }">HOME</RouterLink>
+                        <!-- Shop -->
                         <RouterLink class="nav-tab-item" :to="{ name: 'Shop' }">SHOP</RouterLink>
+                        <!-- New -->
                         <RouterLink class="nav-tab-item" :to="{ name: 'NewProducts' }">NEW</RouterLink>
+                        <!-- Featured -->
                         <RouterLink class="nav-tab-item" :to="{ name: 'FeaturedProducts' }">FEATURED</RouterLink>
+                        <!-- Profile -->
                         <!-- Prevent access to guest users -->
                         <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Profile' }">PROFILE</RouterLink>
+                        <!-- Cart -->
                         <!-- Prevent access to guest users -->
                         <RouterLink v-if="customer_id" class="nav-tab-item" :to="{ name: 'Cart' }">CART</RouterLink>
+                        <!-- Contact -->
                         <RouterLink class="nav-tab-item" :to="{ name: 'Contact' }">CONTACT</RouterLink>
+                        <!-- About -->
                         <RouterLink class="nav-tab-item" :to="{ name: 'About' }">ABOUT</RouterLink>
                     </div>
 
@@ -74,6 +80,7 @@
             </nav>
             <!-- Mobile Navbar view -->
             <v-toolbar app class="mobile-toolbar">
+                <!-- Mobile nav logo -->
                 <RouterLink class="nav-link-item text-decoration-none text-black" :to="{ name: 'Home' }">
                     <div class="app-top-nav-logo-container ml-5">
                         <img class="app-top-nav-logo" src="../assets/logowords.png" alt="NLV Top Navigation Logo" />
@@ -113,30 +120,36 @@
                         </v-toolbar>
                         <!-- Mobile nav menu items -->
                         <v-list density="compact" class="mobile-navbar">
+                            <!-- Home -->
                             <v-list-item>
-                                <RouterLink @click="dialog = false" :to="{ name: 'Home' }">
-                                    HOME
-                                </RouterLink>
+                                <RouterLink @click="dialog = false" :to="{ name: 'Home' }">HOME</RouterLink>
                             </v-list-item>
+                            <!-- Shop -->
                             <v-list-item>
                                 <RouterLink @click="dialog = false" :to="{ name: 'Shop' }">SHOP</RouterLink>
                             </v-list-item>
+                            <!-- New -->
                             <v-list-item>
                                 <RouterLink @click="dialog = false" :to="{ name: 'NewProducts' }">NEW</RouterLink>
                             </v-list-item>
+                            <!-- Featured -->
                             <v-list-item>
                                 <RouterLink @click="dialog = false" :to="{ name: 'FeaturedProducts' }">FEATURED
                                 </RouterLink>
                             </v-list-item>
+                            <!-- Contact -->
                             <v-list-item>
                                 <RouterLink @click="dialog = false" :to="{ name: 'Contact' }">CONTACT</RouterLink>
                             </v-list-item>
+                            <!-- About -->
                             <v-list-item>
                                 <RouterLink @click="dialog = false" :to="{ name: 'About' }">ABOUT</RouterLink>
                             </v-list-item>
+                            <!-- Profile -->
                             <v-list-item v-if="customer_id">
                                 <RouterLink @click="dialog = false" :to="{ name: 'Profile' }">PROFILE
                                 </RouterLink>
+                                <!-- Cart -->
                             </v-list-item>
                             <v-list-item v-if="customer_id">
                                 <RouterLink @click="dialog = false" :to="{ name: 'Cart' }">CART
@@ -164,11 +177,13 @@ export default {
         return {
             // Navbar mobile and tablet breakpoints
             dialog: false,
+            // Cart icon count
             cartCount: 0,
             shoppingCart: [],
             fullName: "",
             email: "",
             password: "",
+            // Customer ID cookies
             customer_id: this.cookies.get("customer_id")
         }
     },
@@ -187,7 +202,8 @@ export default {
             // Remove cookies and send them back to the login page
             this.cookies.remove("customer_id");
             this.$router.push({ name: 'Login' }).then(() => {
-                window.location.reload();
+            // Reload page
+            window.location.reload();
             });
 
         },
@@ -228,16 +244,15 @@ export default {
 </script>
 
 <style scoped>
+/* Back to top button */
 .back-to-top-btn {
     cursor: pointer;
 }
-
 /* Shopping cart icon and cart item count container */
 .shopping-cart-icon {
     color: rgb(78, 78, 78);
     text-decoration: none;
 }
-
 .shopping-cart-icon:hover {
     color: var(--primary-color);
 }
@@ -249,6 +264,7 @@ export default {
     color: #000;
 }
 
+/* Top navbar with social media icons and login/logout button */
 .nav-contact-info {
     height: 50px;
     box-shadow: none !important;
@@ -258,7 +274,7 @@ export default {
     height: 40px;
 }
 
-/* Styling for first v-app navbar */
+/* Styling for top v-app navbar */
 .app-top-navbar {
     z-index: 99999;
     width: 100%;
@@ -341,7 +357,7 @@ export default {
     height: 100%;
     text-align: center;
 }
-
+/* Mobile app nav links */
 .v-list-item {
     background: rgba(128, 128, 128, 0.123);
     padding: 0.5rem;

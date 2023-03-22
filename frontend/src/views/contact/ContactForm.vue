@@ -11,6 +11,7 @@
     <!-- Contact form -->
     <v-layout class="mt-3 form-container mx-auto">
       <v-app-bar class="text-center rounded-t-xl" color="black">
+        <!-- Form title -->
         <v-app-bar-title class="text-high-emphasis">
           <div class="text-white">
             Send us a message
@@ -35,6 +36,7 @@
             required
             :rules="nameRules"
             ></v-text-field>
+
             <!-- Email input -->
             <v-text-field 
             v-model="email" 
@@ -46,6 +48,7 @@
             required
             :rules="emailRules"
             ></v-text-field>
+
             <!-- Message input field -->
             <v-textarea 
             variant="filled" 
@@ -61,6 +64,7 @@
              :rules="messageRules"
             >
             </v-textarea>
+
             <!-- Form submit btn -->
             <v-card-actions>
               <v-btn 
@@ -77,6 +81,7 @@
             </v-card-actions>
           </v-form>
         </v-card>
+        <!-- Social media icons -->
         <div class="sm-links pt-10 text-center">
           <a href="https://www.facebook.com/" target="_blank" alt="Facebook"><i class="fa-brands fa-facebook"></i></a>
           <a href="https://www.twitter.com/" target="_blank" alt="Twitter"><i class="fa-brands fa-twitter"></i></a>
@@ -110,9 +115,11 @@ export default {
     fullName: '',
     email: '',
     message: '',
+    // customer data array that gets inserted into database table
     customerData: [],
     // Message Form Validation
     valid: false,
+    // Customer full name input validation
     nameRules: [
       value => {
         if (value) return true
@@ -125,6 +132,7 @@ export default {
         return 'Name must be longer than 5 characters.'
       },
     ],
+    // Customer email input validation
     emailRules: [
       value => {
         if (value) return true
@@ -137,6 +145,7 @@ export default {
         return 'E-mail must be valid.'
       },
     ],
+    // Customer message input validation
     messageRules: [
       value => {
         if (value) return true
@@ -161,11 +170,19 @@ export default {
         x.className = x.className.replace("show", "");
       }, 4000);
     },
+     // Message sent failure toast
+    messageFailed() {
+      var x = document.getElementById("snackbar8");
+      x.className = "show";
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
     // Save message to database function
     saveCustomerMessage() {
       console.log('Data sent:', { fullName: this.fullName, email: this.email, message: this.message });
       api.post(
-        `/controllers/MessageController.php?action=saveMessage`,
+        `/controllers/MessageController.php?actioneMessage`,
         {
           fullName: this.fullName,
           email: this.email,
@@ -178,12 +195,15 @@ export default {
         }
       )
         .then(response => {
-          console.log(response);
-
-          if (response.data) {
+          // console.log(response.data);
+          if (response.data.success) {
+            // Displays toast success message
             this.successMessage();
 
-          }
+          } else {
+            // Displays toast failed message
+            this.messageFailed()
+          };
         })
         .catch(error => {
           console.error(error);
@@ -191,6 +211,7 @@ export default {
     },
   },
   mounted() {
+    // Getting customer ID cookies
     let customerId = this.cookies.get("customer_id");
     const customer_id = parseInt(customerId);
   },
@@ -199,6 +220,7 @@ export default {
 </script>
 
 <style scoped>
+/* Message form container */
 .form-container {
   max-width: 700px;
 }

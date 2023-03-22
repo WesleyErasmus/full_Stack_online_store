@@ -3,13 +3,13 @@
   <v-layout class="my-15">
     <v-app-bar class="elevation-0" theme="light">
       <template v-slot:prepend>
+        <!-- Component heading icon -->
         <v-app-bar-nav-icon>
-          
           <v-btn variant="tonal" size="small" class="mr-5" icon color="primary">
             <v-icon>mdi-hanger</v-icon>
-          
           </v-btn>
         </v-app-bar-nav-icon>
+        <!-- Component heading -->
         <v-app-bar-title class="">
           Learn how to step up your fashion game
         </v-app-bar-title>
@@ -21,18 +21,23 @@
     <v-main class="">
       <v-row dense>
         <v-col cols="6">
+          <!-- Blog card container -->
           <v-card theme="dark">
+            <!-- Blog card image -->
             <v-img height="400px"
               src="https://images.unsplash.com/photo-1618898909019-010e4e234c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
               aspect-ratio="4/3" cover>
               <v-card-body class="d-flex flex-column fill-height justify-center align-center text-white">
+                <!-- Blog card title -->
                 <v-card-title class="text-h5">
                   Winter Trends
                 </v-card-title>
+                <!-- Blog card description -->
                 <p class="px-6 py-3 text-center">
                   Everything you need to know and shop this winter, from current
                   trends, styling tips, outfit ideas, and more.
                 </p>
+                <!-- Blog card button link -->
                 <v-card-actions>
                   <v-btn class="ms-2" variant="outlined" color="secondary" size="small">
                     <a class="text-white text-decoration-none elevated-4"
@@ -44,17 +49,20 @@
           </v-card>
         </v-col>
         <v-col cols="6">
+          <!-- Blog card container -->
           <v-card theme="dark">
+            <!-- Blog card image -->
             <v-img height="400px" cover
               src="https://images.unsplash.com/photo-1594262254144-8a0e068f4215?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1119&q=80">
               <v-card-body class="d-flex flex-column fill-height justify-center align-center text-white">
+                <!-- Blog card title -->
                 <v-card-title class="text-h5">
                   How to Match your Outfits
                 </v-card-title>
-
+                <!-- Blog card description -->
                 <p class="px-6 py-3 text-center">Good things come in twos—or threes, or fours. This is especially
                   true when it comes to street style.</p>
-
+                  <!-- Blog card button link -->
                 <v-card-actions>
                   <v-btn class="ms-2" color="primary" variant="outlined" size="small">
                     <a class="text-white text-decoration-none"

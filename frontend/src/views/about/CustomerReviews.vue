@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <!-- Component header -->
         <v-container class="my-3 text-center">
           <div class="text-h5">
             Customer Reviews
