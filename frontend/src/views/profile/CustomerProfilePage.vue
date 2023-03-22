@@ -220,7 +220,7 @@ export default {
                 },
             })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     // Refresh customer data after updating
                     this.fetchCustomerData();
                     
@@ -248,7 +248,7 @@ export default {
             api.get(`/controllers/CustomerController.php?customerId=${customerId}`, { responseType: 'json' })
                 .then((response) => {
                     this.customerData = response.data;
-                    console.warn(response);
+                    // console.warn(response);
                     // console.log("customer_id:", customer_id, typeof customer_id);
                     this.customerData.password = "";
                 });

@@ -72,7 +72,7 @@ p {
     border-radius: 3px;
     padding: 18px;
     position: fixed;
-    z-index: 9999;
+    z-index: 9999 !important;
     left: 50%;
     bottom: 30px;
     font-size: calc(13px + 0.35rem);

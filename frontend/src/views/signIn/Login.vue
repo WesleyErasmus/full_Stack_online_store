@@ -141,7 +141,7 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.success) {
 
             // Save the customer_id cookie received from backend

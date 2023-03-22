@@ -198,7 +198,7 @@ export default {
         },
       })
           .then(response => {
-          console.log(response);
+          // console.log(response);
           if (response.data === true) { // check if the response is true
             // console.log("customer_id:", customer_id, typeof customer_id);
             // console.log("this.id:", productId, typeof productId);
@@ -225,7 +225,7 @@ export default {
       .then((response) => {
         this.products = response.data;
         this.mainImageSrc = this.products[0].image;
-        console.warn(response);
+        // console.warn(response);
       });
   },
 };

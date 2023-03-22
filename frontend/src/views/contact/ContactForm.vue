@@ -180,9 +180,9 @@ export default {
     },
     // Save message to database function
     saveCustomerMessage() {
-      console.log('Data sent:', { fullName: this.fullName, email: this.email, message: this.message });
+      // console.log('Data sent:', { fullName: this.fullName, email: this.email, message: this.message });
       api.post(
-        `/controllers/MessageController.php?actioneMessage`,
+        `/controllers/MessageController.php?action=saveMessage`,
         {
           fullName: this.fullName,
           email: this.email,

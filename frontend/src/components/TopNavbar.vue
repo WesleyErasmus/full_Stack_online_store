@@ -233,7 +233,7 @@ export default {
             api.get(`/controllers/CartController.php?action=displayCartItems&tableName=myTable&customerId=${customer_id}`, { responseType: 'json' })
                 .then((response) => {
                     this.shoppingCart = response.data;
-                    console.warn(response);
+                    // console.warn(response);
                     // console.log("customer_id:", customer_id, typeof customer_id);
                 });
         } else {
