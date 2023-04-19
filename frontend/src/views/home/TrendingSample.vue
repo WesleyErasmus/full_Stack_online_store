@@ -82,7 +82,7 @@ export default {
     // Only displays products that are featured
   computed: {
     featuredProducts() {
-      return this.products.filter(product => product.new === "1").slice(0, 6);;
+      return this.products.filter(product => product.trending === "1").slice(0, 6);;
     }
 },
 }

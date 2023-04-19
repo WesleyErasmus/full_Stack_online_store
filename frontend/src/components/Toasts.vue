@@ -38,7 +38,7 @@
     </div>
 
     <!-- Profile updated successful message -->
-    <div id="snackbar8">An error occurred. Please try again.
+    <div id="snackbar8" style="background-color: red;">An error occurred. Please try again.
     </div>
 
     </div>
