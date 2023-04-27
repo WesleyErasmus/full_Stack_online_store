@@ -6,10 +6,10 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allows t
 // DatabaseConnector class
 class DatabaseConnector
 {
-    private $servername = 'sql12.freemysqlhosting.net';
-    private $username = 'sql12613536';   
-    private $password = 'EDiN23jS9j';
-    private $dbname = 'sql12613536';
+    private $servername = 'sql8.freemysqlhosting.net';
+    private $username = 'sql8614588';   
+    private $password = 'kZbHPGEFqL';
+    private $dbname = 'sql8614588';
     private $conn;
     // Constructor
     public function __construct()
